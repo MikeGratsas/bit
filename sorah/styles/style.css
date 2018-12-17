@@ -1,5 +1,5 @@
 body {
-    font-family: 'Merriweather', serif;
+    font-family: 'Open Sans', sans-serif;
     margin: 0;
 }
 
@@ -12,7 +12,7 @@ body {
 }
 
 .header {
-    display: block;
+    display: flex;
     padding: 10px 0;
     text-align: center;
     flex-shrink: 0;
@@ -28,4 +28,55 @@ body {
 .content {
     display: flex;
     flex-grow: 1;
+    flex-direction: column;
+}
+
+.navgroup {
+    display: flex;
+}
+
+.clients {
+    display: flex;
+}
+
+.employees {
+    display: flex;
+}
+
+.notes {
+    display: flex;
+}
+
+.menu {
+    display: flex;
+    list-style-type: none;
+}
+
+.benefits {
+    display: flex;
+}
+
+.pros {
+    display: flex;
+}
+
+.button {
+    text-decoration: none;
+    color: grey;
+}
+
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+}
+
+.circle {
+    border-radius: 50%;
+}
+
+.bordered {
+    border: 3px solid #FF65C2;
 }

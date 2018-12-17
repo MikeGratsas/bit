@@ -8,11 +8,12 @@
     <meta name="author" content="Mike Gratsas">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
 </head>
 <body>
     <div class="page">
         <header class="header">
+            <span class="fas fa-sun"></span>
             <h1>SORAH</h1>
             <nav class="navigation">
                 <ul class="menu">
@@ -40,17 +41,17 @@
                 </div>
                 <ul class="menu">
                     <li>
-                        <a class="button" href="#facebook" title="facebook">
+                        <a id="facebook" class="circle bordered" href="#facebook" title="Facebook">
                             <img src="images/facebook.png" alt="facebook">
                         </a>
                     </li>
                     <li>
-                        <a class="button" href="#twitter" title="twitter">
+                        <a id="twitter" class="circle bordered" href="#twitter" title="Twitter">
                             <img src="images/twitter.png" alt="twitter">
                         </a>
                     </li>
                     <li>
-                        <a class="button" href="#linkedin" title="linkedin">
+                        <a id="linkedin" class="circle bordered" href="#linkedin" title="Linkedin">
                             <img src="images/linkedin.png" alt="linkedin" />
                         </a>
                     </li>
@@ -61,82 +62,93 @@
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                 <div class="benefits">
                     <section>
+                        <div><span class="fa fa-clock" aria-hidden="true"></span></div>
                         <h3>Speedup Your Site</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </section>
                     <section>
+                        <div><span class="fa fa-lock" aria-hidden="true"></span></div>
                         <h3>Security Assurance</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </section>
                     <section>
+                        <div><span class="fa fa-users" aria-hidden="true"></span></div>
                         <h3>24/7 Live Support</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </section>
+                    <section>
+                        <div><span class="fa fa-thumbs-up" aria-hidden="true"></span></div>
+                        <h3>Quality Maitainance</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </section>
                 </div>
-                <section>
-                    <h3>Quality Maitainance</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                </section>
             </article>
             <div class="pros">
                 <section>
-                    <img src="images/partnership.png" alt="partnership" />
-                    <h3>Agency & Freelancer Partnership</h3>
-                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias.</p>
-                </section>
+                    <img class="float-left" src="images/partnership.png" alt="Partnership" />
+                    <div>
+                        <h3>Agency & Freelancer Partnership</h3>
+                        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias.</p>
+                    </div>
+                 </section>
                 <section>
-                    <img src="images/moneyback.png" alt="partnership" />
-                    <h3>100% Money Back Guarantee</h3>
-                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias.</p>
+                    <img class="float-left" src="images/moneyback.png" alt="Moneyback" />
+                    <div>
+                        <h3>100% Money Back Guarantee</h3>
+                        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias.</p>
+                    </div>
                 </section>
             </div>
             <section>
+                <div class="float-right">
+                    <img src="images/show.png" alt="show" />
+                </div>
                 <h2>
                     On the other hand we
                     denounce with righteou
                 </h2>
                 <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias.</p>
-                <ul>
-                    <li>At vero eos et accusamus et iusto odi</li>
-                    <li>dignissimos ducimus qui blanditiis praesentium</li>
-                    <li>On the other hand, we denounce with righteous</li>
-                    <li>Sed ut perspiciatis unde omnis iste natus error</li>
+                <ul class="fa-ul">
+                    <li><span class="fa-li far fa-check-circle"></span>At vero eos et accusamus et iusto odi</li>
+                    <li><span class="fa-li far fa-check-circle"></span>dignissimos ducimus qui blanditiis praesentium</li>
+                    <li><span class="fa-li far fa-check-circle"></span>On the other hand, we denounce with righteous</li>
+                    <li><span class="fa-li far fa-check-circle"></span>Sed ut perspiciatis unde omnis iste natus error</li>
                 </ul>
-                <div class="">
-                    <img src="images/show.png" alt="show" />
-                </div>
             </section>
-            <section id="clients">
+            <section id="feedback">
                 <h2>What Our Client Says</h2>
-                <div class="client">
-                    <div class="portrait">
-                        <img src="images/portrait3.png" alt="John Doe" />
+                <div class="clients">
+                    <div class="client">
+                        <div class="circle">
+                            <img src="images/portrait3.png" alt="John Doe" />
+                        </div>
+                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae.</p>
+                        <h5>John Doe</h5>
+                        <h6>Creative Director, DigitialBlow</h6>
                     </div>
-                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae.</p>
-                    <h5>John Doe</h5>
-                    <h6>Creative Director, DigitialBlow</h6>
-                </div>
-                <div class="client">
-                    <div class="portrait">
-                        <img src="images/portrait1.png" alt="Mike Bhand" />
+                    <div class="client">
+                        <div class="circle">
+                            <img src="images/portrait1.png" alt="Mike Bhand" />
+                        </div>
+                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae.</p>
+                        <h5>Mike Bhand</h5>
+                        <h6>CEO, Graphicslab</h6>
                     </div>
-                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae.</p>
-                    <h5>Mike Bhand</h5>
-                    <h6>CEO, Graphicslab</h6>
-                </div>
-                <div class="client">
-                    <div class="portrait">
-                        <img src="images/portrait4.png" alt="Angelina Doe" />
+                    <div class="client">
+                        <div class="circle">
+                            <img src="images/portrait4.png" alt="Angelina Doe" />
+                        </div>
+                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae.</p>
+                        <h5>Angelina Doe</h5>
+                        <h6>Marketing Manger, Graphicslab</h6>
                     </div>
-                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae.</p>
-                    <h5>Angelina Doe</h5>
-                    <h6>Marketing Manger, Graphicslab</h6>
                 </div>
             </section>
             <section id="team">
                 <h2>Great Team</h2>
                 <div class="employees">
                     <div class="previous">
+                        <span class="fas fa-angle-left"></span>
                     </div>
                     <div class="employee">
                         <img src="images/portrait4.png" alt="Angelina Doe" />
@@ -154,6 +166,7 @@
                         <p>UI UX Designer</p>
                     </div>
                     <div class="next">
+                        <span class="fas fa-angle-right"></span>
                     </div>
                 </div>
             </section>
@@ -182,53 +195,63 @@
             </section>
             <section id="subscribe">
                 <h2>Signup For Mothly Newsletter</h2>
-                <div class="">
-                    <input type="email" name="email" placeholder="Enter Your Email Address" value="" />
+                <div class="input-group margin-bottom-sm">
+                    <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
+                    <input class="form-control" type="email" name="email" placeholder="Enter Your Email Address" value="" />
                 </div>
             </section>
         </main>
-        <footer>
-            <nav>
-                <h6>INFORMATION</h6>
-                <ul class="menu">
-                    <li><a class="button" href="#about">About us</a></li>
-                    <li><a class="button" href="#additional">Additional Info</a></li>
-                    <li><a class="button" href="#policy">Privacy Policy</a></li>
-                    <li><a class="button" href="#terms">Terms &amp; Conditions</a></li>
-                    <li><a class="button" href="#faqs">FAQ's</a></li>
-                </ul>
-            </nav>
-            <nav>
-                <h6>NAVIGATION</h6>
-                <ul class="menu">
-                    <li><a class="button" href="#about">About us</a></li>
-                    <li><a class="button" href="#additional">Additional Info</a></li>
-                    <li><a class="button" href="#policy">Privacy Policy</a></li>
-                    <li><a class="button" href="#terms">Terms &amp; Conditions</a></li>
-                    <li><a class="button" href="#faqs">FAQ's</a></li>
-                </ul>
-            </nav>
-            <nav>
-                <h6>RESOURCE</h6>
-                <ul class="menu">
-                    <li><a class="button" href="#about">About us</a></li>
-                    <li><a class="button" href="#additional">Additional Info</a></li>
-                    <li><a class="button" href="#policy">Privacy Policy</a></li>
-                    <li><a class="button" href="#terms">Terms &amp; Conditions</a></li>
-                    <li><a class="button" href="#faqs">FAQ's</a></li>
-                </ul>
-            </nav>
-            <nav>
-                <h6>SITE MAP</h6>
-                <ul class="menu">
-                    <li><a class="button" href="#about">About us</a></li>
-                    <li><a class="button" href="#additional">Additional Info</a></li>
-                    <li><a class="button" href="#policy">Privacy Policy</a></li>
-                    <li><a class="button" href="#terms">Terms &amp; Conditions</a></li>
-                    <li><a class="button" href="#faqs">FAQ's</a></li>
-                </ul>
-            </nav>
-            <p>Follow Us</p>
+        <footer class="footer">
+            <aside class="navgroup">
+                <nav>
+                    <h6>INFORMATION</h6>
+                    <ul class="fa-ul">
+                        <li><span class="fa-li fa fa-check-square"></span><a class="button" href="#about">About us</a></li>
+                        <li><span class="fa-li fa fa-check-square"></span><a class="button" href="#additional">Additional Info</a></li>
+                        <li><span class="fa-li fa fa-check-square"></span><a class="button" href="#policy">Privacy Policy</a></li>
+                        <li><span class="fa-li fa fa-check-square"></span><a class="button" href="#terms">Terms &amp; Conditions</a></li>
+                        <li><span class="fa-li fa fa-check-square"></span><a class="button" href="#faqs">FAQ's</a></li>
+                    </ul>
+                </nav>
+                <nav>
+                    <h6>NAVIGATION</h6>
+                    <ul class="fa-ul">
+                        <li><span class="fa-li fa fa-check-square"></span><a class="button" href="#about">About us</a></li>
+                        <li><span class="fa-li fa fa-check-square"></span><a class="button" href="#additional">Additional Info</a></li>
+                        <li><span class="fa-li fa fa-check-square"></span><a class="button" href="#policy">Privacy Policy</a></li>
+                        <li><span class="fa-li fa fa-check-square"></span><a class="button" href="#terms">Terms &amp; Conditions</a></li>
+                        <li><span class="fa-li fa fa-check-square"></span><a class="button" href="#faqs">FAQ's</a></li>
+                    </ul>
+                </nav>
+                <nav>
+                    <h6>RESOURCE</h6>
+                    <ul class="fa-ul">
+                        <li><span class="fa-li fa fa-check-square"></span><a class="button" href="#about">About us</a></li>
+                        <li><span class="fa-li fa fa-check-square"></span><a class="button" href="#additional">Additional Info</a></li>
+                        <li><span class="fa-li fa fa-check-square"></span><a class="button" href="#policy">Privacy Policy</a></li>
+                        <li><span class="fa-li fa fa-check-square"></span><a class="button" href="#terms">Terms &amp; Conditions</a></li>
+                        <li><span class="fa-li fa fa-check-square"></span><a class="button" href="#faqs">FAQ's</a></li>
+                    </ul>
+                </nav>
+                <nav>
+                    <h6>SITE MAP</h6>
+                    <ul class="fa-ul">
+                        <li><span class="fa-li fa fa-check-square"></span><a class="button" href="#about">About us</a></li>
+                        <li><span class="fa-li fa fa-check-square"></span><a class="button" href="#additional">Additional Info</a></li>
+                        <li><span class="fa-li fa fa-check-square"></span><a class="button" href="#policy">Privacy Policy</a></li>
+                        <li><span class="fa-li fa fa-check-square"></span><a class="button" href="#terms">Terms &amp; Conditions</a></li>
+                        <li><span class="fa-li fa fa-check-square"></span><a class="button" href="#faqs">FAQ's</a></li>
+                    </ul>
+                </nav>
+            </aside>
+            <p>
+                Follow Us
+                <i class="fa fa-facebook"></i>
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+                <i class="fa fa-instagram" aria-hidden="true"></i>
+                <i class="fa fa-google-plus" aria-hidden="true"></i>
+                <i class="fa fa-youtube-play" aria-hidden="true"></i>
+            </p>
             <p>Copyright All Right Reserved By SORAN 2018</p>
         </footer>
     </div>
