@@ -1,220 +1,267 @@
 body {
-  font-family: 'Open Sans', sans-serif;
-  margin: 0;
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
 }
 
 .button {
-  text-decoration: none;
-  color: grey;
+    text-decoration: none;
+    color: grey;
 }
 
 .float-left {
-  float: left;
+    float: left;
 }
 
 .float-right {
-  float: right;
+    float: right;
+}
+
+.auto-margin {
+    margin: auto;
 }
 
 .circle {
-  border-radius: 50%;
+    border-radius: 50%;
 }
 
 .bordered {
-  display: flex;
-  border: 3px solid #FF65C2;
-  width: 72px;
-  height: 72px;
+    display: flex;
+    border: 3px solid #FF65C2;
+    width: 72px;
+    height: 72px;
 }
 
-.bordered a {
-  margin: auto;
-}
-
-.bordered img {
-  max-width: 70%;
-}
+    .bordered img {
+        max-width: 70%;
+        max-height: 70%;
+    }
 
 .foreground {
-  color: #FF65C2;
+    color: #FF65C2;
 }
 
 .colorful {
-  background-color: #FF65C2;
-  color: white;
+    background-color: #FF65C2;
+    color: white;
 }
 
 .centered {
-  text-align: center;
+    text-align: center;
 }
 
 .page {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  align-items: stretch;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
 }
 
 .header {
-  display: flex;
-  padding: 10px 0;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: space-around;
+    display: flex;
+    padding: 10px 0;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: space-around;
 }
 
 .menu .button {
-  padding: 5px;
+    padding: 5px;
 }
 
 .header .button {
-  margin: 10px;
+    margin: 10px;
 }
 
 .header h1 {
-  margin: 5px;
-  flex-grow: 1;
+    margin: 5px;
+    flex-grow: 1;
 }
 
 .footer {
-  display: block;
-  padding: 10px 0;
-  flex-shrink: 0;
+    display: block;
+    padding: 10px 0;
+    flex-shrink: 0;
 }
 
 .content {
-  display: flex;
-  flex-grow: 1;
-  flex-direction: column;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
 }
 
 .navgroup {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
 
 .clients {
-  display: flex;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
 }
 
 .client {
-  max-width: 20%;
-  margin: 5px;
+    max-width: 20%;
+    margin: 5px;
 }
 
-.client .circle {
-  width: 10vw;
-  height: 10vw;
-  margin: 5px auto;
-  overflow: hidden;
-}
-
-.client .circle img {
-  margin: auto;
-  max-width: 100%;
-}
+    .client .circle {
+        width: 10vw;
+        height: 10vw;
+        margin: 5px auto;
+        overflow: hidden;
+    }
 
 .employees {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .advantage {
-  display: inline-block;
-  background-color: white;
-  color: grey;
-  margin: 5px;
-  max-width: 40%;
-  overflow: hidden;
+    display: inline-block;
+    background-color: white;
+    color: grey;
+    margin: 5px;
+    max-width: 40%;
+    overflow: hidden;
 }
 
-.advantage img {
-  margin: 5px;
-}
+    .advantage img {
+        margin: 5px;
+    }
 
-.advantage .about {
-  margin-left: 70px;
-}
+    .advantage .about {
+        margin-left: 70px;
+    }
 
 .employee {
-  display: inline-block;
-  background-color: white;
-  color: grey;
-  overflow: hidden;
-  border-radius: 5%;
-  box-shadow: 1px 5px 11px 0 rgba(192, 16, 79, 0.5);
-  margin: 5px;
+    display: inline-block;
+    background-color: white;
+    color: grey;
+    overflow: hidden;
+    border-radius: 5%;
+    box-shadow: 1px 5px 11px 0 rgba(192, 16, 79, 0.5);
+    margin: 5px;
 }
 
 .previous, .next {
-  display: inline-block;
-  background-color: white;
-  color: grey;
-  margin: 5px;
-  padding: 0.75em;
+    display: flex;
+    background-color: white;
+    color: grey;
+    margin: 5px;
+    width: 4em;
+    height: 4em;
 }
 
 .notes {
-  display: flex;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
 }
 
 .note {
-  max-width: 20%;
-  margin: 5px;
+    max-width: 20%;
+    margin: 5px;
 }
 
 .mission {
-  margin: 10px 50% 10px 10px;
+    margin: 10px 50% 10px 10px;
 }
 
 .menu {
-  display: flex;
-  list-style-type: none;
+    display: flex;
+    list-style-type: none;
 }
 
-img.portrait {
-  max-width: 100%;
+.portrait {
+    max-width: 100%;
+}
+
+.portrait1-bg {
+    background-image: url('../images/portrait1.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.portrait2-bg {
+    background-image: url('../images/portrait2.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.portrait3-bg {
+    background-image: url('../images/portrait3.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.portrait4-bg {
+    background-image: url('../images/portrait4.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.facebook-bg {
+    background-image: url('../images/facebook.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.twitter-bg {
+    background-image: url('../images/twitter.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.linkedin-bg {
+    background-image: url('../images/linkedin.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.background-bg {
+    background-image: url('../images/background.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
 #benefits {
-  display: flex;
+    display: flex;
 }
 
 #pros {
-  display: flex;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
 }
 
 #intro {
-  padding: 10px;
-  overflow: hidden;
+    padding: 10px;
+    overflow: hidden;
 }
 
-#intro>img {
-  max-width: 50%;
-}
+    #intro > img {
+        max-width: 50%;
+    }
 
 #follow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #trial {
-  border-radius: 1em;
-  padding: 10px;
+    border-radius: 1em;
+    padding: 10px;
 }
 
 #dropdown {
-  padding: 5px;
-}
-
-#issue-finder {
-  background-image: url('../images/background.png');
-  background-repeat: no-repeat;
-  background-size: contain;
+    padding: 5px;
 }
