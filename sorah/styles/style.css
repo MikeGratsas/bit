@@ -21,7 +21,18 @@ body {
 }
 
 .bordered {
+  display: flex;
   border: 3px solid #FF65C2;
+  width: 72px;
+  height: 72px;
+}
+
+.bordered a {
+  margin: auto;
+}
+
+.bordered img {
+  max-width: 70%;
 }
 
 .foreground {
@@ -31,11 +42,6 @@ body {
 .colorful {
   background-color: #FF65C2;
   color: white;
-}
-
-.inherited {
-  background-color: inherit;
-  color: inherit;
 }
 
 .centered {
@@ -99,6 +105,18 @@ body {
   margin: 5px;
 }
 
+.client .circle {
+  width: 10vw;
+  height: 10vw;
+  margin: 5px auto;
+  overflow: hidden;
+}
+
+.client .circle img {
+  margin: auto;
+  max-width: 100%;
+}
+
 .employees {
   display: flex;
   align-items: center;
@@ -110,12 +128,22 @@ body {
   color: grey;
   margin: 5px;
   max-width: 40%;
+  overflow: hidden;
+}
+
+.advantage img {
+  margin: 5px;
+}
+
+.advantage .about {
+  margin-left: 70px;
 }
 
 .employee {
   display: inline-block;
   background-color: white;
   color: grey;
+  overflow: hidden;
   border-radius: 5%;
   box-shadow: 1px 5px 11px 0 rgba(192, 16, 79, 0.5);
   margin: 5px;
@@ -126,7 +154,7 @@ body {
   background-color: white;
   color: grey;
   margin: 5px;
-  padding: 10px;
+  padding: 0.75em;
 }
 
 .notes {
@@ -137,6 +165,10 @@ body {
 .note {
   max-width: 20%;
   margin: 5px;
+}
+
+.mission {
+  margin: 10px 50% 10px 10px;
 }
 
 .menu {
@@ -157,6 +189,15 @@ img.portrait {
   justify-content: center;
 }
 
+#intro {
+  padding: 10px;
+  overflow: hidden;
+}
+
+#intro>img {
+  max-width: 50%;
+}
+
 #follow {
   display: flex;
   align-items: center;
@@ -164,7 +205,7 @@ img.portrait {
 }
 
 #trial {
-  border-radius: 10%;
+  border-radius: 1em;
   padding: 10px;
 }
 
@@ -175,5 +216,5 @@ img.portrait {
 #issue-finder {
   background-image: url('../images/background.png');
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
 }
