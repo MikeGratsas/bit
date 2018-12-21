@@ -1,0 +1,355 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+}
+
+.button {
+  text-decoration: none;
+  color: grey;
+}
+
+.float-left {
+  float: left;
+}
+
+.float-right {
+  float: right;
+}
+
+.auto-margin {
+  margin: auto;
+}
+
+.shadowed {
+  box-shadow: 1px 3px 9px 0 rgba(217, 217, 217, 0.5);
+  background-color: white;
+}
+
+.input-group {
+  background-color: white;
+  border-radius: 1em;
+  display: flex;
+  width: 30%;
+}
+
+.input-group-addon {
+  line-height: 2.6 !important;
+  padding-left: 10px;
+  text-align: left;
+  width: 10%;
+}
+
+.input-text {
+  border: 0;
+  outline: 0;
+  padding: 15px 15px;
+  width: 50%;
+}
+
+.subscribe-button {
+  width: 40%;
+  border: 0;
+  background-color: black;
+  color: white;
+  padding: 8px 14px;
+  border-top-right-radius: 1em;
+  border-bottom-right-radius: 1em;
+}
+
+.single-line-overflow {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+}
+
+.multi-line-overflow {
+  overflow: hidden;
+  position: relative;
+  line-height: 1.2em;
+  max-height: 6em;
+  text-align: justify;
+  margin-right: -1em;
+  padding-right: 1em;
+}
+
+.multi-line-overflow:before {
+  content: '...';
+  position: absolute;
+  right: 1em;
+  bottom: 0;
+  background-color: white;
+}
+
+.multi-line-overflow:after {
+  content: '';
+  position: absolute;
+  right: 0;
+  width: 1em;
+  height: 1em;
+  margin-top: 0.2em;
+  background-color: white;
+}
+
+.circle {
+  border-radius: 50%;
+}
+
+.bordered {
+  display: inline-block;
+  border: 3px solid #FF65C2;
+  width: 64px;
+  height: 64px;
+  padding: 16px;
+}
+
+.foreground {
+  color: #FF65C2;
+}
+
+.colorful {
+  background-color: #FF65C2;
+  color: white;
+}
+
+.centered {
+  text-align: center;
+}
+
+.page {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: stretch;
+}
+
+.header {
+  display: flex;
+  padding: 10px 0;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.menu .button {
+  padding: 5px;
+}
+
+.header .button {
+  margin: 10px;
+}
+
+.header h1 {
+  margin: 5px;
+  flex-grow: 1;
+}
+
+.footer {
+  display: block;
+  padding: 10px 0;
+  flex-shrink: 0;
+}
+
+.content {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+}
+
+.navgroup {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.clients {
+  display: flex;
+  justify-content: center;
+}
+
+.client {
+  max-width: 20%;
+  margin: 5px;
+}
+
+.client .circle {
+  width: 10vw;
+  height: 10vw;
+  margin: 5px auto;
+  overflow: hidden;
+}
+
+.employees {
+  display: flex;
+  align-items: center;
+}
+
+.advantage {
+  display: inline-block;
+  background-color: white;
+  color: grey;
+  margin: 5px;
+  max-width: 40%;
+  overflow: hidden;
+}
+
+.advantage img {
+  margin: 5px;
+}
+
+.advantage .about {
+  margin-left: 70px;
+}
+
+.employee {
+  display: inline-block;
+  background-color: white;
+  color: grey;
+  overflow: hidden;
+  border-radius: 5%;
+  box-shadow: 1px 5px 11px 0 rgba(192, 16, 79, 0.5);
+  margin: 5px;
+}
+
+.previous, .next {
+  display: flex;
+  background-color: white;
+  align-items: center;
+  flex-shrink: 0;
+  color: grey;
+  margin: 5px;
+  width: 4em;
+  height: 4em;
+}
+
+.notes {
+  display: flex;
+  justify-content: center;
+}
+
+.note {
+  overflow: hidden;
+  max-width: 20%;
+  margin: 5px;
+}
+
+.mission {
+  margin: 10px 50% 10px 10px;
+}
+
+.menu {
+  display: flex;
+  list-style-type: none;
+}
+
+.portrait {
+  max-width: 100%;
+}
+
+.portrait1-bg {
+  background-image: url('../images/portrait1.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.portrait2-bg {
+  background-image: url('../images/portrait2.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.portrait3-bg {
+  background-image: url('../images/portrait3.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.portrait4-bg {
+  background-image: url('../images/portrait4.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.facebook-bg {
+  background-image: url('../images/facebook.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-origin: content-box;
+}
+
+.twitter-bg {
+  background-image: url('../images/twitter.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-origin: content-box;
+}
+
+.linkedin-bg {
+  background-image: url('../images/linkedin.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-origin: content-box;
+}
+
+.intro-bg {
+  background-image: url('../images/intro.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-blend-mode: screen;
+}
+
+#subscribtion {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#benefits {
+  display: flex;
+}
+
+#benefits {
+  display: flex;
+}
+
+#pros {
+  display: flex;
+  justify-content: center;
+}
+
+#present {
+  padding: 10px;
+  overflow: hidden;
+}
+
+#present>img {
+  max-width: 50%;
+}
+
+#follow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#trial {
+  border-radius: 1em;
+  padding: 10px;
+}
+
+#dropdown {
+  padding: 5px;
+}
+
+#feedback {
+  background-color: lightgray;
+}
