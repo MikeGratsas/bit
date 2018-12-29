@@ -20,6 +20,10 @@ body {
     margin: auto;
 }
 
+.hide {
+    visibility: collapse;
+}
+
 .uppercase {
     text-transform: uppercase;
     margin-left: 1.5em;
@@ -43,16 +47,15 @@ body {
     margin: 1em;
     display: flex;
     justify-content: space-between;
+    position: relative;
 }
 
-    .input-group:focus-within {
-        box-shadow: 10px 10px 12px #FF65C2;
-    }
-
 .input-group-addon {
-    padding-left: 1em;
+    position: absolute;
     text-align: left;
-    line-height: 2.6;
+    left: 1em;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .input-text {
@@ -62,6 +65,10 @@ body {
     outline: 0 none;
     padding: 1em;
 }
+
+    .input-text:focus {
+        box-shadow: 0 0 12px #387bbe;
+    }
 
     .input-text:first-child {
         border-top-left-radius: 1.5em;
@@ -76,11 +83,6 @@ body {
     .input-button:last-child {
         border-top-right-radius: 1.5em;
         border-bottom-right-radius: 1.5em;
-    }
-
-    .input-button:focus {
-        background-color: pink;
-        background-color: rgba(255, 101, 194, 0.5);
     }
 
 .single-line-overflow {
@@ -188,15 +190,18 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-around;
+    flex-wrap: wrap;
 }
 
 .clients {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 .client {
-    max-width: 20%;
+    max-width: 20em;
+    flex: 1 1 15em;
     margin: 5px;
 }
 
@@ -207,27 +212,27 @@ body {
         overflow: hidden;
     }
 
-.employees {
-    display: flex;
-    align-items: center;
-}
-
 .advantage {
-    display: inline-block;
     background-color: white;
     color: grey;
     margin: 5px;
-    max-width: 40%;
+    max-width: 30em;
+    flex: 1 1 20em;
     overflow: hidden;
 }
 
     .advantage img {
-        margin: 5px;
+        margin: 10px;
     }
 
     .advantage .about {
-        margin-left: 70px;
+        margin-left: 90px;
     }
+
+.employees {
+    display: flex;
+    justify-content: space-between;
+}
 
 .employee {
     display: inline-block;
@@ -237,11 +242,14 @@ body {
     border-radius: 5%;
     box-shadow: 1px 5px 11px 0 rgba(192, 16, 79, 0.5);
     margin: 5px;
+    max-width: 20em;
+    flex: 1 1 15em;
 }
 
 .previous, .next {
     display: flex;
     background-color: white;
+    align-self: center;
     align-items: center;
     flex-shrink: 0;
     color: grey;
@@ -253,11 +261,13 @@ body {
 .notes {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 .note {
     overflow: hidden;
-    max-width: 20%;
+    max-width: 20em;
+    flex: 1 1 15em;
     margin: 5px;
 }
 
@@ -374,6 +384,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 #subscribe-form {
@@ -386,6 +397,10 @@ body {
     color: white;
 }
 
+#email {
+    padding-left: 3em;
+}
+
 #intro {
     display: flex;
     flex-direction: column;
@@ -395,12 +410,31 @@ body {
 }
 
 #benefits {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    grid-auto-rows: auto auto;
+    grid-gap: 20px;
+}
+
+.benefit {
+    grid-row: auto / span 2;
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-gap: 0;
+}
+
+.benefit-heading {
+    grid-row: 1;
+}
+
+.benefit > p {
+    grid-row: 2;
 }
 
 #pros {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 #present {

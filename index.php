@@ -1,1 +1,1 @@
-<?php include_once("./soran/index.html"); ?>
+<?php include_once("./projects.html"); ?>
