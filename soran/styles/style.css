@@ -8,6 +8,11 @@ body {
     color: grey;
 }
 
+    .button:focus {
+        outline: 0 none;
+        box-shadow: inset 0 0 3px #387bbe;
+    }
+
 .float-left {
     float: left;
 }
@@ -85,6 +90,11 @@ body {
         border-bottom-right-radius: 1.5em;
     }
 
+    .input-button:focus {
+        outline: 0 none;
+        box-shadow: inset 0 0 3px #387bbe;
+    }
+
 .single-line-overflow {
     overflow: hidden;
     white-space: nowrap;
@@ -124,12 +134,23 @@ body {
     border-radius: 50%;
 }
 
-.bordered {
+.menu {
+    display: inline-flex;
+    list-style-type: none;
+}
+
+    .menu .button {
+        padding: 5px;
+    }
+
+.menu .bordered {
     display: inline-block;
     border: 3px solid #FF65C2;
-    width: 64px;
-    height: 64px;
-    padding: 16px;
+    max-width: 64px;
+    max-height: 64px;
+    width: 4vw;
+    height: 4vw;
+    padding: 1vw;
 }
 
 .foreground {
@@ -159,10 +180,6 @@ body {
     flex-shrink: 0;
     align-items: center;
     justify-content: space-around;
-}
-
-.menu .button {
-    padding: 5px;
 }
 
 .header .button {
@@ -272,12 +289,15 @@ body {
 }
 
 .mission {
-    margin: 10px 50% 10px 10px;
+    flex: 1 1 20em;
+    margin: 10px;
 }
 
-.menu {
-    display: flex;
-    list-style-type: none;
+#show {
+    flex: 1 1 718px;
+    align-self: center;
+    max-width: 100%;
+    max-height: 100%;
 }
 
 .portrait {
@@ -411,7 +431,8 @@ body {
 
 #benefits {
     display: grid;
-    grid-template-columns: repeat(4, auto);
+    justify-content: center;
+    grid-template-columns: repeat(auto-fill, minmax(15em, auto));
     grid-auto-rows: auto auto;
     grid-gap: 20px;
 }
@@ -438,13 +459,12 @@ body {
 }
 
 #present {
+    display: flex;
+    flex-wrap: wrap-reverse;
+    justify-content: space-between;
     padding: 10px;
     overflow: hidden;
 }
-
-    #present > img {
-        max-width: 50%;
-    }
 
 #follow {
     display: flex;
@@ -463,4 +483,8 @@ body {
 
 #feedback {
     background-color: lightgray;
+}
+
+#nav-menu {
+    flex-wrap: wrap;
 }
