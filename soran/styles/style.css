@@ -222,10 +222,15 @@ body {
     margin: 5px;
 }
 
-    .client .circle {
+.client-card {
+    margin-top: 5vw;
+    padding: 0 20px 15px 20px;
+}
+
+    .client-card .circle {
         width: 10vw;
         height: 10vw;
-        margin: 5px auto;
+        margin: -5vw auto 5px auto;
         overflow: hidden;
     }
 
@@ -294,10 +299,10 @@ body {
 }
 
 #show {
-    flex: 1 1 718px;
-    align-self: center;
+    display: block;
     max-width: 100%;
-    max-height: 100%;
+    flex: 0 1 718px;
+    align-self: center;
 }
 
 .portrait {
@@ -308,7 +313,7 @@ body {
     background-image: url('../images/client.svg');
     background-position: left top;
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: cover;
 }
 
 .team-bg {
