@@ -298,12 +298,18 @@ body {
     margin: 10px;
 }
 
-#show {
-    display: block;
-    max-width: 100%;
-    flex: 0 1 718px;
-    align-self: center;
+.wrapper {
+    display: flex;
+    padding: 25% 0;
+    max-width: 718px;
+    flex: 1 1 359px;
 }
+
+    .wrapper img {
+        max-height: 100%;
+        max-width: 100%;
+        margin: auto;
+    }
 
 .portrait {
     max-width: 100%;
@@ -313,7 +319,7 @@ body {
     background-image: url('../images/client.svg');
     background-position: left top;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: 100% 100%;
 }
 
 .team-bg {
@@ -388,6 +394,13 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     background-color: grey;
+}
+
+.show-bg {
+    background-image: url('../images/show.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
 #search-form {
@@ -467,6 +480,7 @@ body {
     display: flex;
     flex-wrap: wrap-reverse;
     justify-content: space-between;
+    align-items: center;
     padding: 10px;
     overflow: hidden;
 }

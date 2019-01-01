@@ -1,10 +1,13 @@
 {
   "ExpandedNodes": [
     "",
+    "\\blood",
+    "\\blood\\images",
+    "\\blood\\styles",
     "\\soran",
     "\\soran\\images",
     "\\soran\\styles"
   ],
-  "SelectedNode": "\\soran\\index.html",
+  "SelectedNode": "\\soran\\styles\\style.css",
   "PreviewInSolutionExplorer": false
 }
