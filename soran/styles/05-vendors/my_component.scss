@@ -1,0 +1,12 @@
+@import "grid_mixins";
+
+// Usage example:
+// This will create a 2-row, 3-column grid, with 1.5em gaps between
+// the columns and 3em gaps between the rows.
+.my-class {
+  display: grid;
+  display: -ms-grid;
+  @include grid-columns(1.5em, 1fr 1fr 1fr);
+  @include grid-rows(3em, auto auto);
+  @include grid-autoflow((autoflow: column, columns: 3, rows: 2, gap: both));
+}

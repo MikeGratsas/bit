@@ -305,12 +305,6 @@ body {
     flex: 1 1 359px;
 }
 
-    .wrapper img {
-        max-height: 100%;
-        max-width: 100%;
-        margin: auto;
-    }
-
 .portrait {
     max-width: 100%;
 }
@@ -319,7 +313,7 @@ body {
     background-image: url('../images/client.svg');
     background-position: left top;
     background-repeat: no-repeat;
-    background-size: 100% 100%;
+    background-size: cover;
 }
 
 .team-bg {
@@ -450,7 +444,7 @@ body {
 #benefits {
     display: grid;
     justify-content: center;
-    grid-template-columns: repeat(auto-fill, minmax(15em, auto));
+    grid-template-columns: repeat(auto-fit, minmax(15em, auto));
     grid-auto-rows: auto auto;
     grid-gap: 20px;
 }
