@@ -441,7 +441,7 @@ body {
     opacity: 0.73;
 }
 
-#benefits {
+.benefits {
     display: grid;
     justify-content: center;
     grid-template-columns: repeat(auto-fit, minmax(15em, auto));

@@ -1,0 +1,30 @@
+﻿.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+}
+
+.centered {
+    text-align: center;
+}
+
+.auto-margin {
+    margin: auto;
+}
+
+.hide {
+    visibility: collapse;
+}
+
+.circle {
+    border-radius: 50%;
+}
+
+.single-line-overflow {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+}

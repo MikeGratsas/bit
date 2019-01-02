@@ -1,0 +1,53 @@
+﻿@import 'mixins';
+
+.client-bg {
+    @include background-single('../images/client.svg', cover, left top);
+}
+
+.team-bg {
+    @include background-single('../images/team.svg', contain, center bottom);
+}
+
+.footer-bg {
+    @include background-single('../images/footer.svg', contain, center bottom);
+}
+
+.portrait1-bg {
+    @include background-single('../images/portrait1.png');
+}
+
+.portrait2-bg {
+    @include background-single('../images/portrait2.png');
+}
+
+.portrait3-bg {
+    @include background-single('../images/portrait3.png');
+}
+
+.portrait4-bg {
+    @include background-single('../images/portrait4.png');
+}
+
+.facebook-bg {
+    @include background-single('../images/facebook.png', contain);
+    background-origin: content-box;
+}
+
+.twitter-bg {
+    @include background-single('../images/twitter.png', contain);
+    background-origin: content-box;
+}
+
+.linkedin-bg {
+    @include background-single('../images/linkedin.png', contain);
+    background-origin: content-box;
+}
+
+.intro-bg {
+    @include background-single('../images/intro.png');
+    background-color: grey;
+}
+
+.show-bg {
+    @include background-single('../images/show.png', contain);
+}

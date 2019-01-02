@@ -1,0 +1,12 @@
+﻿@mixin vertical-align() {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+@mixin background-single($image, $size: cover, $position: center center) {
+    background-repeat: no-repeat;
+    background-image: url($image);
+    background-position: $position;
+    background-size: $size;
+}

@@ -536,7 +536,7 @@ body {
     opacity: 0.73;
 }
 
-#benefits {
+.benefits {
     display: grid;
     -webkit-box-pack: center;
     -ms-flex-pack: center;

@@ -1,0 +1,22 @@
+﻿.benefits {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fit, minmax(15em, auto));
+    grid-auto-rows: auto auto;
+    grid-gap: 20px;
+}
+
+.benefit {
+    grid-row: auto / span 2;
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-gap: 0;
+
+    p {
+        grid-row: 2;
+    }
+}
+
+.benefit-heading {
+    grid-row: 1;
+}

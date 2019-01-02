@@ -1,0 +1,20 @@
+﻿@import '../01-base/settings';
+
+.menu {
+    display: inline-flex;
+    list-style-type: none;
+
+    .button {
+        padding: 5px;
+    }
+
+    .bordered {
+        display: inline-block;
+        border: 3px solid $primary-color;
+        max-width: 64px;
+        max-height: 64px;
+        width: 4vw;
+        height: 4vw;
+        padding: 1vw;
+    }
+}

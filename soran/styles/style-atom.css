@@ -536,7 +536,7 @@ body {
 }
 
 /* autoprefixer grid: no-autoplace */
-#benefits {
+.benefits {
   /* autoprefixer grid: autoplace */
   display: grid;
   -webkit-box-pack: center;

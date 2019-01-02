@@ -6,8 +6,11 @@
     "\\blood\\styles",
     "\\soran",
     "\\soran\\images",
-    "\\soran\\styles"
+    "\\soran\\scss",
+    "\\soran\\scss\\01-base",
+    "\\soran\\scss\\02-partials",
+    "\\soran\\scss\\03-components"
   ],
-  "SelectedNode": "\\soran\\styles\\style.css",
+  "SelectedNode": "\\soran\\scss\\style.scss",
   "PreviewInSolutionExplorer": false
 }
