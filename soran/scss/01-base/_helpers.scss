@@ -22,9 +22,19 @@
     border-radius: 50%;
 }
 
+.uppercase {
+    text-transform: uppercase;
+}
+
 .single-line-overflow {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     word-wrap: break-word;
+}
+
+.fit-width {
+  >* {
+    max-width: 100%;
+  }
 }

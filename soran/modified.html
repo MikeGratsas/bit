@@ -7,7 +7,7 @@
     <meta name="description" content="Soran project" />
     <meta name="author" content="Mike Gratsas" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="styles/style.css" />
+    <link rel="stylesheet" href="scss/style.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous" />
 </head>
@@ -24,7 +24,7 @@
                     <li><a class="button" href="#contact">Contact us</a></li>
                 </ul>
             </nav>
-            <a id="trial" class="button colorful" href="#contact">3 Days Free Trial</a>
+            <a id="trial" class="button" href="#contact">3 Days Free Trial</a>
             <a id="dropdown" class="button dropdown-toggle" href="#dropdown">
                 <div class=" menu-icon">
                     <span class="fas fa-bars"></span>
@@ -37,7 +37,7 @@
                 <form id="search-form" action="#" method="post">
                     <div class="input-group">
                         <input id="issue" class="input-text" type="search" name="issue" placeholder="Search your desire issue for fix" />
-                        <button id="search" class="input-button colorful" type="submit">Search</button>
+                        <button id="search" class="input-button colored" type="submit">Search</button>
                     </div>
                 </form>
                 <ul class="menu">
@@ -75,7 +75,7 @@
                             <span class="fas fa-users fa-3x" aria-hidden="true"></span>
                             <h3 class="benefit-name">24/7 Live Support</h3>
                         </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p> -->
                     </section>
                     <section class="benefit">
                         <div class="benefit-heading foreground">
@@ -86,7 +86,7 @@
                     </section>
                 </div>
             </article>
-            <div id="pros" class="colorful">
+            <!-- <div id="pros" class="colored">
                 <section class="advantage">
                     <img class="float-left" src="images/partnership.png" alt="Partnership" />
                     <div class="about">
@@ -150,7 +150,7 @@
                         </div>
                     </div>
             </section>
-            <section id="team" class="colorful centered team-bg">
+            <section id="team" class="colored centered team-bg">
                 <h2>Great Team</h2>
                 <div class="employees">
                     <a class="previous button circle" href="#previous" title="Previous">
@@ -226,8 +226,8 @@
                         <a class="button" href="#more">Read More <span class="fas fa-arrow-circle-right"></span></a>
                     </section>
                 </div>
-            </section>
-            <section id="subscribtion" class="colorful">
+            </section> -->
+            <section id="subscribtion" class="colored">
                 <h2>Signup For Mothly Newsletter</h2>
                 <form id="subscribe-form" action="#" method="post">
                     <div class="input-group">
@@ -240,8 +240,8 @@
         </main>
         <footer class="footer footer-bg">
             <aside class="navgroup">
-                <nav>
-                    <h5 class="uppercase">Information</h5>
+                <nav class="nav-links">
+                    <h5 class="nav-heading uppercase">Information</h5>
                     <ul class="fa-ul">
                         <li><span class="fa-li fas fa-arrow-circle-right"></span><a class="button" href="#about">About us</a></li>
                         <li><span class="fa-li fas fa-arrow-circle-right"></span><a class="button" href="#additional">Additional Info</a></li>
@@ -250,8 +250,18 @@
                         <li><span class="fa-li fas fa-arrow-circle-right"></span><a class="button" href="#faqs">FAQ's</a></li>
                     </ul>
                 </nav>
-                <nav>
-                    <h5 class="uppercase">Navigation</h5>
+                <nav class="nav-links">
+                    <h5 class="nav-heading uppercase">Navigation</h5>
+                    <ul class="fa-ul">
+                        <li><span class="fa-li fas fa-arrow-circle-right"></span><a class="button" href="#about">About us</a></li>
+                        <li><span class="fa-li fas fa-arrow-circle-right"></span><a class="button" href="#additional">Additional Info</a></li>
+                        <!-- <li><span class="fa-li fas fa-arrow-circle-right"></span><a class="button" href="#policy">Privacy Policy</a></li>
+                        <li><span class="fa-li fas fa-arrow-circle-right"></span><a class="button" href="#terms">Terms &amp; Conditions</a></li>
+                        <li><span class="fa-li fas fa-arrow-circle-right"></span><a class="button" href="#faqs">FAQ's</a></li> -->
+                    </ul>
+                </nav>
+                <nav class="nav-links">
+                    <h5 class="nav-heading uppercase">Resource</h5>
                     <ul class="fa-ul">
                         <li><span class="fa-li fas fa-arrow-circle-right"></span><a class="button" href="#about">About us</a></li>
                         <li><span class="fa-li fas fa-arrow-circle-right"></span><a class="button" href="#additional">Additional Info</a></li>
@@ -260,18 +270,8 @@
                         <li><span class="fa-li fas fa-arrow-circle-right"></span><a class="button" href="#faqs">FAQ's</a></li>
                     </ul>
                 </nav>
-                <nav>
-                    <h5 class="uppercase">Resource</h5>
-                    <ul class="fa-ul">
-                        <li><span class="fa-li fas fa-arrow-circle-right"></span><a class="button" href="#about">About us</a></li>
-                        <li><span class="fa-li fas fa-arrow-circle-right"></span><a class="button" href="#additional">Additional Info</a></li>
-                        <li><span class="fa-li fas fa-arrow-circle-right"></span><a class="button" href="#policy">Privacy Policy</a></li>
-                        <li><span class="fa-li fas fa-arrow-circle-right"></span><a class="button" href="#terms">Terms &amp; Conditions</a></li>
-                        <li><span class="fa-li fas fa-arrow-circle-right"></span><a class="button" href="#faqs">FAQ's</a></li>
-                    </ul>
-                </nav>
-                <nav>
-                    <h5 class="uppercase">Site map</h5>
+                <nav class="nav-links">
+                    <h5 class="nav-heading uppercase">Site map</h5>
                     <ul class="fa-ul">
                         <li><span class="fa-li fas fa-arrow-circle-right"></span><a class="button" href="#about">About us</a></li>
                         <li><span class="fa-li fas fa-arrow-circle-right"></span><a class="button" href="#additional">Additional Info</a></li>

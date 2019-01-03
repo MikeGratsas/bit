@@ -1,0 +1,20 @@
+.notes {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  .note {
+    overflow: hidden;
+    max-width: 20em;
+    flex: 1 1 15em;
+    margin: 5px;
+
+    .details {
+      overflow: hidden;
+
+      .stats {
+        margin: 0.5em;
+      }
+    }
+  }
+}

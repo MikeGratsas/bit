@@ -1,0 +1,10 @@
+@import 'settings';
+
+.foreground {
+    color: $primary-color;
+}
+
+.colored {
+    background-color: $primary-color;
+    color: white;
+}

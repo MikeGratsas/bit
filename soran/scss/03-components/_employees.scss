@@ -1,0 +1,36 @@
+@import '../01-base/settings';
+
+.employees {
+    display: flex;
+    justify-content: space-between;
+
+    .employee {
+        display: inline-block;
+        background-color: white;
+        color: grey;
+        overflow: hidden;
+        border-radius: 5%;
+        box-shadow: 1px 5px 11px 0 rgba($primary-color, 0.5);
+        margin: 5px;
+        max-width: 20em;
+        flex: 1 1 15em;
+        
+        .portrait {
+            max-width: 100%;
+        }
+
+    }
+
+    .previous, .next {
+        display: flex;
+        background-color: white;
+        align-self: center;
+        align-items: center;
+        flex-shrink: 0;
+        color: grey;
+        margin: 5px;
+        width: 4em;
+        height: 4em;
+    }
+
+}

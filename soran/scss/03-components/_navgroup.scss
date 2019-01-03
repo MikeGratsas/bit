@@ -1,0 +1,12 @@
+.navgroup {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+  flex-wrap: wrap;
+
+  .nav-links {
+    .nav-heading {
+      margin-left: 1.5em;
+    }
+  }
+}

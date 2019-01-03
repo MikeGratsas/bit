@@ -1,8 +1,10 @@
 @import '01-base/global';
 @import '01-base/helpers';
+@import '01-base/theme';
 @import '01-base/backgrounds';
 @import '02-partials/page';
 @import '02-partials/header';
+@import '02-partials/content';
 @import '02-partials/footer';
 @import '03-components/button';
 @import '03-components/input';
@@ -11,102 +13,10 @@
 @import '03-components/client';
 @import '03-components/advantage';
 @import '03-components/benefits';
-
-.uppercase {
-    text-transform: uppercase;
-    margin-left: 1.5em;
-}
-
-.details {
-    overflow: hidden;
-}
-
-.stats {
-    margin: 0.5em;
-}
-
-.shadowed {
-    box-shadow: 1px 3px 9px 0 rgba(217, 217, 217, 0.5);
-}
-
-.foreground {
-    color: $primary-color;
-}
-
-.colorful {
-    background-color: $primary-color;
-    color: white;
-}
-.content {
-    display: flex;
-    flex-grow: 1;
-    flex-direction: column;
-}
-
-.navgroup {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    flex-wrap: wrap;
-}
-
-.employees {
-    display: flex;
-    justify-content: space-between;
-}
-
-.employee {
-    display: inline-block;
-    background-color: white;
-    color: grey;
-    overflow: hidden;
-    border-radius: 5%;
-    box-shadow: 1px 5px 11px 0 rgba($primary-color, 0.5);
-    margin: 5px;
-    max-width: 20em;
-    flex: 1 1 15em;
-}
-
-.previous, .next {
-    display: flex;
-    background-color: white;
-    align-self: center;
-    align-items: center;
-    flex-shrink: 0;
-    color: grey;
-    margin: 5px;
-    width: 4em;
-    height: 4em;
-}
-
-.notes {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.note {
-    overflow: hidden;
-    max-width: 20em;
-    flex: 1 1 15em;
-    margin: 5px;
-}
-
-.mission {
-    flex: 1 1 20em;
-    margin: 10px;
-}
-
-.wrapper {
-    display: flex;
-    padding: 25% 0;
-    max-width: 718px;
-    flex: 1 1 359px;
-}
-
-.portrait {
-    max-width: 100%;
-}
+@import '03-components/employees';
+@import '03-components/navgroup';
+@import '03-components/notes';
+@import '03-components/present';
 
 #search-form {
     width: 50%;
@@ -173,6 +83,8 @@
 #trial {
     border-radius: 1.5em;
     padding: 10px;
+    background-color: $primary-color;
+    color: white;
 }
 
 #dropdown {
