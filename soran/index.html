@@ -7,6 +7,7 @@
     <meta name="description" content="Soran project" />
     <meta name="author" content="Mike Gratsas" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="styles/normalize.css" />
     <link rel="stylesheet" href="styles/style.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous" />
@@ -18,13 +19,13 @@
             <h1><span class="fas fa-sun foreground"></span> SORAN</h1>
             <nav class="navigation">
                 <ul id="nav-menu" class="menu single-line-overflow">
-                    <li><a class="button" href="#example">Task Example</a></li>
-                    <li><a class="button" href="#pricing">Pricing</a></li>
-                    <li><a class="button" href="#blog">Blog</a></li>
-                    <li><a class="button" href="#contact">Contact us</a></li>
+                    <li><a class="button" href="#example" title="Task Example">Task Example</a></li>
+                    <li><a class="button" href="#pricing" title="Pricing">Pricing</a></li>
+                    <li><a class="button" href="#blog" title="Blog">Blog</a></li>
+                    <li><a class="button" href="#contact" title="Contact us">Contact us</a></li>
                 </ul>
             </nav>
-            <a id="trial" class="button" href="#contact">3 Days Free Trial</a>
+            <a id="trial" class="button-colored" href="#contact" title="Trial">3 Days Free Trial</a>
             <a id="dropdown" class="button dropdown-toggle" href="#dropdown">
                 <div class=" menu-icon">
                     <span class="fas fa-bars"></span>
@@ -36,8 +37,8 @@
                 <h2>Build Better Websites, The Better Way With Total</h2>
                 <form id="search-form" action="#" method="post">
                     <div class="input-group">
-                        <input id="issue" class="input-text" type="search" name="issue" placeholder="Search your desire issue for fix" />
-                        <button id="search" class="input-button colored" type="submit">Search</button>
+                        <input id="issue" class="input-text" type="search" name="issue" title="Issue" placeholder="Search your desire issue for fix" />
+                        <button id="search" class="input-button colored" type="submit" title="Search">Search</button>
                     </div>
                 </form>
                 <ul class="menu">
@@ -195,7 +196,7 @@
                             consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt, ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut
                             aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit, qui in ea voluptate velit esse, quam nihil molestiae consequatur, vel illum, qui dolorem eum fugiat, quo voluptas nulla pariatur?
                         </p>
-                        <a class="button" href="#more">Read More <span class="fas fa-arrow-circle-right"></span></a>
+                        <a class="button" href="#more" title="Click to read more">Read More <span class="fas fa-arrow-circle-right"></span></a>
                     </section>
                     <section class="note">
                         <h4>Sed ut perspiciatis unde omnis iste natus error sit</h4>
@@ -209,7 +210,7 @@
                             consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt, ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut
                             aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit, qui in ea voluptate velit esse, quam nihil molestiae consequatur, vel illum, qui dolorem eum fugiat, quo voluptas nulla pariatur?
                         </p>
-                        <a class="button" href="#more">Read More <span class="fas fa-arrow-circle-right"></span></a>
+                        <a class="button" href="#more" title="Click to read more">Read More <span class="fas fa-arrow-circle-right"></span></a>
                     </section>
                     <section class="note">
                         <h4>Sed ut perspiciatis unde omnis iste natus error sit</h4>
@@ -223,7 +224,7 @@
                             consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt, ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut
                             aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit, qui in ea voluptate velit esse, quam nihil molestiae consequatur, vel illum, qui dolorem eum fugiat, quo voluptas nulla pariatur?
                         </p>
-                        <a class="button" href="#more">Read More <span class="fas fa-arrow-circle-right"></span></a>
+                        <a class="button" href="#more" title="Click to read more">Read More <span class="fas fa-arrow-circle-right"></span></a>
                     </section>
                 </div>
             </section>
@@ -231,9 +232,9 @@
                 <h2>Signup For Mothly Newsletter</h2>
                 <form id="subscribe-form" action="#" method="post">
                     <div class="input-group">
-                        <input id="email" class="input-text" type="email" name="email" placeholder="Enter Your Email Address" />
+                        <input id="email" class="input-text" type="email" name="email" title="Email Address" placeholder="Enter Your Email Address" />
                         <span class="fas fa-envelope-open input-group-addon foreground"></span>
-                        <button id="subscribe" class="input-button" type="submit">Subscribe</button>
+                        <button id="subscribe" class="input-button" type="submit" title="Subscribe">Subscribe</button>
                     </div>
                 </form>
             </section>
@@ -284,11 +285,11 @@
             <div id="follow" class="centered">
                 <p>Follow Us</p>
                 <ul class="menu">
-                    <li><a class="button" href="#facebook"><span class="fab fa-facebook-f" aria-hidden="true"></span></a></li>
-                    <li><a class="button" href="#twitter"><span class="fab fa-twitter foreground" aria-hidden="true"></span></a></li>
-                    <li><a class="button" href="#instagram"><span class="fab fa-instagram" aria-hidden="true"></span></a></li>
-                    <li><a class="button" href="#google-plus"><span class="fab fa-google-plus-g" aria-hidden="true"></span></a></li>
-                    <li><a class="button" href="#youtube"><span class="fab fa-youtube" aria-hidden="true"></span></a></li>
+                    <li><a class="button" href="#facebook" title="Follow on Facebook"><span class="fab fa-facebook-f" aria-hidden="true"></span></a></li>
+                    <li><a class="button-foreground" href="#twitter" title="Follow on Twitter"><span class="fab fa-twitter" aria-hidden="true"></span></a></li>
+                    <li><a class="button" href="#instagram" title="Follow on Instagram"><span class="fab fa-instagram" aria-hidden="true"></span></a></li>
+                    <li><a class="button" href="#google-plus" title="Follow on Google+"><span class="fab fa-google-plus-g" aria-hidden="true"></span></a></li>
+                    <li><a class="button" href="#youtube" title="Follow on Youtube"><span class="fab fa-youtube" aria-hidden="true"></span></a></li>
                 </ul>
             </div>
             <p class="centered">Copyright All Right Reserved By SORAN 2018</p>

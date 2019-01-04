@@ -1,7 +1,7 @@
-[
+﻿[
   {
-    "outputFile": "styles/style.css",
-    "inputFile": "scss/style.scss",
+    "outputFile": "soran/styles/style.css",
+    "inputFile": "soran/scss/style.scss",
     "minify": {
       "enabled": true
     },

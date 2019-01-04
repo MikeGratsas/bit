@@ -11,32 +11,25 @@
   background-size: $size;
 }
 
-// @function fetch($key) {
-//   @return map-get($global_store, $key);
-// }
-//
-// @function default($key_or_map, $value:null) {
-//   @if $value
-//     store-default($key_or_map, $value);
-//   @else
-//     @each $key, $value in $key_or_map
-//       store-default($key, $value);
-// }
-//
-// function store-default($key, $value)
-//   @if map-has-key($global_store, $key)
-//   @else
-//     $global_store: map-merge($global_store, ($key: $value)) !global
-//
-// @mixin button-base($args: ()) {
-//   //button styles
-//   @include override($args, $is_child:false);
-//   @include default(color, blue);
-//   @include default(text-color, grey);       // set a new value
-//   background-color: fetch(color)
-//   color: fetch(text-color)                   // assign the new value
-//   &:hover {
-//     background-color: lighten(fetch(color), 10%);
-//     color: lighten(fetch(text-color), 10%);
-//   }
-// }
+@mixin element-base($color, $shadows...) {
+    text-decoration: none;
+    color: $color;
+
+    &:hover {
+        color: lighten($color, 20%);
+    }
+
+    &:focus {
+        outline: 0 none;
+        box-shadow: $shadows;
+    }
+}
+
+@mixin element-colored($background, $color, $shadows...) {
+    @include element-base($color, $shadows);
+    background-color: $background;
+
+    &:hover {
+        background-color: lighten($background, 10%);
+    }
+}
