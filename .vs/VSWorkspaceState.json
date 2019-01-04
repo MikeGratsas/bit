@@ -9,8 +9,8 @@
     "\\soran\\scss",
     "\\soran\\scss\\01-base",
     "\\soran\\scss\\02-partials",
-    "\\soran\\scss\\03-components"
+    "\\soran\\styles"
   ],
-  "SelectedNode": "\\soran\\scss\\style.scss",
+  "SelectedNode": "\\soran\\compilerconfig.json",
   "PreviewInSolutionExplorer": false
 }

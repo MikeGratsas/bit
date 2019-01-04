@@ -1,0 +1,15 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskName": "task-bit",
+      "appliesTo": "/",
+      "type": "launch"
+    },
+    {
+      "taskName": "task-style",
+      "appliesTo": "soran/scss/style.scss",
+      "type": "launch"
+    }
+  ]
+}

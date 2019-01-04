@@ -32,9 +32,3 @@
     text-overflow: ellipsis;
     word-wrap: break-word;
 }
-
-.fit-width {
-  >* {
-    max-width: 100%;
-  }
-}
