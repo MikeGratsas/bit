@@ -1,22 +1,77 @@
-﻿.benefits {
+﻿@import '../01-base/mixins';
+
+.benefits {
+    display: -ms-grid;
     display: grid;
     justify-content: center;
     grid-template-columns: repeat(auto-fit, minmax(15em, auto));
     grid-auto-rows: auto auto;
     grid-gap: 20px;
-}
 
-.benefit {
-    grid-row: auto / span 2;
-    display: grid;
-    grid-template-rows: subgrid;
-    grid-gap: 0;
+    @include media-breakpoint-max(30em) {
+        -ms-grid-columns: auto;
+        -ms-grid-rows: auto 20px auto 20px auto 20px auto;
 
-    p {
-        grid-row: 2;
+        @for $i from 1 through 4 {
+            $row: ($i + $i - 1);
+
+            .benefit:nth-child(#{$i}) {
+                -ms-grid-column: 1;
+                -ms-grid-row: $row;
+            }
+        }
     }
-}
 
-.benefit-heading {
-    grid-row: 1;
+    @include media-breakpoint-min(30em) {
+        @include media-breakpoint-max(60em) {
+            -ms-grid-columns: auto 20px auto;
+            -ms-grid-rows: auto 20px auto;
+
+            @for $i from 0 through 1 {
+                $row: ($i + $i + 1);
+
+                @for $j from 0 through 1 {
+                    $column: ($j + $j + 1);
+
+                    .benefit:nth-child(#{$i + $i + $j + 1}) {
+                        -ms-grid-column: $column;
+                        -ms-grid-row: $row;
+                    }
+                }
+            }
+        }
+    }
+
+    @include media-breakpoint-min(60em) {
+        -ms-grid-columns: auto 20px auto 20px auto 20px auto;
+        -ms-grid-rows: auto;
+
+        @for $i from 1 through 4 {
+            $column: ($i + $i - 1);
+
+            .benefit:nth-child(#{$i}) {
+                -ms-grid-column: $column;
+                -ms-grid-row: 1;
+            }
+        }
+    }
+
+    .benefit {
+        grid-row: auto / span 2;
+        display: -ms-grid;
+        display: grid;
+        -ms-grid-rows: auto auto;
+        grid-template-rows: subgrid;
+        grid-gap: 0;
+
+        .benefit-heading {
+            -ms-grid-row: 1;
+            grid-row: 1;
+        }
+
+        p {
+            -ms-grid-row: 2;
+            grid-row: 2;
+        }
+    }
 }

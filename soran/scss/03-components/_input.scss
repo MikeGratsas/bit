@@ -10,7 +10,7 @@
     position: relative;
 
     .input-group-addon {
-        @include vertical-align();
+        @include vertical-align;
         text-align: left;
         left: 1em;
     }
@@ -36,9 +36,12 @@
         border: 0;
         padding: 0.5em 1.5em 0.5em 1em;
 
-        &:focus {
-            outline: 0 none;
-            box-shadow: inset 0 0 3px $box-shadow-color;
+        &.default {
+            @include element-colored(black, white, $focus-button-shadow);
+        }
+
+        &.colored {
+            @include element-colored($primary-color, white, $focus-button-shadow);
         }
 
         &:last-child {

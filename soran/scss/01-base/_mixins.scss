@@ -1,21 +1,24 @@
 @mixin vertical-align() {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 @mixin background-single($image, $size: cover, $position: center center) {
-  background-repeat: no-repeat;
-  background-image: url($image);
-  background-position: $position;
-  background-size: $size;
+    background-repeat: no-repeat;
+    background-image: url($image);
+    background-position: $position;
+    background-size: $size;
 }
 
 @mixin element-base($color, $shadows...) {
-    text-decoration: none;
     color: $color;
 
     &:hover {
+        color: lighten($color, 10%);
+    }
+
+    &:active {
         color: lighten($color, 20%);
     }
 
@@ -31,5 +34,21 @@
 
     &:hover {
         background-color: lighten($background, 10%);
+    }
+
+    &:active {
+        background-color: lighten($background, 20%);
+    }
+}
+
+@mixin media-breakpoint-min($screen) {
+    @media (min-width: #{$screen}) {
+        @content;
+    }
+}
+
+@mixin media-breakpoint-max($screen) {
+    @media (max-width: #{$screen}) {
+        @content;
     }
 }

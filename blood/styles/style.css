@@ -29,6 +29,13 @@
     padding: 0;
 }
 
+.single-line-overflow {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+}
+
 .content {
     display: block;
     overflow: auto;

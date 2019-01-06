@@ -1,4 +1,5 @@
-﻿@import 'mixins';
+﻿@import 'settings';
+@import 'mixins';
 
 .client-bg {
     @include background-single('../images/client.svg', cover, left top);
@@ -12,22 +13,22 @@
 
 @for $i from 1 through 4 {
     .portrait#{$i}-bg {
-        @include background-single('../images/portrait#{$i}.png');
+        @include background-single($base-path + '/images/portrait#{$i}.png');
     }
 }
 
 @each $name in 'facebook' 'twitter' 'linkedin' {
     .#{$name}-bg {
-        @include background-single('../images/#{$name}.png', contain);
+        @include background-single($base-path + '/images/#{$name}.png', contain);
         background-origin: content-box;
     }
 }
 
 .intro-bg {
-    @include background-single('../images/intro.png');
+    @include background-single($base-path + '/images/intro.png');
     background-color: grey;
 }
 
 .show-bg {
-    @include background-single('../images/show.png', contain);
+    @include background-single($base-path + '/images/show.png', contain);
 }

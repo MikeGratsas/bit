@@ -1,14 +1,18 @@
 ﻿@import '../01-base/settings';
 @import '../01-base/mixins';
 
-.button {
-    @include element-base(grey, inset 0 0 3px $box-shadow-color);
-}
+a.button {
+    text-decoration: none;
 
-.button-colored {
-     @include element-colored($primary-color, white, inset 0 0 3px $box-shadow-color);
-}
+    &.simple {
+        @include element-base(grey, $focus-button-shadow);
+    }
 
-.button-foreground {
-    @include element-base($primary-color, inset 0 0 3px $box-shadow-color);
+    &.colored {
+        @include element-colored($primary-color, white, $focus-button-shadow);
+    }
+
+    &.foreground {
+        @include element-base($primary-color, $focus-button-shadow);
+    }
 }

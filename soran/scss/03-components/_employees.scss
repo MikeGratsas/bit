@@ -1,4 +1,5 @@
 @import '../01-base/settings';
+@import '../01-base/mixins';
 
 .employees {
     display: flex;
@@ -14,23 +15,20 @@
         margin: 5px;
         max-width: 20em;
         flex: 1 1 15em;
-        
+
         .portrait {
             max-width: 100%;
         }
-
     }
 
-    .previous, .next {
+    a.button.previous, a.button.next {
+        @include element-colored(white, grey, inset 0 0 3px $box-shadow-color);
         display: flex;
-        background-color: white;
         align-self: center;
         align-items: center;
         flex-shrink: 0;
-        color: grey;
         margin: 5px;
         width: 4em;
         height: 4em;
     }
-
 }
