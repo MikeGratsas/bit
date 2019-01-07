@@ -2,12 +2,12 @@
 @import 'mixins';
 
 .client-bg {
-    @include background-single('../images/client.svg', cover, left top);
+    @include background-single($base-path + '/images/client.svg', cover, left top);
 }
 
 @each $name in 'team' 'footer' {
     .#{$name}-bg {
-        @include background-single('../images/#{$name}.svg', contain, center bottom);
+        @include background-single($base-path + '/images/#{$name}.svg', contain, center bottom);
     }
 }
 
