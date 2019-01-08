@@ -28,7 +28,27 @@
         align-items: center;
         flex-shrink: 0;
         margin: 5px;
-        width: 4em;
-        height: 4em;
+        width: 10vw;
+        height: 10vw;
+        max-width: 4em;
+        max-height: 4em;
+
+        .fas.fa-angle-left, .fas.fa-angle-right {
+          @include media-breakpoint-max(30em) {
+            font-size: 2em;
+          }
+          @include media-breakpoint-max(20em) {
+            font-size: 1.33em;
+          }
+          @include media-breakpoint-max(15em) {
+            font-size: .875em;
+          }
+          @include media-breakpoint-max(12em) {
+            font-size: .75em;
+          }
+          @include media-breakpoint-max(10em) {
+            font-size: .5em;
+          }
+        }
     }
 }
