@@ -3,6 +3,7 @@
 
 a.button {
     text-decoration: none;
+    user-select: none;
 
     &.simple {
         @include element-base(grey, $focus-button-shadow);

@@ -21,7 +21,6 @@
 
 #search-form {
     width: 50%;
-    min-width: 25em;
 }
 
 #search::before {
@@ -40,7 +39,6 @@
 
 #subscribe-form {
     width: 30%;
-    min-width: 25em;
 }
 
 #email {
@@ -71,6 +69,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    p {
+      margin-right: 10px;
+    }
 }
 
 #trial {

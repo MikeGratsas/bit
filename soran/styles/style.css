@@ -151,11 +151,11 @@ body {
   justify-content: space-around; }
   .header .button {
     margin: 10px; }
-  .header h1 {
+  .header .heading {
     margin: 5px;
     -webkit-box-flex: 1;
-    -ms-flex-positive: 1;
-    flex-grow: 1; }
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto; }
 
 .content {
   display: -webkit-box;
@@ -176,7 +176,11 @@ body {
   flex-shrink: 0; }
 
 a.button {
-  text-decoration: none; }
+  text-decoration: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
   a.button.simple {
     color: grey; }
     a.button.simple:hover {
@@ -213,76 +217,94 @@ a.button {
       -webkit-box-shadow: inset 0 0 3px #387bbe;
       box-shadow: inset 0 0 3px #387bbe; }
 
-.input-group {
-  background-color: white;
-  border-radius: 1.5em;
-  margin: 1em;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  position: relative; }
-  .input-group .input-group-addon {
-    position: absolute;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-    text-align: left;
-    left: 1em; }
-  .input-group .input-text {
-    -ms-flex-negative: 1;
-    flex-shrink: 1;
-    -webkit-box-flex: 1;
-    -ms-flex-positive: 1;
-    flex-grow: 1;
-    border: 0;
-    outline: 0 none;
-    padding: 1em; }
-    .input-group .input-text:focus {
-      -webkit-box-shadow: 0 0 12px #387bbe;
-      box-shadow: 0 0 12px #387bbe; }
-    .input-group .input-text:first-child {
-      border-top-left-radius: 1.5em;
-      border-bottom-left-radius: 1.5em; }
-  .input-group .input-button {
-    border: 0;
-    padding: 0.5em 1.5em 0.5em 1em; }
-    .input-group .input-button.default {
-      color: white;
-      background-color: black; }
-      .input-group .input-button.default:hover {
-        color: white; }
-      .input-group .input-button.default:active {
-        color: white; }
-      .input-group .input-button.default:focus {
-        outline: 0 none;
-        -webkit-box-shadow: inset 0 0 3px #387bbe;
-        box-shadow: inset 0 0 3px #387bbe; }
-      .input-group .input-button.default:hover {
-        background-color: #1a1a1a; }
-      .input-group .input-button.default:active {
-        background-color: #333333; }
-    .input-group .input-button.colored {
-      color: white;
-      background-color: #FF65C2; }
-      .input-group .input-button.colored:hover {
-        color: white; }
-      .input-group .input-button.colored:active {
-        color: white; }
-      .input-group .input-button.colored:focus {
-        outline: 0 none;
-        -webkit-box-shadow: inset 0 0 3px #387bbe;
-        box-shadow: inset 0 0 3px #387bbe; }
-      .input-group .input-button.colored:hover {
-        background-color: #ff98d6; }
-      .input-group .input-button.colored:active {
-        background-color: #ffcbea; }
-    .input-group .input-button:last-child {
-      border-top-right-radius: 1.5em;
-      border-bottom-right-radius: 1.5em; }
+.input-form {
+  min-width: 25em; }
+  @media (max-width: 25em) {
+    .input-form {
+      min-width: 100%; } }
+  .input-form .input-group {
+    background-color: white;
+    border-radius: 1.5em;
+    margin: 1em;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    position: relative; }
+    @media (max-width: 25em) {
+      .input-form .input-group {
+        font-size: .75em; } }
+    @media (max-width: 20em) {
+      .input-form .input-group {
+        font-size: .5em; } }
+    @media (max-width: 15em) {
+      .input-form .input-group {
+        font-size: .25em; } }
+    .input-form .input-group .input-group-addon {
+      position: absolute;
+      top: 50%;
+      -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+      text-align: left;
+      left: 1em; }
+    .input-form .input-group .input-text {
+      -ms-flex-negative: 1;
+      flex-shrink: 1;
+      -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+      flex-grow: 1;
+      border: 0;
+      outline: 0 none;
+      padding: 1em; }
+      .input-form .input-group .input-text:focus {
+        -webkit-box-shadow: 0 0 12px #387bbe;
+        box-shadow: 0 0 12px #387bbe; }
+      .input-form .input-group .input-text:first-child {
+        border-top-left-radius: 1.5em;
+        border-bottom-left-radius: 1.5em; }
+    .input-form .input-group .input-button {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      border: 0;
+      padding: 0.5em 1.5em 0.5em 1em; }
+      .input-form .input-group .input-button.default {
+        color: white;
+        background-color: black; }
+        .input-form .input-group .input-button.default:hover {
+          color: white; }
+        .input-form .input-group .input-button.default:active {
+          color: white; }
+        .input-form .input-group .input-button.default:focus {
+          outline: 0 none;
+          -webkit-box-shadow: inset 0 0 3px #387bbe;
+          box-shadow: inset 0 0 3px #387bbe; }
+        .input-form .input-group .input-button.default:hover {
+          background-color: #1a1a1a; }
+        .input-form .input-group .input-button.default:active {
+          background-color: #333333; }
+      .input-form .input-group .input-button.colored {
+        color: white;
+        background-color: #FF65C2; }
+        .input-form .input-group .input-button.colored:hover {
+          color: white; }
+        .input-form .input-group .input-button.colored:active {
+          color: white; }
+        .input-form .input-group .input-button.colored:focus {
+          outline: 0 none;
+          -webkit-box-shadow: inset 0 0 3px #387bbe;
+          box-shadow: inset 0 0 3px #387bbe; }
+        .input-form .input-group .input-button.colored:hover {
+          background-color: #ff98d6; }
+        .input-form .input-group .input-button.colored:active {
+          background-color: #ffcbea; }
+      .input-form .input-group .input-button:last-child {
+        border-top-right-radius: 1.5em;
+        border-bottom-right-radius: 1.5em; }
 
 .multi-line-overflow {
   overflow: hidden;
@@ -311,9 +333,10 @@ a.button {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  list-style-type: none; }
+  list-style-type: none;
+  padding-left: 0; }
   .menu .button {
-    padding: 5px; }
+    padding: 10px 5px; }
   .menu .bordered {
     display: inline-block;
     border: 3px solid #FF65C2;
@@ -321,7 +344,8 @@ a.button {
     max-height: 64px;
     width: 4vw;
     height: 4vw;
-    padding: 1vw; }
+    padding: 1vw;
+    margin: 2px; }
 
 .clients {
   display: -webkit-box;
@@ -556,8 +580,7 @@ a.button {
   flex: 1 1 359px; }
 
 #search-form {
-  width: 50%;
-  min-width: 25em; }
+  width: 50%; }
 
 #search::before {
   background-repeat: no-repeat;
@@ -582,8 +605,7 @@ a.button {
   flex-wrap: wrap; }
 
 #subscribe-form {
-  width: 30%;
-  min-width: 25em; }
+  width: 30%; }
 
 #email {
   padding-left: 3em; }
@@ -627,6 +649,8 @@ a.button {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center; }
+  #follow p {
+    margin-right: 10px; }
 
 #trial {
   border-radius: 1.5em;
