@@ -50,10 +50,8 @@
     opacity: 0.73;
 }
 
-#pros {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+#pros, #team {
+  padding: 1em;
 }
 
 #present {
@@ -71,7 +69,7 @@
     justify-content: center;
 
     p {
-      margin-right: 10px;
+      margin-right: 1em;
     }
 }
 
