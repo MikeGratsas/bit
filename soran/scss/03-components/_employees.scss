@@ -13,8 +13,6 @@
         border-radius: 5%;
         box-shadow: 1px 5px 11px 0 rgba($primary-color, 0.5);
         margin: 5px;
-        // max-width: 20em;
-        // flex: 1 1 15em;
         flex: 0 1 20em;
 
         .portrait {
@@ -35,21 +33,25 @@
         max-height: 4em;
 
         .fas.fa-angle-left, .fas.fa-angle-right {
-          @include media-breakpoint-max(30em) {
-            font-size: 2em;
-          }
-          @include media-breakpoint-max(20em) {
-            font-size: 1.33em;
-          }
-          @include media-breakpoint-max(15em) {
-            font-size: .875em;
-          }
-          @include media-breakpoint-max(12em) {
-            font-size: .75em;
-          }
-          @include media-breakpoint-max(10em) {
-            font-size: .5em;
-          }
+            @include media-breakpoint-max(30em) {
+                font-size: 2em;
+            }
+
+            @include media-breakpoint-max(20em) {
+                font-size: 1.33em;
+            }
+
+            @include media-breakpoint-max(15em) {
+                font-size: .875em;
+            }
+
+            @include media-breakpoint-max(12em) {
+                font-size: .75em;
+            }
+
+            @include media-breakpoint-max(10em) {
+                font-size: .5em;
+            }
         }
     }
 }

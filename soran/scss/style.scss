@@ -50,8 +50,8 @@
     opacity: 0.73;
 }
 
-#pros, #team {
-  padding: 1em;
+#pros, #present, #feedback, #team {
+    padding: 1%;
 }
 
 #present {
@@ -59,7 +59,6 @@
     flex-wrap: wrap-reverse;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
     overflow: hidden;
 }
 
@@ -69,7 +68,7 @@
     justify-content: center;
 
     p {
-      margin-right: 1em;
+        margin-right: 1em;
     }
 }
 
@@ -83,7 +82,12 @@
 }
 
 #feedback {
+    flex-shrink: 0;
     background-color: lightgray;
+}
+
+#team {
+    flex-shrink: 0;
 }
 
 #nav-menu {
