@@ -5,10 +5,13 @@
     "minify": {
       "enabled": true
     },
-    "includeInProject": true,
     "options": {
       "autoPrefix": "last 2 versions, > 5%",
       "sourceMap": false
     }
+  },
+  {
+    "outputFile": "checkers/scripts/script.js",
+    "inputFile": "checkers/js/src/script.js"
   }
 ]
