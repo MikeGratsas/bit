@@ -1,0 +1,1 @@
+{"version":3,"sources":["..\\js\\src\\script.js"],"names":["_jquery","require","_jquery2","default","Game"],"mappings":"qFAAC,IAAAA,QAAAC,QAAA,oDAED,EAAAC,SAAAC,SAAE,WACa,IAAXC","sourcesContent":["﻿import $ from 'jquery'\r\n\r\n$(function () {\r\n    var game = new Game();\r\n});\r\n"]}

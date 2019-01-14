@@ -1,6 +1,8 @@
 ﻿class King extends Piece {
+    const KIND = 2;
+
     constructor(white, row, column) {
-        super(2, white, row, column);
+        super(KIND, white, row, column);
     }
 
     canMove(row, column) {

@@ -4,9 +4,9 @@
         this.position = defaultPosition();
     }
 
-    constructor(size, pieces) {
+    constructor(size, ps) {
         this.size = size;
-        this.position = restorePosition(pieces);
+        this.position = restorePosition(ps);
     }
 
     defaultPosition() {
@@ -28,22 +28,25 @@
         return map;
     }
 
-    restorePosition(pieces = []) {
+    restorePosition(ps = []) {
+        var piece = null;
         var map = new Map();
-        pieces.forEach(piece => {
-            switch (piece.kind) {
-                case 1:
-                    map.set(cell(piece.row, piece.column), new Man(piece.white, piece.row, piece.column));
+        ps.forEach(p => {
+            switch (p.kind) {
+                case Man.KIND:
+                    piece = new Man(p.white, p.row, p.column);
                     break;
-                case 2:
-                    map.set(cell(piece.row, piece.column), new King(piece.white, piece.row, piece.column));
+                case King.KIND:
+                    piece = new King(p.white, p.row, p.column);
                     break;
             }
+            if (piece != null)
+              map.set(cell(p.row, p.column), piece);
         });
         return map;
     }
 
-    get cell(row, column) {
+    cell(row, column) {
         return String.fromCharCode(97 + column) + String.fromCharCode(49 + row);
     }
 }

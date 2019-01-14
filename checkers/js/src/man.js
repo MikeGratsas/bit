@@ -1,6 +1,8 @@
 ﻿class Man extends Piece {
+    const KIND = 1;
+  
     constructor(white, row, column) {
-        super(1, white, row, column);
+        super(KIND, white, row, column);
     }
 
     canMove(row, column) {
