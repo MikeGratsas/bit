@@ -28,7 +28,7 @@
         return map;
     }
 
-    restorePosition(ps = []) {
+    loadPosition(ps = []) {
         var piece = null;
         var map = new Map();
         ps.forEach(p => {
@@ -44,6 +44,10 @@
               map.set(cell(p.row, p.column), piece);
         });
         return map;
+    }
+
+    storePosition() {
+        return Array.from(this.position.values());
     }
 
     cell(row, column) {

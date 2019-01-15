@@ -1,7 +1,7 @@
 ﻿class Game {
-    constructor() {
+    constructor(board) {
         this.finished = false;
         this.whiteTurn = true;
-        this.board = new Board();
+        this.board = board;
     }
 }
