@@ -24,14 +24,14 @@
     }
 
     /**
-     * @function kind
-     * @description Description
-     * @access private | public
+     * @function kindClass
+     * @description get kind class
+     * @access public
      *
-     * @return {type} Description
+     * @return {string} kind class
      */
-    get kind() {
-        return this.kind;
+    get kindClass() {
+        return null;
     }
 
     /**

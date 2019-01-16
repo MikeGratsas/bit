@@ -2,21 +2,29 @@
   border: thin solid black;
   border-collapse: collapse;
   text-align: center;
+  background-color: khaki;
   width: 100vmin;
   height: 100vmin;
+  margin: 10vmin;
 }
 
 .row, .zero-row, .last-row {
   display: flex;
-  height: 10%;
 }
 
 .zero-row, .last-row {
   align-items: center;
+  justify-content:space-around;
+  height: 5%;
+}
+
+.row {
+  height: 10%;
 }
 
 .cell {
   border: 0px none black;
+  padding: 1%;
   width: 10%;
 }
 
@@ -25,12 +33,12 @@
 }
 
 .digit {
-  width: 10%;
+  width: 5%;
   align-self: center;
 }
 
 .corner {
-  width: 10%;
+  width: 5%;
 }
 
 /* .cell, .corner, .letter, .digit {
@@ -92,6 +100,7 @@ span.piece {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: contain;
+  background-origin: content-box;
 }
 
 .white.man {

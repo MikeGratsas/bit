@@ -1,8 +1,17 @@
-﻿class Man extends Piece {
-    const KIND = 1;
-  
+
+/**
+ * Man
+ * @description man
+ * @extends Piece
+ */
+ class Man extends Piece {
+
     constructor(white, row, column) {
-        super(KIND, white, row, column);
+        super(1, white, row, column);
+    }
+
+    get kindClass() {
+        return "man";
     }
 
     canMove(row, column) {

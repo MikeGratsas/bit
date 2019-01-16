@@ -1,8 +1,16 @@
-﻿class King extends Piece {
-    const KIND = 2;
+
+ /**
+  * King
+  * @description king
+  * @extends Piece
+  */﻿class King extends Piece {
 
     constructor(white, row, column) {
-        super(KIND, white, row, column);
+        super(2, white, row, column);
+    }
+
+    get kindClass() {
+        return "king";
     }
 
     canMove(row, column) {
