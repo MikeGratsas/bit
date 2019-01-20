@@ -1,0 +1,14 @@
+[
+  {
+    "outputFileName": "checkers/scripts/bundle.js",
+    "inputFiles": [
+      "checkers/js/src/cell.js",
+      "checkers/js/src/piece.js",
+      "checkers/js/src/man.js",
+      "checkers/js/src/king.js",
+      "checkers/js/src/board.js",
+      "checkers/js/src/game.js",
+      "checkers/js/src/script.js"
+    ]
+  }
+]

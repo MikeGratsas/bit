@@ -12,6 +12,6 @@
   },
   {
     "outputFile": "checkers/scripts/script.js",
-    "inputFile": "checkers/js/src/script.js"
+    "inputFile": "checkers/scripts/bundle.js"
   }
 ]

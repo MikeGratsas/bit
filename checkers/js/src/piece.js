@@ -1,10 +1,10 @@
 
- /**
-  * Piece
-  * @description checkers piece
-  * @abstract
-  */
-  class Piece {
+/**
+ * Piece
+ * @description checkers piece
+ * @abstract
+ */
+class Piece {
 
     /**
      * @function constructor
@@ -24,6 +24,17 @@
     }
 
     /**
+     * @function colorClass
+     * @description get color class
+     * @access public
+     *
+     * @return {string} color class
+     */
+    get colorClass() {
+        return this.white ? 'white' : 'black';
+    }
+
+    /**
      * @function kindClass
      * @description get kind class
      * @access public
@@ -39,13 +50,26 @@
      * @description if can move piece
      * @access public
      *
-     * @param {number} row    board row
-     * @param {number} column board column
+     * @param {Cell}  cell  board cell
      *
      * @return {boolean} if can move
      */
-    canMove(row, column) {
+    canMove(cell) {
         return false;
+    }
+
+    /**
+     * @function findCapture
+     * @description find piece to caputue
+     * @access public
+     *
+     * @param {Board} board checkers board
+     * @param {Cell}  cell  board cell to jump
+     *
+     * @return {string} cell id to caputue
+     */
+    findCapture(board, cell) {
+        return null;
     }
 
     /**
@@ -57,7 +81,33 @@
      *
      * @return {boolean} if can capture
      */
-    canCapture(/* Piece */ piece) {
+    canCapture(piece) {
+        return false;
+    }
+
+    /**
+     * @function isSelectableForJump
+     * @description if can select piece for jump
+     * @access public
+     *
+     * @param {Board} board checkers board
+     *
+     * @return {boolean} if is selectable for jump
+     */
+    isSelectableForJump(board) {
+        return false;
+    }
+
+    /**
+     * @function isSelectableToMove
+     * @description if can select piece to move
+     * @access public
+     *
+     * @param {Board} board checkers board
+     *
+     * @return {boolean} if is selectable to move
+     */
+    isSelectableToMove(board) {
         return false;
     }
 
@@ -66,14 +116,14 @@
      * @description move this piece
      * @access public
      *
-     * @param {number} row    board row
-     * @param {number} column board column
+     * @param {Board} board checkers board
+     * @param {Cell}  cell  board cell
      *
      * @return {Piece} this piece
      */
-    move(row, column) {
-        this.row = row;
-        this.column = column;
+    move(board, cell) {
+        this.row = cell.row;
+        this.column = cell.column;
         return this;
     }
 }
