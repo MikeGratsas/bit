@@ -8,6 +8,7 @@
       "checkers/js/src/king.js",
       "checkers/js/src/board.js",
       "checkers/js/src/game.js",
+      "checkers/js/src/checkers.js",
       "checkers/js/src/script.js"
     ]
   }

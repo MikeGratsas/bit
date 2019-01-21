@@ -12,6 +12,7 @@ class Game {
      * @param {Board} board board
      */
     constructor(board) {
+        this.id = Math.floor(Math.random() * 10000);
         this.finished = false;
         this.result = 0;
         this.whiteTurn = true;
@@ -82,5 +83,14 @@ class Game {
             return true;
         }
         return false;
+    }
+
+    load(obj) {
+        this.id = obj.id;
+        this.finished = obj.finished;
+        this.result = obj.result;
+        this.whiteTurn = obj.whiteTurn;
+        this.selected = obj.selected;
+        this.selectableForJump = obj.selectableForJump;
     }
 }

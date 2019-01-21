@@ -5,7 +5,7 @@
  */
 'use strict';
 
-var _get = function get(_x6, _x7, _x8) { var _again = true; _function: while (_again) { var object = _x6, property = _x7, receiver = _x8; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x6 = parent; _x7 = property; _x8 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+var _get = function get(_x4, _x5, _x6) { var _again = true; _function: while (_again) { var object = _x4, property = _x5, receiver = _x6; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x4 = parent; _x5 = property; _x6 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
@@ -436,6 +436,11 @@ var King = (function (_Piece2) {
     }
 
     /**
+    * Checkers Board
+    * @description checkers board
+    */
+
+    /**
      * @function kindClass
      * @description get kind class
      * @access public
@@ -628,12 +633,11 @@ var Board = (function () {
 
     function Board() {
         var size = arguments.length <= 0 || arguments[0] === undefined ? 8 : arguments[0];
-        var position = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
 
         _classCallCheck(this, Board);
 
         this.size = size;
-        this.position = position != null ? position : Board.defaultPosition(size);
+        this.position = new Map();
         this._onSet = new Set();
         this._onDelete = new Set();
     }
@@ -666,22 +670,6 @@ var Board = (function () {
         value: function offDelete(f) {
             this._onDelete['delete'](f);
             return this;
-        }
-
-        /**
-         * @static defaultPosition
-         * @description default initial position
-         * @access public
-         *
-         * @param {number} size board size
-         * @param {number} initRows number of rows to initialize
-         *
-         * @return {Map} map
-         */
-    }, {
-        key: 'storePosition',
-        value: function storePosition() {
-            return Array.from(this.position.values());
         }
 
         /**
@@ -724,6 +712,11 @@ var Board = (function () {
             });
             return count;
         }
+    }, {
+        key: 'clear',
+        value: function clear() {
+            this.position.clear();
+        }
 
         /**
          * @function getPiece
@@ -739,6 +732,17 @@ var Board = (function () {
         value: function getPiece(id) {
             return this.position.get(id);
         }
+
+        /**
+         * @function setPiece
+         * @description set piece in the cell by id
+         * @access public
+         *
+         * @param {string} id    cell id
+         * @param {Piece} piece  piece to be set
+         *
+         * @return {Piece} previous piece in the cell
+         */
     }, {
         key: 'setPiece',
         value: function setPiece(id, piece) {
@@ -749,6 +753,16 @@ var Board = (function () {
             });
             return previous;
         }
+
+        /**
+         * @function deletePiece
+         * @description delete piece in the cell by id
+         * @access public
+         *
+         * @param {string} id    cell id
+         *
+         * @return {Piece} previous piece in the cell
+         */
     }, {
         key: 'deletePiece',
         value: function deletePiece(id) {
@@ -761,68 +775,10 @@ var Board = (function () {
             }
             return piece;
         }
-    }], [{
-        key: 'defaultPosition',
-        value: function defaultPosition() {
-            var size = arguments.length <= 0 || arguments[0] === undefined ? 8 : arguments[0];
-            var initRows = arguments.length <= 1 || arguments[1] === undefined ? 3 : arguments[1];
-
-            var cell = new Cell(0, 0);
-            var map = new Map();
-            for (var i = 0; i < initRows; i++) {
-                cell.row = i;
-                for (var j = 0; j < size; j++) {
-                    if ((i + j & 1) == 0) {
-                        cell.column = j;
-                        map.set(cell.cellId, new Man(true, i, j));
-                    }
-                }
-            }
-            for (var i = size - initRows; i < size; i++) {
-                cell.row = i;
-                for (var j = 0; j < size; j++) {
-                    if ((i + j & 1) == 0) {
-                        cell.column = j;
-                        map.set(cell.cellId, new Man(false, i, j));
-                    }
-                }
-            }
-            return map;
-        }
-
-        /**
-         * @static loadPosition
-         * @description Description
-         * @access public
-         *
-         * @param {array} position
-         *
-         * @return {Map} map
-         */
     }, {
-        key: 'loadPosition',
-        value: function loadPosition() {
-            var pos = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
-
-            var piece = null;
-            var cell = new Cell(0, 0);
-            var map = new Map();
-            pos.forEach(function (p) {
-                switch (p.kind) {
-                    case 1:
-                        piece = new Man(p.white, p.row, p.column);
-                        break;
-                    case 2:
-                        piece = new King(p.white, p.row, p.column);
-                        break;
-                }
-                if (piece != null) {
-                    cell.row = p.row;
-                    cell.column = p.column;
-                    map.set(cell.cellId, piece);
-                }
-            });
-            return map;
+        key: 'toJSON',
+        value: function toJSON() {
+            return Array.from(this.position.values());
         }
     }]);
 
@@ -841,6 +797,7 @@ var Game = (function () {
     function Game(board) {
         _classCallCheck(this, Game);
 
+        this.id = Math.floor(Math.random() * 10000);
         this.finished = false;
         this.result = 0;
         this.whiteTurn = true;
@@ -849,13 +806,10 @@ var Game = (function () {
         this.board = board;
     }
 
-    //@codekit-prepend piece.js
-    //@codekit-prepend man.js
-    //@codekit-prepend king.js
-    //@codekit-prepend board.js
-    //@codekit-prepend game.js
-
-    //import $ from 'jquery';
+    /**
+    * Russian Checkers
+    * @description Russian checkers factory
+    */
 
     _createClass(Game, [{
         key: 'prepare',
@@ -925,15 +879,155 @@ var Game = (function () {
             }
             return false;
         }
+    }, {
+        key: 'load',
+        value: function load(obj) {
+            this.id = obj.id;
+            this.finished = obj.finished;
+            this.result = obj.result;
+            this.whiteTurn = obj.whiteTurn;
+            this.selected = obj.selected;
+            this.selectableForJump = obj.selectableForJump;
+        }
     }]);
 
     return Game;
 })();
 
+var RussianCheckers = (function () {
+
+    /**
+     * @function constructor
+     * @description Create checkers board
+     * @access public
+     *
+     * @param {number} initRows number of rows to initialize
+     *
+     */
+
+    function RussianCheckers() {
+        var initRows = arguments.length <= 0 || arguments[0] === undefined ? 3 : arguments[0];
+
+        _classCallCheck(this, RussianCheckers);
+
+        this.initRows = initRows;
+    }
+
+    //@codekit-prepend piece.js
+    //@codekit-prepend man.js
+    //@codekit-prepend king.js
+    //@codekit-prepend board.js
+    //@codekit-prepend game.js
+    //@codekit-prepend checkers.js
+
+    //import $ from 'jquery';
+
+    /**
+     * @function createBoard
+     * @description create the board
+     * @access public
+     *
+     * @return {Board} board
+     *
+     */
+
+    _createClass(RussianCheckers, [{
+        key: 'createBoard',
+        value: function createBoard() {
+            return new Board();
+        }
+
+        /**
+         * @function setupBoard
+         * @description setup default initial position on the board
+         * @access public
+         *
+         * @param {Board} board board
+         *
+         */
+    }, {
+        key: 'setupBoard',
+        value: function setupBoard(board) {
+            var cell = new Cell(0, 0);
+            for (var i = 0; i < this.initRows; i++) {
+                cell.row = i;
+                for (var j = 0; j < board.size; j++) {
+                    if ((i + j & 1) == 0) {
+                        cell.column = j;
+                        board.setPiece(cell.cellId, new Man(true, i, j));
+                    }
+                }
+            }
+            for (var i = board.size - this.initRows; i < board.size; i++) {
+                cell.row = i;
+                for (var j = 0; j < board.size; j++) {
+                    if ((i + j & 1) == 0) {
+                        cell.column = j;
+                        board.setPiece(cell.cellId, new Man(false, i, j));
+                    }
+                }
+            }
+        }
+
+        /**
+         * @function loadBoard
+         * @description load position to the board
+         * @access public
+         *
+         * @param {Board} board board
+         * @param {array} position
+         *
+         */
+    }, {
+        key: 'loadBoard',
+        value: function loadBoard(board) {
+            var pos = arguments.length <= 1 || arguments[1] === undefined ? [] : arguments[1];
+
+            var piece = null;
+            var cell = new Cell(0, 0);
+            pos.forEach(function (p) {
+                switch (p.kind) {
+                    case 1:
+                        piece = new Man(p.white, p.row, p.column);
+                        break;
+                    case 2:
+                        piece = new King(p.white, p.row, p.column);
+                        break;
+                }
+                if (piece != null) {
+                    cell.row = p.row;
+                    cell.column = p.column;
+                    board.setPiece(cell.cellId, piece);
+                }
+            });
+        }
+
+        /**
+         * @function createGame
+         * @description create the game
+         * @access public
+         *
+         * @param {Board} board board
+         *
+         * @return {Game} board
+         */
+    }, {
+        key: 'createGame',
+        value: function createGame(board) {
+            return new Game(board);
+        }
+    }]);
+
+    return RussianCheckers;
+})();
+
 $(function () {
-    var board = new Board();
-    var game = new Game(board);
-    setupBoard($('#board'), board);
+    markupBoard($('#board'));
+    var checkers = new RussianCheckers();
+    var board = checkers.createBoard();
+    subscribe(board);
+    checkers.setupBoard(board);
+    var game = checkers.createGame(board);
     $('.cell').click(function () {
         var selected = game.selected;
         if (selected == null) {
@@ -964,8 +1058,11 @@ $(function () {
                     if (piece.isSelectableForJump(board)) {
                         if (game.tryToJump(piece, this.id)) {
                             $('#' + selected).removeClass('selected');
-                            if (game.selected != null) $(this).addClass('selected');else if (game.finished) {
-                                alert('Game over: ' + (game.result > 0 ? 'light' : 'dark') + ' won');
+                            if (game.selected != null) $(this).addClass('selected');else {
+                                if (game.whiteTurn) $('#controls').removeClass('dark').addClass('light');else $('#controls').removeClass('light').addClass('dark');
+                                if (game.finished) {
+                                    alert('Game over: ' + (game.result > 0 ? 'light' : 'dark') + ' won');
+                                }
                             }
                         } else {
                             alert('You can not jump to this cell on the board');
@@ -973,7 +1070,9 @@ $(function () {
                     } else {
                         if (game.tryToMove(piece, this.id)) {
                             $('#' + selected).removeClass('selected');
-                            if (game.selected != null) $(this).addClass('selected');
+                            if (game.selected != null) $(this).addClass('selected');else {
+                                if (game.whiteTurn) $('#controls').removeClass('dark').addClass('light');else $('#controls').removeClass('light').addClass('dark');
+                            }
                         } else {
                             alert('You can not move to this cell on the board');
                         }
@@ -984,21 +1083,37 @@ $(function () {
             }
         }
     });
+
+    $('#new').click(function () {
+        $('.cell').removeClass('white black').removeClass('man king').removeClass('selected');
+        board.clear();
+        checkers.setupBoard(board);
+        game = checkers.createGame(board);
+    });
+
+    $('#save').click(function () {
+        localStorage.setItem('checkers', JSON.stringify(game));
+    });
+
+    $('#load').click(function () {
+        $('.cell').removeClass('white black').removeClass('man king').removeClass('selected');
+        board.clear();
+        var obj = JSON.parse(localStorage.getItem('checkers'));
+        checkers.loadBoard(board, obj.board);
+        game = checkers.createGame(board);
+        game.load(obj);
+        if (game.whiteTurn) $('#controls').removeClass('dark').addClass('light');else $('#controls').removeClass('light').addClass('dark');
+    });
 });
 
 /**
- * @function setupBoard
- * @description setup checkers board
+ * @function subscribe
+ * @description subscribe to position changes on the checkers board
  * @access public
  * 
- * @param {JQuery<HTMLElement>} boardElement
  * @param {Board} board
  */
-function setupBoard(boardElement, board) {
-    markupBoard(boardElement);
-    board.position.forEach(function (piece, id) {
-        $('#' + id).addClass(piece.colorClass).addClass(piece.kindClass);
-    });
+function subscribe(board) {
     board.onSet(function (piece, id) {
         $('#' + id).addClass(piece.colorClass).addClass(piece.kindClass);
     });
@@ -1007,7 +1122,14 @@ function setupBoard(boardElement, board) {
     });
 }
 
-function cleanupBoard(board) {
+/**
+ * @function unsubscribe
+ * @description unsubscribe from position changes on the checkers board
+ * @access public
+ * 
+ * @param {Board} board
+ */
+function unsubscribe(board) {
     board.offSet(function (piece, id) {
         $('#' + id).addClass(piece.colorClass).addClass(piece.kindClass);
     });
@@ -1016,6 +1138,13 @@ function cleanupBoard(board) {
     });
 }
 
+/**
+ * @function markupBoard
+ * @description markup checkers board
+ * @access public
+ * 
+ * @param {JQuery<HTMLElement>} boardElement
+ */
 function markupBoard(boardElement) {
     var rowElement = $('<div class="last-row"/>').appendTo(boardElement);
     appendLetterRow(rowElement);
@@ -1027,6 +1156,13 @@ function markupBoard(boardElement) {
     appendLetterRow(rowElement);
 }
 
+/**
+ * @function appendLetterRow
+ * @description append border row of the checkers board
+ * @access public
+ * 
+ * @param {JQuery<HTMLElement>} rowElement
+ */
 function appendLetterRow(rowElement) {
     $('<div class="corner">&nbsp;</div>').appendTo(rowElement);
     for (var i = 97; i < 105; i++) {
@@ -1035,6 +1171,13 @@ function appendLetterRow(rowElement) {
     $('<div class="corner">&nbsp;</div>').appendTo(rowElement);
 }
 
+/**
+ * @function appendCellRow
+ * @description append cell row of the checkers board
+ * @access public
+ * 
+ * @param {JQuery<HTMLElement>} rowElement
+ */
 function appendCellRow(rowElement, index) {
     $('<div class="digit" />').appendTo(rowElement).text(index);
     for (var i = 97; i < 105; i++) {

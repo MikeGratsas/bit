@@ -1,11 +1,31 @@
+.page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .board {
     border: thin solid sienna;
     border-collapse: collapse;
     text-align: center;
     background-color: khaki;
     color: brown;
-    width: 100vmin;
-    height: 100vmin;
+    width: 90vmin;
+    height: 90vmin;
+}
+
+.controls {
+    display: inline-block;
+    padding: 1vmin;
+    margin: 1vmin auto;
+}
+
+.light {
+    background-color: silver;
+}
+
+.dark {
+    background-color: black;
 }
 
 .row, .zero-row, .last-row {
@@ -23,21 +43,19 @@
 }
 
 .cell {
-    border: 0px none sienna;
+    border: 0 none sienna;
     padding: 1%;
-    width: 11%;
 }
 
-.letter {
+.letter, .cell {
     width: 11%;
 }
 
 .digit {
-    width: 6%;
     align-self: center;
 }
 
-.corner {
+.corner, .digit {
     width: 6%;
 }
 
@@ -49,18 +67,24 @@
 .row .digit:last-child {
     -webkit-transform: rotate(90deg);
     -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
     transform: rotate(90deg);
 }
 
 .row .digit:first-child {
     -webkit-transform: rotate(-90deg);
     -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
     transform: rotate(-90deg);
 }
 
 .zero-row .letter {
     -webkit-transform: rotate(180deg);
     -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
     transform: rotate(180deg);
 }
 
@@ -92,25 +116,25 @@
     background-color: orange;
 }
 
+.white.man {
+    background-image: url('../images/ch_white.png');
+}
+
+.white.king {
+    background-image: url('../images/ch_q_white.png');
+}
+
+.black.man {
+    background-image: url('../images/ch_black.png');
+}
+
+.black.king {
+    background-image: url('../images/ch_q_black.png');
+}
+
 .white, .black {
     background-repeat: no-repeat;
     background-position: center center;
     background-size: contain;
     background-origin: content-box;
 }
-
-    .white.man {
-        background-image: url('../images/ch_white.png');
-    }
-
-    .white.king {
-        background-image: url('../images/ch_q_white.png');
-    }
-
-    .black.man {
-        background-image: url('../images/ch_black.png');
-    }
-
-    .black.king {
-        background-image: url('../images/ch_q_white.png');
-    }

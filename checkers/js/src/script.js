@@ -3,13 +3,17 @@
 //@codekit-prepend king.js
 //@codekit-prepend board.js
 //@codekit-prepend game.js
+//@codekit-prepend checkers.js
 
 //import $ from 'jquery';
 
 $(function () {
-    var board = new Board();
-    var game = new Game(board);
-    setupBoard($('#board'), board);
+    markupBoard($('#board'));
+    var checkers = new RussianCheckers();
+    var board = checkers.createBoard();
+    subscribe(board);
+    checkers.setupBoard(board);
+    var game = checkers.createGame(board);
     $('.cell').click(function () {
         var selected = game.selected;
         if (selected == null) {
@@ -51,8 +55,14 @@ $(function () {
                             $('#' + selected).removeClass('selected');
                             if (game.selected != null)
                                 $(this).addClass('selected');
-                            else if (game.finished) {
-                                alert(`Game over: ${game.result > 0 ? 'light' : 'dark'} won`);
+                            else {
+                                if (game.whiteTurn)
+                                    $('#controls').removeClass('dark').addClass('light');
+                                else
+                                    $('#controls').removeClass('light').addClass('dark');
+                                if (game.finished) {
+                                    alert(`Game over: ${game.result > 0 ? 'light' : 'dark'} won`);
+                                }
                             }
                         }
                         else {
@@ -64,6 +74,12 @@ $(function () {
                             $('#' + selected).removeClass('selected');
                             if (game.selected != null)
                                 $(this).addClass('selected');
+                            else {
+                                if (game.whiteTurn)
+                                    $('#controls').removeClass('dark').addClass('light');
+                                else
+                                    $('#controls').removeClass('light').addClass('dark');
+                           }
                         }
                         else {
                             alert('You can not move to this cell on the board');
@@ -76,21 +92,40 @@ $(function () {
             }
         }
     });
+
+    $('#new').click(function () {
+        $('.cell').removeClass('white black').removeClass('man king').removeClass('selected');
+        board.clear();
+        checkers.setupBoard(board);
+        game = checkers.createGame(board);
+    });
+
+    $('#save').click(function () {
+        localStorage.setItem('checkers', JSON.stringify(game));
+    });
+
+    $('#load').click(function () {
+        $('.cell').removeClass('white black').removeClass('man king').removeClass('selected');
+        board.clear();
+        var obj = JSON.parse(localStorage.getItem('checkers'));
+        checkers.loadBoard(board, obj.board);
+        game = checkers.createGame(board);
+        game.load(obj);
+        if (game.whiteTurn)
+            $('#controls').removeClass('dark').addClass('light');
+        else
+            $('#controls').removeClass('light').addClass('dark');
+    });
 });
 
 /**
- * @function setupBoard
- * @description setup checkers board
+ * @function subscribe
+ * @description subscribe to position changes on the checkers board
  * @access public
  * 
- * @param {JQuery<HTMLElement>} boardElement
  * @param {Board} board
  */
-function setupBoard(boardElement, board) {
-    markupBoard(boardElement);
-    board.position.forEach((piece, id) => {
-        $('#' + id).addClass(piece.colorClass).addClass(piece.kindClass);
-    });
+function subscribe(board) {
     board.onSet((piece, id) => {
         $('#' + id).addClass(piece.colorClass).addClass(piece.kindClass);
     });
@@ -99,7 +134,14 @@ function setupBoard(boardElement, board) {
     });
 }
 
-function cleanupBoard(board) {
+/**
+ * @function unsubscribe
+ * @description unsubscribe from position changes on the checkers board
+ * @access public
+ * 
+ * @param {Board} board
+ */
+function unsubscribe(board) {
     board.offSet((piece, id) => {
         $('#' + id).addClass(piece.colorClass).addClass(piece.kindClass);
     });
@@ -108,6 +150,13 @@ function cleanupBoard(board) {
     });
 }
 
+/**
+ * @function markupBoard
+ * @description markup checkers board
+ * @access public
+ * 
+ * @param {JQuery<HTMLElement>} boardElement
+ */
 function markupBoard(boardElement) {
     var rowElement = $('<div class="last-row"/>').appendTo(boardElement);
     appendLetterRow(rowElement);
@@ -119,6 +168,13 @@ function markupBoard(boardElement) {
     appendLetterRow(rowElement);
 }
 
+/**
+ * @function appendLetterRow
+ * @description append border row of the checkers board
+ * @access public
+ * 
+ * @param {JQuery<HTMLElement>} rowElement
+ */
 function appendLetterRow(rowElement) {
     $('<div class="corner">&nbsp;</div>').appendTo(rowElement);
     for (var i = 97; i < 105; i++) {
@@ -127,6 +183,13 @@ function appendLetterRow(rowElement) {
     $('<div class="corner">&nbsp;</div>').appendTo(rowElement);
 }
 
+/**
+ * @function appendCellRow
+ * @description append cell row of the checkers board
+ * @access public
+ * 
+ * @param {JQuery<HTMLElement>} rowElement
+ */
 function appendCellRow(rowElement, index) {
     $('<div class="digit" />').appendTo(rowElement).text(index);
     for (var i = 97; i < 105; i++) {

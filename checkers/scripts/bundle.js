@@ -545,6 +545,10 @@ class Man extends Piece {
       }
 }
 
+/**
+* Checkers Board
+* @description checkers board
+*/
 class Board {
 
     /**
@@ -557,9 +561,9 @@ class Board {
      *
      * @return {type} Description
      */
-    constructor(size = 8, position = null) {
+    constructor(size = 8) {
         this.size = size;
-        this.position = (position != null) ? position : Board.defaultPosition(size);
+        this.position = new Map();
         this._onSet = new Set();
         this._onDelete = new Set();
     }
@@ -582,75 +586,6 @@ class Board {
     offDelete(f) {
         this._onDelete.delete(f);
         return this;
-    }
-
-    /**
-     * @static defaultPosition
-     * @description default initial position
-     * @access public
-     *
-     * @param {number} size board size
-     * @param {number} initRows number of rows to initialize
-     *
-     * @return {Map} map
-     */
-    static defaultPosition(size = 8, initRows = 3) {
-        var cell = new Cell(0, 0);
-        var map = new Map();
-        for (var i = 0; i < initRows; i++) {
-            cell.row = i;
-            for (var j = 0; j < size; j++) {
-                if (((i + j) & 1) == 0) {
-                    cell.column = j;
-                    map.set(cell.cellId, new Man(true, i, j));
-                }
-            }
-        }
-        for (var i = size - initRows; i < size; i++) {
-            cell.row = i;
-            for (var j = 0; j < size; j++) {
-                if (((i + j) & 1) == 0) {
-                    cell.column = j;
-                    map.set(cell.cellId, new Man(false, i, j));
-                }
-            }
-        }
-        return map;
-    }
-
-    /**
-     * @static loadPosition
-     * @description Description
-     * @access public
-     *
-     * @param {array} position
-     *
-     * @return {Map} map
-     */
-    static loadPosition(pos = []) {
-        var piece = null;
-        var cell = new Cell(0, 0);
-        var map = new Map();
-        pos.forEach(p => {
-            switch (p.kind) {
-                case 1:
-                    piece = new Man(p.white, p.row, p.column);
-                    break;
-                case 2:
-                    piece = new King(p.white, p.row, p.column);
-                    break;
-            }
-            if (piece != null) {
-                cell.row = p.row;
-                cell.column = p.column;
-                map.set(cell.cellId, piece);
-            }
-        });
-        return map;
-    }
-
-    storePosition() {
-        return Array.from(this.position.values());
     }
 
     /**
@@ -685,7 +620,11 @@ class Board {
                 count++;
             }
         });
-       return count;
+        return count;
+    }
+
+    clear() {
+        this.position.clear();
     }
 
     /**
@@ -701,6 +640,16 @@ class Board {
         return this.position.get(id);
     }
 
+    /**
+     * @function setPiece
+     * @description set piece in the cell by id
+     * @access public
+     *
+     * @param {string} id    cell id
+     * @param {Piece} piece  piece to be set
+     *
+     * @return {Piece} previous piece in the cell
+     */
     setPiece(id, piece) {
         var previous = this.position.get(id);
         this.position.set(id, piece);
@@ -708,6 +657,15 @@ class Board {
         return previous;
     }
 
+    /**
+     * @function deletePiece
+     * @description delete piece in the cell by id
+     * @access public
+     *
+     * @param {string} id    cell id
+     *
+     * @return {Piece} previous piece in the cell
+     */
     deletePiece(id) {
         var piece = this.position.get(id);
         if (piece != null) {
@@ -715,6 +673,10 @@ class Board {
             this._onDelete.forEach(f => f(piece, id));
         }
         return piece;
+    }
+
+    toJSON() {
+        return Array.from(this.position.values());
     }
 }
 
@@ -732,6 +694,7 @@ class Game {
      * @param {Board} board board
      */
     constructor(board) {
+        this.id = Math.floor(Math.random() * 10000);
         this.finished = false;
         this.result = 0;
         this.whiteTurn = true;
@@ -803,6 +766,119 @@ class Game {
         }
         return false;
     }
+
+    load(obj) {
+        this.id = obj.id;
+        this.finished = obj.finished;
+        this.result = obj.result;
+        this.whiteTurn = obj.whiteTurn;
+        this.selected = obj.selected;
+        this.selectableForJump = obj.selectableForJump;
+    }
+}
+
+/**
+* Russian Checkers
+* @description Russian checkers factory
+*/
+class RussianCheckers {
+
+    /**
+     * @function constructor
+     * @description Create checkers board
+     * @access public
+     *
+     * @param {number} initRows number of rows to initialize
+     *
+     */
+    constructor(initRows = 3) {
+        this.initRows = initRows;
+    }
+
+    /**
+     * @function createBoard
+     * @description create the board
+     * @access public
+     *
+     * @return {Board} board
+     *
+     */
+    createBoard() {
+        return new Board();
+    }
+
+    /**
+     * @function setupBoard
+     * @description setup default initial position on the board
+     * @access public
+     *
+     * @param {Board} board board
+     *
+     */
+    setupBoard(board) {
+        var cell = new Cell(0, 0);
+        for (var i = 0; i < this.initRows; i++) {
+            cell.row = i;
+            for (var j = 0; j < board.size; j++) {
+                if (((i + j) & 1) == 0) {
+                    cell.column = j;
+                    board.setPiece(cell.cellId, new Man(true, i, j));
+                }
+            }
+        }
+        for (var i = board.size - this.initRows; i < board.size; i++) {
+            cell.row = i;
+            for (var j = 0; j < board.size; j++) {
+                if (((i + j) & 1) == 0) {
+                    cell.column = j;
+                    board.setPiece(cell.cellId, new Man(false, i, j));
+                }
+            }
+        }
+    }
+
+    /**
+     * @function loadBoard
+     * @description load position to the board
+     * @access public
+     *
+     * @param {Board} board board
+     * @param {array} position
+     *
+     */
+    loadBoard(board, pos = []) {
+        var piece = null;
+        var cell = new Cell(0, 0);
+        pos.forEach(p => {
+            switch (p.kind) {
+                case 1:
+                    piece = new Man(p.white, p.row, p.column);
+                    break;
+                case 2:
+                    piece = new King(p.white, p.row, p.column);
+                    break;
+            }
+            if (piece != null) {
+                cell.row = p.row;
+                cell.column = p.column;
+                board.setPiece(cell.cellId, piece);
+            }
+        });
+    }
+
+    /**
+     * @function createGame
+     * @description create the game
+     * @access public
+     *
+     * @param {Board} board board
+     *
+     * @return {Game} board
+     */
+    createGame(board) {
+        return new Game(board);
+    }
+
 }
 
 //@codekit-prepend piece.js
@@ -810,13 +886,17 @@ class Game {
 //@codekit-prepend king.js
 //@codekit-prepend board.js
 //@codekit-prepend game.js
+//@codekit-prepend checkers.js
 
 //import $ from 'jquery';
 
 $(function () {
-    var board = new Board();
-    var game = new Game(board);
-    setupBoard($('#board'), board);
+    markupBoard($('#board'));
+    var checkers = new RussianCheckers();
+    var board = checkers.createBoard();
+    subscribe(board);
+    checkers.setupBoard(board);
+    var game = checkers.createGame(board);
     $('.cell').click(function () {
         var selected = game.selected;
         if (selected == null) {
@@ -858,8 +938,14 @@ $(function () {
                             $('#' + selected).removeClass('selected');
                             if (game.selected != null)
                                 $(this).addClass('selected');
-                            else if (game.finished) {
-                                alert(`Game over: ${game.result > 0 ? 'light' : 'dark'} won`);
+                            else {
+                                if (game.whiteTurn)
+                                    $('#controls').removeClass('dark').addClass('light');
+                                else
+                                    $('#controls').removeClass('light').addClass('dark');
+                                if (game.finished) {
+                                    alert(`Game over: ${game.result > 0 ? 'light' : 'dark'} won`);
+                                }
                             }
                         }
                         else {
@@ -871,6 +957,12 @@ $(function () {
                             $('#' + selected).removeClass('selected');
                             if (game.selected != null)
                                 $(this).addClass('selected');
+                            else {
+                                if (game.whiteTurn)
+                                    $('#controls').removeClass('dark').addClass('light');
+                                else
+                                    $('#controls').removeClass('light').addClass('dark');
+                           }
                         }
                         else {
                             alert('You can not move to this cell on the board');
@@ -883,21 +975,40 @@ $(function () {
             }
         }
     });
+
+    $('#new').click(function () {
+        $('.cell').removeClass('white black').removeClass('man king').removeClass('selected');
+        board.clear();
+        checkers.setupBoard(board);
+        game = checkers.createGame(board);
+    });
+
+    $('#save').click(function () {
+        localStorage.setItem('checkers', JSON.stringify(game));
+    });
+
+    $('#load').click(function () {
+        $('.cell').removeClass('white black').removeClass('man king').removeClass('selected');
+        board.clear();
+        var obj = JSON.parse(localStorage.getItem('checkers'));
+        checkers.loadBoard(board, obj.board);
+        game = checkers.createGame(board);
+        game.load(obj);
+        if (game.whiteTurn)
+            $('#controls').removeClass('dark').addClass('light');
+        else
+            $('#controls').removeClass('light').addClass('dark');
+    });
 });
 
 /**
- * @function setupBoard
- * @description setup checkers board
+ * @function subscribe
+ * @description subscribe to position changes on the checkers board
  * @access public
  * 
- * @param {JQuery<HTMLElement>} boardElement
  * @param {Board} board
  */
-function setupBoard(boardElement, board) {
-    markupBoard(boardElement);
-    board.position.forEach((piece, id) => {
-        $('#' + id).addClass(piece.colorClass).addClass(piece.kindClass);
-    });
+function subscribe(board) {
     board.onSet((piece, id) => {
         $('#' + id).addClass(piece.colorClass).addClass(piece.kindClass);
     });
@@ -906,7 +1017,14 @@ function setupBoard(boardElement, board) {
     });
 }
 
-function cleanupBoard(board) {
+/**
+ * @function unsubscribe
+ * @description unsubscribe from position changes on the checkers board
+ * @access public
+ * 
+ * @param {Board} board
+ */
+function unsubscribe(board) {
     board.offSet((piece, id) => {
         $('#' + id).addClass(piece.colorClass).addClass(piece.kindClass);
     });
@@ -915,6 +1033,13 @@ function cleanupBoard(board) {
     });
 }
 
+/**
+ * @function markupBoard
+ * @description markup checkers board
+ * @access public
+ * 
+ * @param {JQuery<HTMLElement>} boardElement
+ */
 function markupBoard(boardElement) {
     var rowElement = $('<div class="last-row"/>').appendTo(boardElement);
     appendLetterRow(rowElement);
@@ -926,6 +1051,13 @@ function markupBoard(boardElement) {
     appendLetterRow(rowElement);
 }
 
+/**
+ * @function appendLetterRow
+ * @description append border row of the checkers board
+ * @access public
+ * 
+ * @param {JQuery<HTMLElement>} rowElement
+ */
 function appendLetterRow(rowElement) {
     $('<div class="corner">&nbsp;</div>').appendTo(rowElement);
     for (var i = 97; i < 105; i++) {
@@ -934,6 +1066,13 @@ function appendLetterRow(rowElement) {
     $('<div class="corner">&nbsp;</div>').appendTo(rowElement);
 }
 
+/**
+ * @function appendCellRow
+ * @description append cell row of the checkers board
+ * @access public
+ * 
+ * @param {JQuery<HTMLElement>} rowElement
+ */
 function appendCellRow(rowElement, index) {
     $('<div class="digit" />').appendTo(rowElement).text(index);
     for (var i = 97; i < 105; i++) {
