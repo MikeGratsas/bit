@@ -19,8 +19,54 @@ class Game {
         this.selected = null;
         this.selectableForJump = null;
         this.board = board;
+        this._onTurn = new Set();
     }
 
+    /**
+     * @function onTurn
+     * @description subscribe to event
+     * @access public
+     *
+     * @param {function} f callback function
+     *
+     * @return {Game} this game
+     */
+    onTurn(f) {
+        this._onTurn.add(f);
+        return this;
+    }
+
+    /**
+     * @function offTurn
+     * @description subscribe from event
+     * @access public
+     *
+     * @param {function} f callback function
+     *
+     * @return {Game} this game
+     */
+    offTurn(f) {
+        this._onTurn.delete(f);
+        return this;
+    }
+
+    /**
+     * @function toggleTurn
+     * @description toggle player turn
+     * @access public
+     *
+     */
+    toggleTurn() {
+      this.whiteTurn = !this.whiteTurn;
+      this._onTurn.forEach(f => f(this.whiteTurn));
+    }
+
+    /**
+     * @function prepare
+     * @description prepare to find selectable for current player jump
+     * @access public
+     *
+     */
     prepare() {
         if (this.selectableForJump == null) {
             this.selectableForJump = this.board.findSelectableForJump(this.whiteTurn);
@@ -51,7 +97,7 @@ class Game {
             else {
                 this.selected = null;
                 this.selectableForJump = null;
-                this.whiteTurn = !this.whiteTurn;
+                this.toggleTurn();
                 if (this.board.countPieces(this.whiteTurn) == 0) {
                     this.finished = true;
                     this.result = this.whiteTurn ? -1 : 1;
@@ -79,12 +125,19 @@ class Game {
             this.board.setPiece(id, piece.move(this.board, cell));
             this.selected = null;
             this.selectableForJump = null;
-            this.whiteTurn = !this.whiteTurn;
+            this.toggleTurn();
             return true;
         }
         return false;
     }
 
+    /**
+     * @function load
+     * @description load from restored object
+     * @access public
+     *
+     * @param {object} obj Description
+     */
     load(obj) {
         this.id = obj.id;
         this.finished = obj.finished;

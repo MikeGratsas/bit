@@ -1,3 +1,4 @@
+//@codekit-prepend cell.js
 //@codekit-prepend piece.js
 //@codekit-prepend man.js
 //@codekit-prepend king.js
@@ -11,85 +12,81 @@ $(function () {
     markupBoard($('#board'));
     var checkers = new RussianCheckers();
     var board = checkers.createBoard();
-    subscribe(board);
+    subscribeToBoard(board);
     checkers.setupBoard(board);
     var game = checkers.createGame(board);
+    subscribeToGame(game);
     $('.cell').click(function () {
-        var selected = game.selected;
-        if (selected == null) {
-            game.prepare();
-            var piece = board.getPiece(this.id);
-            if (piece == null)
-                alert('You have to select a piece');
-            else if (piece.white != game.whiteTurn)
-                alert(`You have to select a ${game.whiteTurn ? 'light' : 'dark'} piece`);
-            else if (game.selectableForJump.length > 0) {
-                if (game.selectableForJump.indexOf(this.id) >= 0) {
-                    game.selected = this.id;
-                    $(this).addClass('selected');
-                }
-                else {
-                    alert('You have to select another piece to jump: ' + game.selectableForJump);
-                }
-            }
-            else {
-                if (piece.isSelectableToMove(board)) {
-                    game.selected = this.id;
-                    $(this).addClass('selected');
-                }
-                else {
-                    alert('You have to select another piece to move');
-                }
-            }
+        if (game.finished) {
+          alert(`Game over: ${game.result > 0 ? 'light' : 'dark'} won`);
         }
         else {
-            var piece = board.getPiece(selected);
-            if (piece == null) {
-                alert('Piece is not selected');
-            }
-            else {
-                var to = board.getPiece(this.id);
-                if (to == null) {
-                    if (piece.isSelectableForJump(board)) {
-                        if (game.tryToJump(piece, this.id)) {
-                            $('#' + selected).removeClass('selected');
-                            if (game.selected != null)
-                                $(this).addClass('selected');
-                            else {
-                                if (game.whiteTurn)
-                                    $('#controls').removeClass('dark').addClass('light');
-                                else
-                                    $('#controls').removeClass('light').addClass('dark');
-                                if (game.finished) {
-                                    alert(`Game over: ${game.result > 0 ? 'light' : 'dark'} won`);
-                                }
-                            }
-                        }
-                        else {
-                            alert('You can not jump to this cell on the board');
-                        }
-                    }
-                    else {
-                        if (game.tryToMove(piece, this.id)) {
-                            $('#' + selected).removeClass('selected');
-                            if (game.selected != null)
-                                $(this).addClass('selected');
-                            else {
-                                if (game.whiteTurn)
-                                    $('#controls').removeClass('dark').addClass('light');
-                                else
-                                    $('#controls').removeClass('light').addClass('dark');
-                           }
-                        }
-                        else {
-                            alert('You can not move to this cell on the board');
-                        }
-                    }
-                }
-                else {
-                    alert('You have to move to unoccupied square on the board');
-                }
-            }
+          var selected = game.selected;
+          if (selected == null) {
+              game.prepare();
+              var piece = board.getPiece(this.id);
+              if (piece == null)
+                  alert('You have to select a piece');
+              else if (piece.white != game.whiteTurn)
+                  alert(`You have to select a ${game.whiteTurn ? 'light' : 'dark'} piece`);
+              else if (game.selectableForJump.length > 0) {
+                  if (game.selectableForJump.indexOf(this.id) >= 0) {
+                      game.selected = this.id;
+                      $(this).addClass('selected');
+                  }
+                  else {
+                      alert('You have to select another piece to jump: ' + game.selectableForJump);
+                  }
+              }
+              else {
+                  if (piece.isSelectableToMove(board)) {
+                      game.selected = this.id;
+                      $(this).addClass('selected');
+                  }
+                  else {
+                      alert('You have to select another piece to move');
+                  }
+              }
+          }
+          else {
+              var piece = board.getPiece(selected);
+              if (piece == null) {
+                  alert('Piece is not selected');
+              }
+              else {
+                  var to = board.getPiece(this.id);
+                  if (to == null) {
+                      if (piece.isSelectableForJump(board)) {
+                          if (game.tryToJump(piece, this.id)) {
+                              $('#' + selected).removeClass('selected');
+                              if (game.selected != null)
+                                  $(this).addClass('selected');
+                              else {
+                                  if (game.finished) {
+                                      alert(`Game over: ${game.result > 0 ? 'light' : 'dark'} won`);
+                                  }
+                              }
+                          }
+                          else {
+                              alert('You can not jump to this cell on the board');
+                          }
+                      }
+                      else {
+                          if (game.tryToMove(piece, this.id)) {
+                              $('#' + selected).removeClass('selected');
+                              if (game.selected != null)
+                                  $(this).addClass('selected');
+                          }
+                          else {
+                              alert('You can not move to this cell on the board');
+                          }
+                      }
+                  }
+                  else {
+                      alert('You have to move to unoccupied square on the board');
+                  }
+              }
+          }
         }
     });
 
@@ -111,21 +108,18 @@ $(function () {
         checkers.loadBoard(board, obj.board);
         game = checkers.createGame(board);
         game.load(obj);
-        if (game.whiteTurn)
-            $('#controls').removeClass('dark').addClass('light');
-        else
-            $('#controls').removeClass('light').addClass('dark');
+        showTurn(game.whiteTurn);
     });
 });
 
 /**
- * @function subscribe
+ * @function subscribeToBoard
  * @description subscribe to position changes on the checkers board
  * @access public
- * 
+ *
  * @param {Board} board
  */
-function subscribe(board) {
+function subscribeToBoard(board) {
     board.onSet((piece, id) => {
         $('#' + id).addClass(piece.colorClass).addClass(piece.kindClass);
     });
@@ -135,13 +129,13 @@ function subscribe(board) {
 }
 
 /**
- * @function unsubscribe
+ * @function unsubscribeToBoard
  * @description unsubscribe from position changes on the checkers board
  * @access public
- * 
+ *
  * @param {Board} board
  */
-function unsubscribe(board) {
+function unsubscribeToBoard(board) {
     board.offSet((piece, id) => {
         $('#' + id).addClass(piece.colorClass).addClass(piece.kindClass);
     });
@@ -151,10 +145,46 @@ function unsubscribe(board) {
 }
 
 /**
+ * @function subscribeToGame
+ * @description subscribe to state changes on the game
+ * @access public
+ *
+ * @param {Game} game
+ */
+function subscribeToGame(game) {
+    game.onTurn(showTurn);
+}
+
+/**
+ * @function unsubscribeToGame
+ * @description unsubscribe from state changes on the game
+ * @access public
+ *
+ * @param {Game} game
+ */
+function unsubscribeToGame(game) {
+    game.offTurn(showTurn);
+}
+
+/**
+ * @function showTurn
+ * @description show current player
+ * @access public
+ *
+ * @param {boolean} whiteTurn is white turn
+ */
+function showTurn(whiteTurn) {
+  if (whiteTurn)
+      $('#controls').removeClass('dark').addClass('light');
+  else
+      $('#controls').removeClass('light').addClass('dark');
+}
+
+/**
  * @function markupBoard
  * @description markup checkers board
  * @access public
- * 
+ *
  * @param {JQuery<HTMLElement>} boardElement
  */
 function markupBoard(boardElement) {
@@ -172,7 +202,7 @@ function markupBoard(boardElement) {
  * @function appendLetterRow
  * @description append border row of the checkers board
  * @access public
- * 
+ *
  * @param {JQuery<HTMLElement>} rowElement
  */
 function appendLetterRow(rowElement) {
@@ -187,7 +217,7 @@ function appendLetterRow(rowElement) {
  * @function appendCellRow
  * @description append cell row of the checkers board
  * @access public
- * 
+ *
  * @param {JQuery<HTMLElement>} rowElement
  */
 function appendCellRow(rowElement, index) {

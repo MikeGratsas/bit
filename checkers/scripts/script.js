@@ -1,19 +1,21 @@
-﻿/**
- * Cell
- * @description checkers board cell
- * @abstract
- */
 'use strict';
 
-var _get = function get(_x4, _x5, _x6) { var _again = true; _function: while (_again) { var object = _x4, property = _x5, receiver = _x6; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x4 = parent; _x5 = property; _x6 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Cell = (function () {
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+* Cell
+* @description checkers board cell
+* @abstract
+*/
+var Cell = function () {
 
     /**
      * @function constructor
@@ -23,7 +25,6 @@ var Cell = (function () {
      * @param {number} row    board row
      * @param {number} column board column
      */
-
     function Cell(row, column) {
         _classCallCheck(this, Cell);
 
@@ -32,18 +33,13 @@ var Cell = (function () {
     }
 
     /**
-     * Piece
-     * @description checkers piece
-     * @abstract
-     */
-
-    /**
      * @function cellId
      * @description get cell id
      * @access public
      *
      * @return {string} cell id
      */
+
 
     _createClass(Cell, [{
         key: 'cellId',
@@ -60,6 +56,7 @@ var Cell = (function () {
           *
          * @return {Cell} cell
          */
+
     }], [{
         key: 'fromId',
         value: function fromId(id) {
@@ -68,9 +65,16 @@ var Cell = (function () {
     }]);
 
     return Cell;
-})();
+}();
 
-var Piece = (function () {
+/**
+ * Piece
+ * @description checkers piece
+ * @abstract
+ */
+
+
+var Piece = function () {
 
     /**
      * @function constructor
@@ -82,7 +86,6 @@ var Piece = (function () {
      * @param {number} row    board row
      * @param {number} column board column
      */
-
     function Piece(kind, white, row, column) {
         _classCallCheck(this, Piece);
 
@@ -93,12 +96,6 @@ var Piece = (function () {
     }
 
     /**
-     * Man
-     * @description man
-     * @extends Piece
-     */
-
-    /**
      * @function colorClass
      * @description get color class
      * @access public
@@ -106,8 +103,10 @@ var Piece = (function () {
      * @return {string} color class
      */
 
+
     _createClass(Piece, [{
         key: 'canMove',
+
 
         /**
          * @function canMove
@@ -132,6 +131,7 @@ var Piece = (function () {
          *
          * @return {string} cell id to caputue
          */
+
     }, {
         key: 'findCapture',
         value: function findCapture(board, cell) {
@@ -147,6 +147,7 @@ var Piece = (function () {
          *
          * @return {boolean} if can capture
          */
+
     }, {
         key: 'canCapture',
         value: function canCapture(piece) {
@@ -162,6 +163,7 @@ var Piece = (function () {
          *
          * @return {boolean} if is selectable for jump
          */
+
     }, {
         key: 'isSelectableForJump',
         value: function isSelectableForJump(board) {
@@ -177,6 +179,7 @@ var Piece = (function () {
          *
          * @return {boolean} if is selectable to move
          */
+
     }, {
         key: 'isSelectableToMove',
         value: function isSelectableToMove(board) {
@@ -193,6 +196,7 @@ var Piece = (function () {
          *
          * @return {Piece} this piece
          */
+
     }, {
         key: 'move',
         value: function move(board, cell) {
@@ -213,6 +217,7 @@ var Piece = (function () {
          *
          * @return {string} kind class
          */
+
     }, {
         key: 'kindClass',
         get: function get() {
@@ -221,9 +226,16 @@ var Piece = (function () {
     }]);
 
     return Piece;
-})();
+}();
 
-var Man = (function (_Piece) {
+/**
+ * Man
+ * @description man
+ * @extends Piece
+ */
+
+
+var Man = function (_Piece) {
     _inherits(Man, _Piece);
 
     /**
@@ -235,18 +247,11 @@ var Man = (function (_Piece) {
      * @param {number} row    board row
      * @param {number} column board column
      */
-
     function Man(white, row, column) {
         _classCallCheck(this, Man);
 
-        _get(Object.getPrototypeOf(Man.prototype), 'constructor', this).call(this, 1, white, row, column);
+        return _possibleConstructorReturn(this, (Man.__proto__ || Object.getPrototypeOf(Man)).call(this, 1, white, row, column));
     }
-
-    /**
-     * King
-     * @description king
-     * @extends Piece
-     */
 
     /**
      * @function kindClass
@@ -256,8 +261,10 @@ var Man = (function (_Piece) {
      * @return {string} kind class
      */
 
+
     _createClass(Man, [{
         key: 'canMove',
+
 
         /**
          * @function canMove
@@ -282,6 +289,7 @@ var Man = (function (_Piece) {
          *
          * @return {string} cell id to caputue
          */
+
     }, {
         key: 'findCapture',
         value: function findCapture(board, cell) {
@@ -307,6 +315,7 @@ var Man = (function (_Piece) {
          *
          * @return {boolean} if can capture
          */
+
     }, {
         key: 'canCapture',
         value: function canCapture(piece) {
@@ -322,6 +331,7 @@ var Man = (function (_Piece) {
          *
          * @return {boolean} if is selectable for jump
          */
+
     }, {
         key: 'isSelectableForJump',
         value: function isSelectableForJump(board) {
@@ -365,12 +375,13 @@ var Man = (function (_Piece) {
          *
          * @return {boolean} if is selectable to move
          */
+
     }, {
         key: 'isSelectableToMove',
         value: function isSelectableToMove(board) {
             if (this.white) {
                 if (this.row < board.size - 1) {
-                    if (this.column > 1) {
+                    if (this.column > 0) {
                         if (board.getCellPiece(this.row + 1, this.column - 1) == null) return true;
                     }
                     if (this.column < board.size - 1) {
@@ -400,11 +411,12 @@ var Man = (function (_Piece) {
          *
          * @return {Piece} this piece
          */
+
     }, {
         key: 'move',
         value: function move(board, cell) {
             if (cell.row == (this.white ? board.size - 1 : 0)) return new King(this.white, cell.row, cell.column);
-            return _get(Object.getPrototypeOf(Man.prototype), 'move', this).call(this, board, cell);
+            return _get(Man.prototype.__proto__ || Object.getPrototypeOf(Man.prototype), 'move', this).call(this, board, cell);
         }
     }, {
         key: 'kindClass',
@@ -414,9 +426,15 @@ var Man = (function (_Piece) {
     }]);
 
     return Man;
-})(Piece);
+}(Piece);
 
-var King = (function (_Piece2) {
+/**
+ * King
+ * @description king
+ * @extends Piece
+ */
+
+var King = function (_Piece2) {
     _inherits(King, _Piece2);
 
     /**
@@ -428,17 +446,11 @@ var King = (function (_Piece2) {
      * @param {number} row    board row
      * @param {number} column board column
      */
-
     function King(white, row, column) {
         _classCallCheck(this, King);
 
-        _get(Object.getPrototypeOf(King.prototype), 'constructor', this).call(this, 2, white, row, column);
+        return _possibleConstructorReturn(this, (King.__proto__ || Object.getPrototypeOf(King)).call(this, 2, white, row, column));
     }
-
-    /**
-    * Checkers Board
-    * @description checkers board
-    */
 
     /**
      * @function kindClass
@@ -448,8 +460,10 @@ var King = (function (_Piece2) {
      * @return {string} kind class
      */
 
+
     _createClass(King, [{
         key: 'canMove',
+
 
         /**
          * @function canMove
@@ -474,6 +488,7 @@ var King = (function (_Piece2) {
          *
          * @return {string} cell id to caputue
          */
+
     }, {
         key: 'findCapture',
         value: function findCapture(board, cell) {
@@ -505,6 +520,7 @@ var King = (function (_Piece2) {
          *
          * @return {boolean} if can capture
          */
+
     }, {
         key: 'canCapture',
         value: function canCapture(piece) {
@@ -520,6 +536,7 @@ var King = (function (_Piece2) {
          *
          * @return {boolean} if is selectable for jump
          */
+
     }, {
         key: 'isSelectableForJump',
         value: function isSelectableForJump(board) {
@@ -587,11 +604,12 @@ var King = (function (_Piece2) {
          *
          * @return {boolean} if is selectable to move
          */
+
     }, {
         key: 'isSelectableToMove',
         value: function isSelectableToMove(board) {
             if (this.row < board.size - 1) {
-                if (this.column > 1) {
+                if (this.column > 0) {
                     if (board.getCellPiece(this.row + 1, this.column - 1) == null) return true;
                 }
                 if (this.column < board.size - 1) {
@@ -616,9 +634,15 @@ var King = (function (_Piece2) {
     }]);
 
     return King;
-})(Piece);
+}(Piece);
 
-var Board = (function () {
+/**
+* Checkers Board
+* @description checkers board
+*/
+
+
+var Board = function () {
 
     /**
      * @function constructor
@@ -630,9 +654,8 @@ var Board = (function () {
      *
      * @return {type} Description
      */
-
     function Board() {
-        var size = arguments.length <= 0 || arguments[0] === undefined ? 8 : arguments[0];
+        var size = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 8;
 
         _classCallCheck(this, Board);
 
@@ -643,9 +666,15 @@ var Board = (function () {
     }
 
     /**
-     * Game
-     * @description checkers game
+     * @function onSet
+     * @description subscribe to event
+     * @access public
+     *
+     * @param {function} f callback function
+     *
+     * @return {Board} this board
      */
+
 
     _createClass(Board, [{
         key: 'onSet',
@@ -653,22 +682,55 @@ var Board = (function () {
             this._onSet.add(f);
             return this;
         }
+
+        /**
+         * @function offSet
+         * @description unsubscribe from event
+         * @access public
+         *
+         * @param {function} f callback function
+         *
+         * @return {Board} this board
+         */
+
     }, {
         key: 'offSet',
         value: function offSet(f) {
-            this._onSet['delete'](f);
+            this._onSet.delete(f);
             return this;
         }
+
+        /**
+         * @function onDelete
+         * @description subscribe to event
+         * @access public
+         *
+         * @param {function} f callback function
+         *
+         * @return {Board} this board
+         */
+
     }, {
         key: 'onDelete',
         value: function onDelete(f) {
             this._onDelete.add(f);
             return this;
         }
+
+        /**
+         * @function offDelete
+         * @description unsubscribe from event
+         * @access public
+         *
+         * @param {function} f callback function
+         *
+         * @return {Board} this board
+         */
+
     }, {
         key: 'offDelete',
         value: function offDelete(f) {
-            this._onDelete['delete'](f);
+            this._onDelete.delete(f);
             return this;
         }
 
@@ -682,25 +744,48 @@ var Board = (function () {
          *
          * @return {Piece} piece in the cell
          */
+
     }, {
         key: 'getCellPiece',
         value: function getCellPiece(row, column) {
             var cell = new Cell(row, column);
             return this.getPiece(cell.cellId);
         }
+
+        /**
+         * @function findSelectableForJump
+         * @description find selectable for current player's jump
+         * @access public
+         *
+         * @param {boolean} white is white
+         *
+         * @return {Array} array of id's
+         */
+
     }, {
         key: 'findSelectableForJump',
         value: function findSelectableForJump(white) {
-            var _this = this;
+            var _this3 = this;
 
             var selectable = [];
             this.position.forEach(function (piece, id) {
-                if (piece.white == white && piece.isSelectableForJump(_this)) {
+                if (piece.white == white && piece.isSelectableForJump(_this3)) {
                     selectable.push(id);
                 }
             });
             return selectable;
         }
+
+        /**
+         * @function countPieces
+         * @description count pieces of current player
+         * @access public
+         *
+         * @param {boolean} white is white
+         *
+         * @return {number} counter
+         */
+
     }, {
         key: 'countPieces',
         value: function countPieces(white) {
@@ -712,6 +797,14 @@ var Board = (function () {
             });
             return count;
         }
+
+        /**
+         * @function clear
+         * @description clear position
+         * @access public
+         *
+         */
+
     }, {
         key: 'clear',
         value: function clear() {
@@ -727,6 +820,7 @@ var Board = (function () {
          *
          * @return {Piece} piece in the cell
          */
+
     }, {
         key: 'getPiece',
         value: function getPiece(id) {
@@ -743,6 +837,7 @@ var Board = (function () {
          *
          * @return {Piece} previous piece in the cell
          */
+
     }, {
         key: 'setPiece',
         value: function setPiece(id, piece) {
@@ -763,18 +858,28 @@ var Board = (function () {
          *
          * @return {Piece} previous piece in the cell
          */
+
     }, {
         key: 'deletePiece',
         value: function deletePiece(id) {
             var piece = this.position.get(id);
             if (piece != null) {
-                this.position['delete'](id);
+                this.position.delete(id);
                 this._onDelete.forEach(function (f) {
                     return f(piece, id);
                 });
             }
             return piece;
         }
+
+        /**
+         * @function toJSON
+         * @description serialize to JSON format
+         * @access public
+         *
+         * @return {Array} current position
+         */
+
     }, {
         key: 'toJSON',
         value: function toJSON() {
@@ -783,9 +888,15 @@ var Board = (function () {
     }]);
 
     return Board;
-})();
+}();
 
-var Game = (function () {
+/**
+ * Game
+ * @description checkers game
+ */
+
+
+var Game = function () {
     /**
      * @function constructor
      * @description checkers game
@@ -793,7 +904,6 @@ var Game = (function () {
      *
      * @param {Board} board board
      */
-
     function Game(board) {
         _classCallCheck(this, Game);
 
@@ -804,14 +914,70 @@ var Game = (function () {
         this.selected = null;
         this.selectableForJump = null;
         this.board = board;
+        this._onTurn = new Set();
     }
 
     /**
-    * Russian Checkers
-    * @description Russian checkers factory
-    */
+     * @function onTurn
+     * @description subscribe to event
+     * @access public
+     *
+     * @param {function} f callback function
+     *
+     * @return {Game} this game
+     */
+
 
     _createClass(Game, [{
+        key: 'onTurn',
+        value: function onTurn(f) {
+            this._onTurn.add(f);
+            return this;
+        }
+
+        /**
+         * @function offTurn
+         * @description subscribe from event
+         * @access public
+         *
+         * @param {function} f callback function
+         *
+         * @return {Game} this game
+         */
+
+    }, {
+        key: 'offTurn',
+        value: function offTurn(f) {
+            this._onTurn.delete(f);
+            return this;
+        }
+
+        /**
+         * @function toggleTurn
+         * @description toggle player turn
+         * @access public
+         *
+         */
+
+    }, {
+        key: 'toggleTurn',
+        value: function toggleTurn() {
+            var _this4 = this;
+
+            this.whiteTurn = !this.whiteTurn;
+            this._onTurn.forEach(function (f) {
+                return f(_this4.whiteTurn);
+            });
+        }
+
+        /**
+         * @function prepare
+         * @description prepare to find selectable for current player jump
+         * @access public
+         *
+         */
+
+    }, {
         key: 'prepare',
         value: function prepare() {
             if (this.selectableForJump == null) {
@@ -829,6 +995,7 @@ var Game = (function () {
          *
          * @return {boolean} if can jump
          */
+
     }, {
         key: 'tryToJump',
         value: function tryToJump(piece, id) {
@@ -844,7 +1011,7 @@ var Game = (function () {
                 } else {
                     this.selected = null;
                     this.selectableForJump = null;
-                    this.whiteTurn = !this.whiteTurn;
+                    this.toggleTurn();
                     if (this.board.countPieces(this.whiteTurn) == 0) {
                         this.finished = true;
                         this.result = this.whiteTurn ? -1 : 1;
@@ -865,6 +1032,7 @@ var Game = (function () {
          *
          * @return {boolean} if can move
          */
+
     }, {
         key: 'tryToMove',
         value: function tryToMove(piece, id) {
@@ -874,11 +1042,20 @@ var Game = (function () {
                 this.board.setPiece(id, piece.move(this.board, cell));
                 this.selected = null;
                 this.selectableForJump = null;
-                this.whiteTurn = !this.whiteTurn;
+                this.toggleTurn();
                 return true;
             }
             return false;
         }
+
+        /**
+         * @function load
+         * @description load from restored object
+         * @access public
+         *
+         * @param {object} obj Description
+         */
+
     }, {
         key: 'load',
         value: function load(obj) {
@@ -892,9 +1069,15 @@ var Game = (function () {
     }]);
 
     return Game;
-})();
+}();
 
-var RussianCheckers = (function () {
+/**
+* Russian Checkers
+* @description Russian checkers factory
+*/
+
+
+var RussianCheckers = function () {
 
     /**
      * @function constructor
@@ -904,23 +1087,13 @@ var RussianCheckers = (function () {
      * @param {number} initRows number of rows to initialize
      *
      */
-
     function RussianCheckers() {
-        var initRows = arguments.length <= 0 || arguments[0] === undefined ? 3 : arguments[0];
+        var initRows = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 3;
 
         _classCallCheck(this, RussianCheckers);
 
         this.initRows = initRows;
     }
-
-    //@codekit-prepend piece.js
-    //@codekit-prepend man.js
-    //@codekit-prepend king.js
-    //@codekit-prepend board.js
-    //@codekit-prepend game.js
-    //@codekit-prepend checkers.js
-
-    //import $ from 'jquery';
 
     /**
      * @function createBoard
@@ -930,6 +1103,7 @@ var RussianCheckers = (function () {
      * @return {Board} board
      *
      */
+
 
     _createClass(RussianCheckers, [{
         key: 'createBoard',
@@ -945,6 +1119,7 @@ var RussianCheckers = (function () {
          * @param {Board} board board
          *
          */
+
     }, {
         key: 'setupBoard',
         value: function setupBoard(board) {
@@ -978,10 +1153,11 @@ var RussianCheckers = (function () {
          * @param {array} position
          *
          */
+
     }, {
         key: 'loadBoard',
         value: function loadBoard(board) {
-            var pos = arguments.length <= 1 || arguments[1] === undefined ? [] : arguments[1];
+            var pos = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
 
             var piece = null;
             var cell = new Cell(0, 0);
@@ -1011,6 +1187,7 @@ var RussianCheckers = (function () {
          *
          * @return {Game} board
          */
+
     }, {
         key: 'createGame',
         value: function createGame(board) {
@@ -1019,66 +1196,78 @@ var RussianCheckers = (function () {
     }]);
 
     return RussianCheckers;
-})();
+}();
+
+//@codekit-prepend cell.js
+//@codekit-prepend piece.js
+//@codekit-prepend man.js
+//@codekit-prepend king.js
+//@codekit-prepend board.js
+//@codekit-prepend game.js
+//@codekit-prepend checkers.js
+
+//import $ from 'jquery';
 
 $(function () {
     markupBoard($('#board'));
     var checkers = new RussianCheckers();
     var board = checkers.createBoard();
-    subscribe(board);
+    subscribeToBoard(board);
     checkers.setupBoard(board);
     var game = checkers.createGame(board);
+    subscribeToGame(game);
     $('.cell').click(function () {
-        var selected = game.selected;
-        if (selected == null) {
-            game.prepare();
-            var piece = board.getPiece(this.id);
-            if (piece == null) alert('You have to select a piece');else if (piece.white != game.whiteTurn) alert('You have to select a ' + (game.whiteTurn ? 'light' : 'dark') + ' piece');else if (game.selectableForJump.length > 0) {
-                if (game.selectableForJump.indexOf(this.id) >= 0) {
-                    game.selected = this.id;
-                    $(this).addClass('selected');
-                } else {
-                    alert('You have to select another piece to jump: ' + game.selectableForJump);
-                }
-            } else {
-                if (piece.isSelectableToMove(board)) {
-                    game.selected = this.id;
-                    $(this).addClass('selected');
-                } else {
-                    alert('You have to select another piece to move');
-                }
-            }
+        if (game.finished) {
+            alert('Game over: ' + (game.result > 0 ? 'light' : 'dark') + ' won');
         } else {
-            var piece = board.getPiece(selected);
-            if (piece == null) {
-                alert('Piece is not selected');
-            } else {
-                var to = board.getPiece(this.id);
-                if (to == null) {
-                    if (piece.isSelectableForJump(board)) {
-                        if (game.tryToJump(piece, this.id)) {
-                            $('#' + selected).removeClass('selected');
-                            if (game.selected != null) $(this).addClass('selected');else {
-                                if (game.whiteTurn) $('#controls').removeClass('dark').addClass('light');else $('#controls').removeClass('light').addClass('dark');
-                                if (game.finished) {
-                                    alert('Game over: ' + (game.result > 0 ? 'light' : 'dark') + ' won');
-                                }
-                            }
-                        } else {
-                            alert('You can not jump to this cell on the board');
-                        }
+            var selected = game.selected;
+            if (selected == null) {
+                game.prepare();
+                var piece = board.getPiece(this.id);
+                if (piece == null) alert('You have to select a piece');else if (piece.white != game.whiteTurn) alert('You have to select a ' + (game.whiteTurn ? 'light' : 'dark') + ' piece');else if (game.selectableForJump.length > 0) {
+                    if (game.selectableForJump.indexOf(this.id) >= 0) {
+                        game.selected = this.id;
+                        $(this).addClass('selected');
                     } else {
-                        if (game.tryToMove(piece, this.id)) {
-                            $('#' + selected).removeClass('selected');
-                            if (game.selected != null) $(this).addClass('selected');else {
-                                if (game.whiteTurn) $('#controls').removeClass('dark').addClass('light');else $('#controls').removeClass('light').addClass('dark');
-                            }
-                        } else {
-                            alert('You can not move to this cell on the board');
-                        }
+                        alert('You have to select another piece to jump: ' + game.selectableForJump);
                     }
                 } else {
-                    alert('You have to move to unoccupied square on the board');
+                    if (piece.isSelectableToMove(board)) {
+                        game.selected = this.id;
+                        $(this).addClass('selected');
+                    } else {
+                        alert('You have to select another piece to move');
+                    }
+                }
+            } else {
+                var piece = board.getPiece(selected);
+                if (piece == null) {
+                    alert('Piece is not selected');
+                } else {
+                    var to = board.getPiece(this.id);
+                    if (to == null) {
+                        if (piece.isSelectableForJump(board)) {
+                            if (game.tryToJump(piece, this.id)) {
+                                $('#' + selected).removeClass('selected');
+                                if (game.selected != null) $(this).addClass('selected');else {
+                                    if (game.finished) {
+                                        alert('Game over: ' + (game.result > 0 ? 'light' : 'dark') + ' won');
+                                    }
+                                }
+                            } else {
+                                alert('You can not jump to this cell on the board');
+                            }
+                        } else {
+                            if (game.tryToMove(piece, this.id)) {
+                                $('#' + selected).removeClass('selected');
+                                if (game.selected != null) $(this).addClass('selected');
+                            } else {
+                                alert('You can not move to this cell on the board');
+                            }
+                        }
+                    } else {
+                        alert('You have to move to unoccupied square on the board');
+                    }
                 }
             }
         }
@@ -1102,18 +1291,18 @@ $(function () {
         checkers.loadBoard(board, obj.board);
         game = checkers.createGame(board);
         game.load(obj);
-        if (game.whiteTurn) $('#controls').removeClass('dark').addClass('light');else $('#controls').removeClass('light').addClass('dark');
+        showTurn(game.whiteTurn);
     });
 });
 
 /**
- * @function subscribe
+ * @function subscribeToBoard
  * @description subscribe to position changes on the checkers board
  * @access public
- * 
+ *
  * @param {Board} board
  */
-function subscribe(board) {
+function subscribeToBoard(board) {
     board.onSet(function (piece, id) {
         $('#' + id).addClass(piece.colorClass).addClass(piece.kindClass);
     });
@@ -1123,13 +1312,13 @@ function subscribe(board) {
 }
 
 /**
- * @function unsubscribe
+ * @function unsubscribeToBoard
  * @description unsubscribe from position changes on the checkers board
  * @access public
- * 
+ *
  * @param {Board} board
  */
-function unsubscribe(board) {
+function unsubscribeToBoard(board) {
     board.offSet(function (piece, id) {
         $('#' + id).addClass(piece.colorClass).addClass(piece.kindClass);
     });
@@ -1139,10 +1328,43 @@ function unsubscribe(board) {
 }
 
 /**
+ * @function subscribeToGame
+ * @description subscribe to state changes on the game
+ * @access public
+ *
+ * @param {Game} game
+ */
+function subscribeToGame(game) {
+    game.onTurn(showTurn);
+}
+
+/**
+ * @function unsubscribeToGame
+ * @description unsubscribe from state changes on the game
+ * @access public
+ *
+ * @param {Game} game
+ */
+function unsubscribeToGame(game) {
+    game.offTurn(showTurn);
+}
+
+/**
+ * @function showTurn
+ * @description show current player
+ * @access public
+ *
+ * @param {boolean} whiteTurn is white turn
+ */
+function showTurn(whiteTurn) {
+    if (whiteTurn) $('#controls').removeClass('dark').addClass('light');else $('#controls').removeClass('light').addClass('dark');
+}
+
+/**
  * @function markupBoard
  * @description markup checkers board
  * @access public
- * 
+ *
  * @param {JQuery<HTMLElement>} boardElement
  */
 function markupBoard(boardElement) {
@@ -1160,7 +1382,7 @@ function markupBoard(boardElement) {
  * @function appendLetterRow
  * @description append border row of the checkers board
  * @access public
- * 
+ *
  * @param {JQuery<HTMLElement>} rowElement
  */
 function appendLetterRow(rowElement) {
@@ -1175,7 +1397,7 @@ function appendLetterRow(rowElement) {
  * @function appendCellRow
  * @description append cell row of the checkers board
  * @access public
- * 
+ *
  * @param {JQuery<HTMLElement>} rowElement
  */
 function appendCellRow(rowElement, index) {
@@ -1190,4 +1412,4 @@ function appendCellRow(rowElement, index) {
     }
     $('<div class="digit" />').appendTo(rowElement).text(index);
 }
-
+//# sourceMappingURL=script.js.map

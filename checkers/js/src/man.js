@@ -138,7 +138,7 @@ class Man extends Piece {
     isSelectableToMove(board) {
         if (this.white) {
             if (this.row < board.size - 1) {
-                if (this.column > 1) {
+                if (this.column > 0) {
                     if (board.getCellPiece(this.row + 1, this.column - 1) == null)
                         return true;
                 }

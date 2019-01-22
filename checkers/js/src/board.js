@@ -21,21 +21,57 @@ class Board {
         this._onDelete = new Set();
     }
 
+    /**
+     * @function onSet
+     * @description subscribe to event
+     * @access public
+     *
+     * @param {function} f callback function
+     *
+     * @return {Board} this board
+     */
     onSet(f) {
         this._onSet.add(f);
         return this;
     }
 
+    /**
+     * @function offSet
+     * @description unsubscribe from event
+     * @access public
+     *
+     * @param {function} f callback function
+     *
+     * @return {Board} this board
+     */
     offSet(f) {
         this._onSet.delete(f);
         return this;
     }
 
+    /**
+     * @function onDelete
+     * @description subscribe to event
+     * @access public
+     *
+     * @param {function} f callback function
+     *
+     * @return {Board} this board
+     */
     onDelete(f) {
         this._onDelete.add(f);
         return this;
     }
 
+    /**
+     * @function offDelete
+     * @description unsubscribe from event
+     * @access public
+     *
+     * @param {function} f callback function
+     *
+     * @return {Board} this board
+     */
     offDelete(f) {
         this._onDelete.delete(f);
         return this;
@@ -56,6 +92,15 @@ class Board {
         return this.getPiece(cell.cellId);
     }
 
+    /**
+     * @function findSelectableForJump
+     * @description find selectable for current player's jump
+     * @access public
+     *
+     * @param {boolean} white is white
+     *
+     * @return {Array} array of id's
+     */
     findSelectableForJump(white) {
         var selectable = [];
         this.position.forEach((piece, id) => {
@@ -66,6 +111,15 @@ class Board {
         return selectable;
     }
 
+    /**
+     * @function countPieces
+     * @description count pieces of current player
+     * @access public
+     *
+     * @param {boolean} white is white
+     *
+     * @return {number} counter
+     */
     countPieces(white) {
         var count = 0;
         this.position.forEach((piece, id) => {
@@ -76,6 +130,12 @@ class Board {
         return count;
     }
 
+    /**
+     * @function clear
+     * @description clear position
+     * @access public
+     *
+     */
     clear() {
         this.position.clear();
     }
@@ -128,6 +188,13 @@ class Board {
         return piece;
     }
 
+    /**
+     * @function toJSON
+     * @description serialize to JSON format
+     * @access public
+     *
+     * @return {Array} current position
+     */
     toJSON() {
         return Array.from(this.position.values());
     }
