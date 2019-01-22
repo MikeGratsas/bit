@@ -102,13 +102,15 @@ $(function () {
     });
 
     $('#load').click(function () {
-        $('.cell').removeClass('white black').removeClass('man king').removeClass('selected');
-        board.clear();
         var obj = JSON.parse(localStorage.getItem('checkers'));
-        checkers.loadBoard(board, obj.board);
-        game = checkers.createGame(board);
-        game.load(obj);
-        showTurn(game.whiteTurn);
+        if (obj != null) {
+            $('.cell').removeClass('white black').removeClass('man king').removeClass('selected');
+            board.clear();
+            checkers.loadBoard(board, obj.board);
+            game = checkers.createGame(board);
+            game.load(obj);
+            showTurn(game.whiteTurn);
+        }
     });
 });
 
