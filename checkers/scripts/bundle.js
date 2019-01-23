@@ -743,7 +743,11 @@ class Board {
      * @return {Array} current position
      */
     toJSON() {
-        return Array.from(this.position.values());
+        var jsonArray = [];
+        this.position.forEach((piece, id) => {
+          jsonArray.push(piece);
+        });
+        return jsonArray;
     }
 }
 
@@ -1113,6 +1117,8 @@ $(function () {
             game = checkers.createGame(board);
             game.load(obj);
             showTurn(game.whiteTurn);
+            if (game.selected != null)
+                $('#' + game.selected).addClass('selected');
         }
     });
 });

@@ -110,6 +110,8 @@ $(function () {
             game = checkers.createGame(board);
             game.load(obj);
             showTurn(game.whiteTurn);
+            if (game.selected != null)
+                $('#' + game.selected).addClass('selected');
         }
     });
 });
