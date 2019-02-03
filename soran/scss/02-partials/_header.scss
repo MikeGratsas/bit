@@ -1,9 +1,12 @@
-﻿.header {
+﻿@import '../01-base/mixins';
+
+.header {
     display: flex;
     padding: 10px 0;
     flex-shrink: 0;
     align-items: center;
     justify-content: space-around;
+    position: relative;
 
     .button {
         margin: 10px;
@@ -16,5 +19,34 @@
 
     .navigation {
         flex: 1 0 8em;
+
+        @include media-breakpoint-max(50em) {
+            display: none;
+        }
+    }
+
+    .dropdown-toggle {
+        display: none;
+
+        &:checked ~ .navigation {
+            display: block;
+            position: absolute;
+            top: 100%;
+            right: 0px;
+            background-color: white;
+            z-index: 1;
+
+            .menu {
+                flex-direction: column;
+            }
+        }
+    }
+
+    .dropdown-label {
+        display: none;
+
+        @include media-breakpoint-max(50em) {
+            display: block;
+        }
     }
 }

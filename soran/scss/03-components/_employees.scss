@@ -2,8 +2,7 @@
 @import '../01-base/mixins';
 
 .employees {
-    display: flex;
-    justify-content: space-between;
+    margin: 2em auto;
 
     .employee {
         display: inline-block;
@@ -12,64 +11,52 @@
         overflow: hidden;
         border-radius: 5%;
         box-shadow: 1px 5px 11px 0 rgba($primary-color, 0.5);
-        margin: 5px;
-        flex: 0 1 20em;
+        margin: 2px;
+        max-width: 17em;
 
         .portrait {
             max-width: 100%;
         }
     }
 
-    a.button.previous, a.button.next {
-        @include element-colored(white, grey, inset 0 0 3px $box-shadow-color);
-        display: flex;
-        align-self: center;
-        align-items: center;
-        flex-shrink: 0;
-        margin: 5px;
-        width: 10vw;
-        height: 10vw;
-        max-width: 4em;
-        max-height: 4em;
+    &.slick-slider {
+        width: 80%;
+    }
 
-        .fas.fa-angle-left, .fas.fa-angle-right {
-            @include media-breakpoint-max(30em) {
-                font-size: 2em;
-            }
+    .slick-slide {
+        margin: 2px;
+    }
 
-            @include media-breakpoint-max(20em) {
-                font-size: 1.33em;
-            }
+    .slick-prev {
+        left: -10%;
 
-            @include media-breakpoint-max(15em) {
-                font-size: .875em;
-            }
-
-            @include media-breakpoint-max(12em) {
-                font-size: .75em;
-            }
-
-            @include media-breakpoint-max(10em) {
-                font-size: .5em;
-            }
+        [dir='rtl'] & {
+            right: -10%;
+            left: auto;
         }
     }
-}
 
-.sl-employees {
+    .slick-next {
+        right: -10%;
 
-    .sl-employee {
-        display: inline-block;
-        background-color: white;
-        color: grey;
-        overflow: hidden;
-        border-radius: 5%;
-        box-shadow: 1px 5px 11px 0 rgba($primary-color, 0.5);
-        margin: 5px;
-        max-width: 20em;
+        [dir='rtl'] & {
+            right: auto;
+            left: -10%;
+        }
+    }
 
-        .portrait {
-            max-width: 100%;
+    .slick-prev, .slick-next {
+        width: 7vw;
+        height: 7vw;
+
+        &:before {
+            font-size: 7vw;
+        }
+
+        @include media-breakpoint-min(1024px) {
+            &:before {
+                font-size: 5rem;
+            }
         }
     }
 }

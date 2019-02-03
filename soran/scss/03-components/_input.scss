@@ -2,69 +2,72 @@
 @import '../01-base/mixins';
 
 .input-form {
-  min-width: 25em;
-  @include media-breakpoint-max(25em) {
-    min-width: 100%;
-  }
+    min-width: 25em;
 
-  .input-group {
-      background-color: white;
-      border-radius: 1.5em;
-      margin: 1em;
-      display: flex;
-      justify-content: space-between;
-      position: relative;
+    @include media-breakpoint-max(25em) {
+        min-width: 100%;
+    }
 
-      @include media-breakpoint-max(25em) {
-        font-size: .75em;
-      }
-      @include media-breakpoint-max(20em) {
-        font-size: .5em;
-      }
-      @include media-breakpoint-max(15em) {
-        font-size: .25em;
-      }
+    .input-group {
+        background-color: white;
+        border-radius: 1.5em;
+        margin: 1em;
+        display: flex;
+        justify-content: space-between;
+        position: relative;
 
-      .input-group-addon {
-          @include vertical-align;
-          text-align: left;
-          left: 1em;
-      }
+        @include media-breakpoint-max(25em) {
+            font-size: .75em;
+        }
 
-      .input-text {
-          flex-shrink: 1;
-          flex-grow: 1;
-          border: 0;
-          outline: 0 none;
-          padding: 1em;
+        @include media-breakpoint-max(20em) {
+            font-size: .5em;
+        }
 
-          &:focus {
-              box-shadow: 0 0 12px $box-shadow-color;
-          }
+        @include media-breakpoint-max(15em) {
+            font-size: .25em;
+        }
 
-          &:first-child {
-              border-top-left-radius: 1.5em;
-              border-bottom-left-radius: 1.5em;
-          }
-      }
+        .input-group-addon {
+            @include vertical-align;
+            text-align: left;
+            left: 1em;
+        }
 
-      .input-button {
-          user-select: none;
-          border: 0;
-          padding: 0.5em 1.5em 0.5em 1em;
+        .input-text {
+            flex-shrink: 1;
+            flex-grow: 1;
+            border: 0;
+            outline: 0 none;
+            padding: 1em;
 
-          &.default {
-              @include element-colored(black, white, $focus-button-shadow);
-          }
+            &:focus {
+                box-shadow: 0 0 12px $box-shadow-color;
+            }
 
-          &.colored {
-              @include element-colored($primary-color, white, $focus-button-shadow);
-          }
+            &:first-child {
+                border-top-left-radius: 1.5em;
+                border-bottom-left-radius: 1.5em;
+            }
+        }
 
-          &:last-child {
-              border-top-right-radius: 1.5em;
-              border-bottom-right-radius: 1.5em;
-          }
-      }
-  }
+        .input-button {
+            user-select: none;
+            border: 0;
+            padding: 0.5em 1.5em 0.5em 1em;
+
+            &.default {
+                @include element-colored(black, white, $focus-button-shadow);
+            }
+
+            &.colored {
+                @include element-colored($primary-color, white, $focus-button-shadow);
+            }
+
+            &:last-child {
+                border-top-right-radius: 1.5em;
+                border-bottom-right-radius: 1.5em;
+            }
+        }
+    }
 }
