@@ -33,11 +33,12 @@
             alert("You must enter email to subscribe");
         }
         else {
-            grecaptcha.execute('6LeixI4UAAAAAFshGFsgG4HqUz_THtKzWpb4Dcfq', { action: 'homepage' }).then(function (token) {
-                alert('Token is executed\n' + token);
-            });
+          grecaptcha.execute('6LeixI4UAAAAAFshGFsgG4HqUz_THtKzWpb4Dcfq', { action: 'homepage' }).then(function (token) {
+              console.log('Token is executed\n' + token);
+              $('g-recaptcha-response').val(token);
+          });
         }
-});
+    });
 
     $('#subscribe-form').submit(function (event) {
         if (!confirm('Do you confirm subscription?'))

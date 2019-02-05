@@ -126,6 +126,7 @@
 
 .board .row .cell.selected {
     background-color: orange;
+    transition: background-color 2s;
 }
 
 .white.man {

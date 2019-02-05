@@ -150,10 +150,10 @@ body {
   -ms-flex-pack: distribute;
   justify-content: space-around;
   position: relative; }
-  .header .button {
-    margin: 10px; }
+  .header > .button {
+    margin: 0.25em 1em 0.25em 0.05em; }
   .header .heading {
-    margin: 5px;
+    margin: 0.25em;
     -webkit-box-flex: 1;
     -ms-flex: 1 1 auto;
     flex: 1 1 auto; }
@@ -161,15 +161,8 @@ body {
     -webkit-box-flex: 1;
     -ms-flex: 1 0 8em;
     flex: 1 0 8em; }
-    @media (max-width: 50em) {
+    @media (max-width: 55em) {
       .header .navigation {
-        display: none; } }
-  .header .dropdown-toggle {
-    display: none;
-    opacity: 0;
-    z-index: -1; }
-    @media (max-width: 50em) {
-      .header .dropdown-toggle:checked ~ .navigation {
         display: block;
         position: absolute;
         top: 100%;
@@ -177,15 +170,35 @@ body {
         background-color: white;
         border-bottom-left-radius: 5%;
         border-bottom-right-radius: 5%;
-        z-index: 1; }
-        .header .dropdown-toggle:checked ~ .navigation .menu {
+        z-index: 1;
+        -webkit-transform: translateX(100%) scale(0) rotate(180deg);
+        -ms-transform: translateX(100%) scale(0) rotate(180deg);
+        transform: translateX(100%) scale(0) rotate(180deg);
+        -webkit-transition: all 1s ease;
+        -o-transition: all 1s ease;
+        transition: all 1s ease; }
+        .header .navigation .menu {
           -webkit-box-orient: vertical;
           -webkit-box-direction: normal;
           -ms-flex-direction: column;
           flex-direction: column; } }
+  .header .dropdown-toggle {
+    display: none;
+    outline: 0 none;
+    opacity: 0;
+    z-index: -1; }
+    @media (max-width: 55em) {
+      .header .dropdown-toggle:checked ~ .navigation {
+        -webkit-transform: translateX(0) scale(1) rotate(0deg);
+        -ms-transform: translateX(0) scale(1) rotate(0deg);
+        transform: translateX(0) scale(1) rotate(0deg);
+        -webkit-transition: none;
+        -o-transition: none;
+        transition: none; } }
   .header .dropdown-label {
-    display: none; }
-    @media (max-width: 50em) {
+    display: none;
+    margin: 0.25em 1em 0.25em 0.05em; }
+    @media (max-width: 55em) {
       .header .dropdown-label {
         display: inline-block; } }
 
@@ -207,44 +220,44 @@ body {
   -ms-flex-negative: 0;
   flex-shrink: 0; }
 
-a.button {
+a.button, label.button {
   text-decoration: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none; }
-  a.button.simple {
+  a.button.simple, label.button.simple {
     color: grey; }
-    a.button.simple:hover {
+    a.button.simple:hover, label.button.simple:hover {
       color: #9a9a9a; }
-    a.button.simple:active {
+    a.button.simple:active, label.button.simple:active {
       color: #b3b3b3; }
-    a.button.simple:focus {
+    a.button.simple:focus, label.button.simple:focus {
       outline: 0 none;
       -webkit-box-shadow: inset 0 0 3px #387bbe;
       box-shadow: inset 0 0 3px #387bbe; }
-  a.button.colored {
+  a.button.colored, label.button.colored {
     color: white;
     background-color: #FF65C2; }
-    a.button.colored:hover {
+    a.button.colored:hover, label.button.colored:hover {
       color: white; }
-    a.button.colored:active {
+    a.button.colored:active, label.button.colored:active {
       color: white; }
-    a.button.colored:focus {
+    a.button.colored:focus, label.button.colored:focus {
       outline: 0 none;
       -webkit-box-shadow: inset 0 0 3px #387bbe;
       box-shadow: inset 0 0 3px #387bbe; }
-    a.button.colored:hover {
+    a.button.colored:hover, label.button.colored:hover {
       background-color: #ff98d6; }
-    a.button.colored:active {
+    a.button.colored:active, label.button.colored:active {
       background-color: #ffcbea; }
-  a.button.foreground {
+  a.button.foreground, label.button.foreground {
     color: #FF65C2; }
-    a.button.foreground:hover {
+    a.button.foreground:hover, label.button.foreground:hover {
       color: #ff98d6; }
-    a.button.foreground:active {
+    a.button.foreground:active, label.button.foreground:active {
       color: #ffcbea; }
-    a.button.foreground:focus {
+    a.button.foreground:focus, label.button.foreground:focus {
       outline: 0 none;
       -webkit-box-shadow: inset 0 0 3px #387bbe;
       box-shadow: inset 0 0 3px #387bbe; }
@@ -367,8 +380,10 @@ a.button {
   display: inline-flex;
   list-style-type: none;
   padding-left: 0; }
+  .menu .menu-item {
+    padding: 0.4em 0.2em; }
   .menu .button {
-    padding: 10px 5px; }
+    padding: 0.25em; }
   .menu .bordered {
     display: inline-block;
     border: 3px solid #FF65C2;

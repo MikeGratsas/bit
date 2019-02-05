@@ -28,10 +28,10 @@
           <input id="dropdown" class="dropdown-toggle" type="checkbox" name="dropdown">
           <nav class="navigation">
               <ul id="nav-menu" class="menu single-line-overflow">
-                  <li><a class="button simple" href="#example" title="Task Example">Task Example</a></li>
-                  <li><a class="button simple" href="#present" title="Pricing">Pricing</a></li>
-                  <li><a class="button simple" href="#blog" title="Blog">Blog</a></li>
-                  <li><a class="button simple" href="#contact" title="Contact us">Contact us</a></li>
+                  <li class="menu-item"><a class="button simple" href="#example" title="Task Example">Task Example</a></li>
+                  <li class="menu-item"><a class="button simple" href="#present" title="Pricing">Pricing</a></li>
+                  <li class="menu-item"><a class="button simple" href="#blog" title="Blog">Blog</a></li>
+                  <li class="menu-item"><a class="button simple" href="#contact" title="Contact us">Contact us</a></li>
               </ul>
           </nav>
           <a id="trial" class="button colored" href="https://sites.google.com/site/sharpimg/viewer/SharpImgWixSetup.msi?attredirects=0" title="Trial">3 Days Free Trial</a>
@@ -232,7 +232,7 @@
       <section id="subscribtion" class="colored">
         <h2>Signup For Mothly Newsletter</h2>
         <form id="subscribe-form" class="input-form" action="#" method="post">
-            <div class="g-recaptcha" data-sitekey="6LeixI4UAAAAAFshGFsgG4HqUz_THtKzWpb4Dcfq" data-callback="onSubmit" data-size="invisible"></div>
+            <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
             <div class="input-group">
                 <input id="email" class="input-text" type="email" name="email" title="Email Address" placeholder="Enter Your Email Address" />
                 <span class="fas fa-envelope-open input-group-addon foreground"></span>

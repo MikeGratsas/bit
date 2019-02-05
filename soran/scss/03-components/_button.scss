@@ -1,7 +1,7 @@
 ﻿@import '../01-base/settings';
 @import '../01-base/mixins';
 
-a.button {
+a.button, label.button {
     text-decoration: none;
     user-select: none;
 
