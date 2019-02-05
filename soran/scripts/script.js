@@ -28,15 +28,21 @@
     });
 
     $('#subscribe').click(function (event) {
+        event.preventDefault();
         if (!$('#email').val()) {
-            event.preventDefault();
             alert("You must enter email to subscribe");
         }
         else {
-          grecaptcha.execute('6LeixI4UAAAAAFshGFsgG4HqUz_THtKzWpb4Dcfq', { action: 'homepage' }).then(function (token) {
-              console.log('Token is executed\n' + token);
-              $('g-recaptcha-response').val(token);
-          });
+          if ($('g-recaptcha-response').length) {
+            grecaptcha.execute('6LeixI4UAAAAAFshGFsgG4HqUz_THtKzWpb4Dcfq', { action: 'homepage' }).then(function (token) {
+                console.log('Token is executed\n' + token);
+                $('g-recaptcha-response').val(token);
+                onSubmit(token);
+            });
+          }
+          else {
+            grecaptcha.execute();
+          }
         }
     });
 
