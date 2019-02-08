@@ -1,0 +1,166 @@
+html {
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+.page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@media (max-height: 20em), (max-width: 20em) {
+    .page {
+        font-size: 0.75em;
+    }
+}
+
+@media (max-height: 15em), (max-width: 15em) {
+    .page {
+        font-size: 0.5em;
+    }
+}
+
+.board {
+    border: thin solid sienna;
+    border-collapse: collapse;
+    text-align: center;
+    background-color: khaki;
+    color: brown;
+    width: 90vmin;
+    height: 90vmin;
+}
+
+.controls {
+    display: inline-block;
+    padding: 1vmin;
+    margin: 1vmin auto;
+}
+
+.light {
+    background-color: silver;
+}
+
+.dark {
+    background-color: black;
+}
+
+.row, .zero-row, .last-row {
+    display: flex;
+}
+
+.zero-row, .last-row {
+    align-items: center;
+    justify-content: space-around;
+    height: 6%;
+}
+
+.row {
+    height: 11%;
+}
+
+.cell {
+    height: 100%;
+    border: 0 none sienna;
+    padding: 1%;
+}
+
+.letter, .cell {
+    width: 11%;
+}
+
+.digit {
+    align-self: center;
+}
+
+.corner, .digit {
+    width: 6%;
+}
+
+.corner, .digit, .letter, .cell {
+    display: inline-block;
+}
+
+.row:nth-child(odd) .cell:nth-child(even),
+.row:nth-child(even) .cell:nth-child(odd) {
+    background-color: brown;
+}
+
+.row .digit:last-child {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.row .digit:first-child {
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+}
+
+.zero-row .letter {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+.row:nth-child(2) .cell {
+    border-top-color: sienna;
+    border-top-style: solid;
+    border-top-width: thin;
+}
+
+.row:nth-last-child(2) .cell {
+    border-bottom-color: sienna;
+    border-bottom-style: solid;
+    border-bottom-width: thin;
+}
+
+.row .cell:nth-child(2) {
+    border-left-color: sienna;
+    border-left-style: solid;
+    border-left-width: thin;
+}
+
+.row .cell:nth-last-child(2) {
+    border-right-color: sienna;
+    border-right-style: solid;
+    border-right-width: thin;
+}
+
+.board .row .cell.selected {
+    background-color: orange;
+    transition: background-color 2s;
+}
+
+.white.man {
+    background-image: url('../images/ch_white.png');
+}
+
+.white.king {
+    background-image: url('../images/ch_q_white.png');
+}
+
+.black.man {
+    background-image: url('../images/ch_black.png');
+}
+
+.black.king {
+    background-image: url('../images/ch_q_black.png');
+}
+
+.white, .black {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+    background-origin: content-box;
+}

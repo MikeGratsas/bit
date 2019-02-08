@@ -13,20 +13,24 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
     <link href="styles/style.css" rel="stylesheet">
     <!--[if lt IE 9]>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.6.4/core.min.js" nomodule></script>
+    <!--
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.2.5/polyfill.min.js" nomodule></script>
+    -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="scripts/script.js"></script>
 </head>
-<body>
-    <div class="page">
-        <div id="board" class="board"></div>
-        <div id="controls" class="controls light">
-            <button id="new">New</button>
-            <button id="save">Save</button>
-            <button id="load">Load</button>
+    <body>
+        <div class="page">
+            <div id="board" class="board"></div>
+            <div id="controls" class="controls light">
+                <button id="new">New</button>
+                <button id="save">Save</button>
+                <button id="load">Load</button>
+            </div>
         </div>
-    </div>
-</body>
-</html>
+    </body>
+    </html>

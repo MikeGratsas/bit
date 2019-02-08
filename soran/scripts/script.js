@@ -14,7 +14,7 @@
                 breakpoint: 640,
                 settings: {
                     slidesToShow: 1
-                 }
+                }
             }
         ]
     });
@@ -23,7 +23,7 @@
         $(this).prev('p').toggleClass('multi-line-overflow');
         var shorten = $(this).hasClass("shorten");
         $(this).attr('title', 'Click to read ' + (shorten ? 'more' : 'less'));
-        $(this).html(shorten ? 'Read More <span class="fas fa-arrow-circle-right"></span>': 'Read Less <span class="fas fa-arrow-circle-left"></span>');
+        $(this).html(shorten ? 'Read More <span class="fas fa-arrow-circle-right"></span>' : 'Read Less <span class="fas fa-arrow-circle-left"></span>');
         $(this).toggleClass('shorten');
     });
 
@@ -33,16 +33,24 @@
             alert("You must enter email to subscribe");
         }
         else {
-          if ($('.g-recaptcha').length) {
-            grecaptcha.execute();
-          }
-          else {
-            grecaptcha.execute('6LeixI4UAAAAAFshGFsgG4HqUz_THtKzWpb4Dcfq', { action: 'homepage' }).then(function (token) {
-                console.log('Token is executed\n' + token);
-                $('#g-recaptcha-response').val(token);
-                onSubmit(token);
-            });
-          }
+            if ($('.g-recaptcha').length) {
+                $('.g-recaptcha[data-size="invisible"]').each(function () {
+                    grecaptcha.execute(this.id);
+                });
+            }
+            else {
+                var siteKey = $(this).attr('data-sitekey');
+                if (siteKey) {
+                    grecaptcha.execute(siteKey, { action: 'homepage' }).then(function (token) {
+                        console.log('Token is executed\n' + token);
+                        $('#g-recaptcha-response').val(token);
+                        onSubmit(token);
+                    });
+                }
+                else {
+                    grecaptcha.execute();
+                }
+            }
         }
     });
 

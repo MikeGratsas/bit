@@ -13,5 +13,13 @@
   {
     "outputFile": "checkers/scripts/script.js",
     "inputFile": "checkers/scripts/bundle.js"
+  },
+  {
+    "outputFile": "checkers/styles/style.css",
+    "inputFile": "checkers/less/style.less",
+    "options": {
+      "autoPrefix": "last 2 versions, > 5%",
+      "sourceMap": false
+    }
   }
 ]
