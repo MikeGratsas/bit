@@ -9,6 +9,10 @@ a.button, label.button {
         @include element-base(grey, $focus-button-shadow);
     }
 
+    &.transparent {
+        @include element-fade-in(white, $primary-color, $focus-button-shadow);
+    }
+
     &.colored {
         @include element-colored($primary-color, white, $focus-button-shadow);
     }

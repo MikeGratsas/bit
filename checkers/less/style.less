@@ -7,9 +7,7 @@ html {
 }
 
 .page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    text-align: center;
 }
 
 @media (max-height: 20em), (max-width: 20em) {
@@ -27,11 +25,11 @@ html {
 .board {
     border: thin solid sienna;
     border-collapse: collapse;
-    text-align: center;
     background-color: khaki;
     color: brown;
     width: 90vmin;
     height: 90vmin;
+    margin: 0 auto;
 }
 
 .controls {
@@ -48,13 +46,7 @@ html {
     background-color: black;
 }
 
-.row, .zero-row, .last-row {
-    display: flex;
-}
-
 .zero-row, .last-row {
-    align-items: center;
-    justify-content: space-around;
     height: 6%;
 }
 
@@ -80,8 +72,13 @@ html {
     width: 6%;
 }
 
+.corner {
+    height: 100%;
+}
+
 .corner, .digit, .letter, .cell {
     display: inline-block;
+    vertical-align: middle;
 }
 
 .row:nth-child(odd) .cell:nth-child(even),
@@ -90,26 +87,14 @@ html {
 }
 
 .row .digit:last-child {
-    -webkit-transform: rotate(90deg);
-    -moz-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
     transform: rotate(90deg);
 }
 
 .row .digit:first-child {
-    -webkit-transform: rotate(-90deg);
-    -moz-transform: rotate(-90deg);
-    -ms-transform: rotate(-90deg);
-    -o-transform: rotate(-90deg);
     transform: rotate(-90deg);
 }
 
 .zero-row .letter {
-    -webkit-transform: rotate(180deg);
-    -moz-transform: rotate(180deg);
-    -ms-transform: rotate(180deg);
-    -o-transform: rotate(180deg);
     transform: rotate(180deg);
 }
 

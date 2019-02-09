@@ -41,6 +41,32 @@
     }
 }
 
+@mixin element-fade-in($background, $color, $shadows...) {
+    @include element-base($color, $shadows);
+    background-color: transparentize($background, 1);
+
+    &:hover {
+        background-color: transparentize($background, 0.5);
+    }
+
+    &:active {
+        background-color: $background;
+    }
+}
+
+@mixin element-fade-out($background, $color, $shadows...) {
+    @include element-base($color, $shadows);
+    background-color: $background;
+
+    &:hover {
+        background-color: transparentize($background, 0.5);
+    }
+
+    &:active {
+        background-color: transparentize($background, 1);
+    }
+}
+
 @mixin media-breakpoint-min($screen) {
     @media (min-width: #{$screen}) {
         @content;

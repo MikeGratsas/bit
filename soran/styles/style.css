@@ -169,27 +169,21 @@
         background-color: white;
         border-bottom-left-radius: 5%;
         border-bottom-right-radius: 5%;
-        z-index: 1;
-        -webkit-transform: translateX(100%) scale(0) rotate(180deg);
-                transform: translateX(100%) scale(0) rotate(180deg);
-        -webkit-transition: all 1s ease;
-        transition: all 1s ease; }
-        .header .navigation .menu {
-          -webkit-box-orient: vertical;
-          -webkit-box-direction: normal;
-              -ms-flex-direction: column;
-                  flex-direction: column; } }
+        z-index: 1; }
+        .header .navigation .menu .menu-item {
+          display: list-item;
+          padding: 0.4em 0.8em; } }
   .header .dropdown-toggle {
     display: none;
     outline: 0 none;
     opacity: 0;
     z-index: -1; }
     @media (max-width: 55em) {
-      .header .dropdown-toggle:checked ~ .navigation {
-        -webkit-transform: translateX(0) scale(1) rotate(0deg);
-                transform: translateX(0) scale(1) rotate(0deg);
-        -webkit-transition: none;
-        transition: none; } }
+      .header .dropdown-toggle:not(:checked) ~ .navigation {
+        -webkit-transform: translate(25%, -50%) scale(0) rotate(180deg);
+                transform: translate(25%, -50%) scale(0) rotate(180deg);
+        -webkit-transition: all 1s ease;
+        transition: all 1s ease; } }
   .header .dropdown-label {
     display: none;
     margin: 0.25em 1em 0.25em 0.05em; }
@@ -231,6 +225,21 @@ a.button, label.button {
       outline: 0 none;
       -webkit-box-shadow: inset 0 0 3px #387bbe;
               box-shadow: inset 0 0 3px #387bbe; }
+  a.button.transparent, label.button.transparent {
+    color: #FF65C2;
+    background-color: rgba(255, 255, 255, 0); }
+    a.button.transparent:hover, label.button.transparent:hover {
+      color: #ff98d6; }
+    a.button.transparent:active, label.button.transparent:active {
+      color: #ffcbea; }
+    a.button.transparent:focus, label.button.transparent:focus {
+      outline: 0 none;
+      -webkit-box-shadow: inset 0 0 3px #387bbe;
+              box-shadow: inset 0 0 3px #387bbe; }
+    a.button.transparent:hover, label.button.transparent:hover {
+      background-color: rgba(255, 255, 255, 0.5); }
+    a.button.transparent:active, label.button.transparent:active {
+      background-color: white; }
   a.button.colored, label.button.colored {
     color: white;
     background-color: #FF65C2; }
@@ -369,15 +378,11 @@ a.button, label.button {
     background-color: white; }
 
 .menu {
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
   list-style-type: none;
   padding-left: 0; }
   .menu .menu-item {
+    display: inline-block;
     padding: 0.4em 0.2em; }
-  .menu .button {
-    padding: 0.25em; }
   .menu .bordered {
     display: inline-block;
     border: 3px solid #FF65C2;

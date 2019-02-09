@@ -1,4 +1,9 @@
 ﻿$(function () {
+    var encodedURI = encodeURI(window.location.href);
+    $('#twitter').attr('href', 'https://twitter.com/intent/tweet?url=' + encodedURI);
+    $('#facebook').attr('href', 'https://www.facebook.com/sharer/sharer.php?url=' + encodedURI);
+    $('#linkedin').attr('href', 'https://www.linkedin.com/shareArticle?mini=true&url=' + encodedURI);
+
     $('.employees').slick({
         infinite: true,
         slidesToShow: 3,
@@ -35,7 +40,10 @@
         else {
             if ($('.g-recaptcha').length) {
                 $('.g-recaptcha[data-size="invisible"]').each(function () {
-                    grecaptcha.execute(this.id);
+                    if (this.id)
+                        grecaptcha.execute(this.id);
+                    else
+                        grecaptcha.execute();
                 });
             }
             else {

@@ -30,11 +30,12 @@
             border-bottom-left-radius: 5%;
             border-bottom-right-radius: 5%;
             z-index: 1;
-            transform: translateX(100%) scale(0) rotate(180deg);
-            transition: all 1s ease;
 
             .menu {
-                flex-direction: column;
+                .menu-item {
+                    display: list-item;
+                    padding: 0.4em 0.8em;
+                }
             }
         }
     }
@@ -46,10 +47,10 @@
         z-index: -1;
 
         @include media-breakpoint-max(55em) {
-          &:checked ~ .navigation {
-              transform: translateX(0) scale(1) rotate(0deg);
-              transition: none;
-          }
+            &:not(:checked) ~ .navigation {
+                transform: translate(25%, -50%) scale(0) rotate(180deg);
+                transition: all 1s ease;
+            }
         }
     }
 
