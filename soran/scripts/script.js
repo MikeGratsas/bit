@@ -1,5 +1,5 @@
 ﻿$(function () {
-    var encodedURI = encodeURI(window.location.href);
+    var encodedURI = encodeURIComponent(window.location.href);
     $('#twitter').attr('href', 'https://twitter.com/intent/tweet?url=' + encodedURI);
     $('#facebook').attr('href', 'https://www.facebook.com/sharer/sharer.php?url=' + encodedURI);
     $('#linkedin').attr('href', 'https://www.linkedin.com/shareArticle?mini=true&url=' + encodedURI);
@@ -49,7 +49,8 @@
             else {
                 var siteKey = $(this).attr('data-sitekey');
                 if (siteKey) {
-                    grecaptcha.execute(siteKey, { action: 'homepage' }).then(function (token) {
+                    var action = $('#g-recaptcha-action').val();
+                    grecaptcha.execute(siteKey, { 'action': action }).then(function (token) {
                         console.log('Token is executed\n' + token);
                         $('#g-recaptcha-response').val(token);
                         onSubmit(token);

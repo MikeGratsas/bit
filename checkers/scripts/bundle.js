@@ -359,7 +359,8 @@ class Man extends Piece {
   * King
   * @description king
   * @extends Piece
-  */﻿class King extends Piece {
+  */
+class King extends Piece {
 
     /**
      * @function constructor
