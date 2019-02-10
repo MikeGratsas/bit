@@ -1,7 +1,7 @@
 ﻿$(function () {
     var encodedURI = encodeURIComponent(window.location.href);
     $('#twitter').attr('href', 'https://twitter.com/intent/tweet?url=' + encodedURI);
-    $('#facebook').attr('href', 'https://www.facebook.com/sharer/sharer.php?url=' + encodedURI);
+    $('#facebook').attr('href', 'https://www.facebook.com/sharer.php?u=' + encodedURI);
     $('#linkedin').attr('href', 'https://www.linkedin.com/shareArticle?mini=true&url=' + encodedURI);
 
     $('.employees').slick({
