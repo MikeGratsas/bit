@@ -1,8 +1,11 @@
 <?php
+echo 'request received'.$_POST['subscribe'];
 if(isset($_POST['subscribe']) && !empty($_POST['subscribe'])){
+  echo 'request received'.$_POST['g-recaptcha-response'];
   if(isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response'])){
     //your site secret key
     $secret = getenv('GRECAPTCHA2_SECRET');
+    echo 'secret'.$secret;
     //get verify response data
     $verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$_POST['g-recaptcha-response'].'&remoteip='.$_SERVER['REMOTE_ADDR']);
 	  header('Content-type:application/json');
