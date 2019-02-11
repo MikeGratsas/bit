@@ -1,6 +1,5 @@
 <?php
-if(isset($_POST['subscribe']) && !empty($_POST['subscribe'])){
-  if(isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response'])){
+if(isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response'])){
     //your site secret key
     $secret = getenv('GRECAPTCHA3_SECRET');
     //get verify response data
@@ -32,8 +31,7 @@ if(isset($_POST['subscribe']) && !empty($_POST['subscribe'])){
     }else{
         error_log('Robot verification failed, please try again.');
     }
-  }else{
+}else{
     error_log('Please click on the reCAPTCHA box.');
-  }
 }
 ?>
