@@ -98,20 +98,31 @@ $(function () {
     });
 
     $('#save').click(function () {
+      if (localStorage) {
         localStorage.setItem('checkers', JSON.stringify(game));
+      }
+      else {
+        alert('Sorry, your browser does not support Web Storage...');
+      }
     });
 
     $('#load').click(function () {
-        var obj = JSON.parse(localStorage.getItem('checkers'));
-        if (obj != null) {
-            $('.cell').removeClass('white black').removeClass('man king').removeClass('selected');
-            board.clear();
-            checkers.loadBoard(board, obj.board);
-            game = checkers.createGame(board);
-            game.load(obj);
-            showTurn(game.whiteTurn);
-            if (game.selected != null)
-                $('#' + game.selected).addClass('selected');
+        if (localStorage) {
+          var obj = JSON.parse(localStorage.getItem('checkers'));
+          if (obj != null) {
+              $('.cell').removeClass('white black').removeClass('man king').removeClass('selected');
+              board.clear();
+              checkers.loadBoard(board, obj.board);
+              game = checkers.createGame(board);
+              game.load(obj);
+              showTurn(game.whiteTurn);
+              if (game.selected != null) {
+                  $('#' + game.selected).addClass('selected');
+                }
+          }
+        }
+        else {
+          alert('Sorry, your browser does not support Web Storage...');
         }
     });
 });

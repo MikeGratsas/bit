@@ -12,17 +12,21 @@
     <link rel="icon" href="images/app_icon_72.png" type="image/png">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
     <link href="styles/style.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!--[if lt IE 9]>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.12/es5-shim.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.12/es5-sham.min.js"></script>
+      <script type="text/javascript">
+        $(function () {
+          $('#board').text('Please upgrade to Internet Explorer 9 at least');
+          $('#controls').hide();
+        });
+      </script>
     <![endif]-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.6.4/core.min.js" nomodule></script>
     <!--
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.2.5/polyfill.min.js" nomodule></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.2.5/polyfill.min.js" nomodule></script>
     -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="scripts/script.js"></script>
 </head>
     <body>

@@ -1,28 +1,28 @@
 <?php
-if(isset($_POST['submit']) && !empty($_POST['submit'])){
+if(isset($_POST['subscribe']) && !empty($_POST['subscribe'])){
   if(isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response'])){
     //your site secret key
     $secret = getenv('GRECAPTCHA2_SECRET');
     //get verify response data
     $verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$_POST['g-recaptcha-response'].'&remoteip='.$_SERVER['REMOTE_ADDR']);
-	header('Content-type:application/json');
-	echo $verifyResponse;
+	  header('Content-type:application/json');
+	  echo $verifyResponse;
     $responseData = json_decode($verifyResponse);
     if($responseData->success){
-		$hostname = $_SERVER['SERVER_NAME'];
-		if(isset($hostname) && strcasecmp($hostname, $responseData->hostname) !== 0){
-			$errMsg = 'Host name mismatch.';
-		}else{
-			//contact form submission code goes here
-			$email = !empty($_POST['email'])?$_POST['email']:'';
+		    $hostname = $_SERVER['SERVER_NAME'];
+		    if(isset($hostname) && strcasecmp($hostname, $responseData->hostname) !== 0){
+			         error_log('Host name mismatch.');
+		    }else{
+			         //contact form submission code goes here
+			         $email = !empty($_POST['email'])?$_POST['email']:'';
 
-			$succMsg = 'Your subscribe request have submitted successfully.';
-		}
+			         error_log(sprintf('Your subscribe to %s request have submitted successfully.', $email));
+		    }
     }else{
-        $errMsg = 'Robot verification failed, please try again.';
+        error_log('Robot verification failed, please try again.');
     }
   }else{
-    $errMsg = 'Please click on the reCAPTCHA box.';
+    error_log('Please click on the reCAPTCHA box.');
   }
 }
 ?>
