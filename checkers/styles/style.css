@@ -57,10 +57,6 @@
 .cell {
   width: 11%;
 }
-.digit {
-  -ms-flex-item-align: center;
-      align-self: center;
-}
 .corner,
 .digit {
   width: 6%;

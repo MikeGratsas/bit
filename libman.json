@@ -4,7 +4,17 @@
   "libraries": [
     {
       "library": "jquery@3.3.1",
-      "destination": "checkers/js/vendor/jquery/"
+      "destination": "checkers/js/lib/jquery/"
+    },
+    {
+      "provider": "cdnjs",
+      "library": "jquery.i18n@1.0.5",
+      "destination": "checkers/js/lib/jquery.i18n/"
+    },
+    {
+      "provider": "cdnjs",
+      "library": "history.js@1.8",
+      "destination": "checkers/js/lib/history.js/"
     }
   ]
 }

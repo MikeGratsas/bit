@@ -1,0 +1,29 @@
+﻿{
+  "@metadata": {
+    "authors": [
+      "Mike Gratsas"
+    ],
+    "last-updated": "2012-02-17",
+    "locale": "ru",
+    "message-documentation": "шашки",
+    "AnotherMetadata": "русские шашки"
+  },
+  "language-label": "Язык",
+  "language-en": "Английский",
+  "language-ru": "Русский",
+  "player-light": "белые",
+  "player-dark": "чёрные",
+  "new-game": "Начать",
+  "load-game": "Загрузить",
+  "save-game": "Сохранить",
+  "select-piece": "Вы должны выбрать шашку",
+  "select-player-piece": "Вы должны выбирать $1 шашки",
+  "select-jump-piece": "Необходимо выбрать другую шашку для взятия: $1",
+  "select-move-piece": "Необходимо выбрать другую шашку для совершения хода",
+  "not-selected-piece": "Шашка не выбрана",
+  "illegal-jump-cell": "Нельзя совершить взятие на эту клетку доски",
+  "illegal-move-cell": "Нельзя совершить ход на эту клетку доски",
+  "occupided-cell": "Необходимо совершить ход на свободную клетку доски",
+  "game-over": "Игра завершена: $1 выиграли",
+  "not-supported-storage": "К сожалению, Ваш браузер не поддерживает возможность хранения данных..."
+}

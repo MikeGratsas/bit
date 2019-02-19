@@ -1,0 +1,29 @@
+{
+  "@metadata": {
+    "authors": [
+      "Mike Gratsas"
+    ],
+    "last-updated": "2012-02-17",
+    "locale": "en",
+    "message-documentation": "checkers",
+    "AnotherMetadata": "Russian checkers"
+  },
+  "language-label": "Language",
+  "language-en": "English",
+  "language-ru": "Russian",
+  "player-light": "light",
+  "player-dark": "dark",
+  "new-game": "New",
+  "load-game": "Load",
+  "save-game": "Save",
+  "select-piece": "You have to select a piece",
+  "select-player-piece": "You have to select a $1 piece",
+  "select-jump-piece": "You have to select another piece to jump: $1",
+  "select-move-piece": "You have to select another piece to move",
+  "not-selected-piece": "Piece is not selected",
+  "illegal-jump-cell": "You can not jump to this cell on the board",
+  "illegal-move-cell": "You can not move to this cell on the board",
+  "occupided-cell": "You have to move to unoccupied square on the board",
+  "game-over": "Game over: $1 won",
+  "not-supported-storage": "Sorry, your browser does not support Web Storage..."
+}
