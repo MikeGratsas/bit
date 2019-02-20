@@ -23,7 +23,7 @@
   "not-selected-piece": "Piece is not selected",
   "illegal-jump-cell": "You can not jump to this cell on the board",
   "illegal-move-cell": "You can not move to this cell on the board",
-  "occupided-cell": "You have to move to unoccupied square on the board",
+  "occupied-cell": "You have to move to unoccupied square on the board",
   "game-over": "Game over: $1 won",
   "not-supported-storage": "Sorry, your browser does not support Web Storage..."
 }

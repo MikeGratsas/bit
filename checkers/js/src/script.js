@@ -10,6 +10,7 @@
 
 $(function () {
     markupBoard($('#board'));
+    var state = null;
     var get_url_parameter = function (name) {
         if (URLSearchParams) {
             var searchParams = new URLSearchParams(window.location.search);
@@ -33,19 +34,24 @@ $(function () {
             $.i18n().locale = locale;
             $("#language").val(locale);
         }
-        update_texts();
         if (document.location.protocol !== 'file:') {
             if (History) {
+                state = History.getState();
                 History.Adapter.bind(window, 'statechange', function () {
-                    var locale = get_url_parameter('language');
-                    if (locale) {
-                        $.i18n().locale = locale;
-                        $("#language").val(locale);
-                        update_texts();
+                    var currentIndex = History.getCurrentIndex();
+                    var state = History.getState();
+                    if (state.data.index != currentIndex) {
+                        var locale = get_url_parameter('language');
+                        if (locale) {
+                            $.i18n().locale = locale;
+                            $("#language").val(locale);
+                            update_texts();
+                        }
                     }
                 });
             }
         }
+        update_texts();
 
         $("#language").change(function (event) {
             var locale = $(this).val();
@@ -60,77 +66,62 @@ $(function () {
     });
     
     var checkers = new RussianCheckers();
+
     var board = checkers.createBoard();
     subscribeToBoard(board);
-    checkers.setupBoard(board);
     var game = checkers.createGame(board);
+    if (state) {
+        checkers.loadBoard(board, state.data.game.board);
+        game.load(state.data.game);
+        showTurn(game.whiteTurn);
+        if (game.selected != null) {
+            $('#' + game.selected).addClass('selected');
+        }
+    }
+    else {
+        checkers.setupBoard(board);
+    }
     subscribeToGame(game);
     $('.cell').click(function () {
+        var error = null;
         if (game.finished) {
-            alert($.i18n('game-over', game.result > 0 ? $.i18n('player-light') : $.i18n('player-dark')));
+            error = $.i18n('game-over', game.result > 0 ? $.i18n('player-light') : $.i18n('player-dark'));
         }
         else {
           var selected = game.selected;
           if (selected == null) {
-              var error = selectPiece(game, board, this);
-              if (error) {
-                  alert(error);
-              }
+              error = selectPiece(game, board, this);
           }
           else {
-              var piece = board.getPiece(selected);
-              if (piece == null) {
-                  alert($.i18n('not-selected-piece'));
-              }
-              else {
-                  var to = board.getPiece(this.id);
-                  if (to == null) {
-                      if (piece.isSelectableForJump(board)) {
-                          if (game.tryToJump(piece, this.id)) {
-                              $('#' + selected).removeClass('selected');
-                              if (game.selected != null)
-                                  $(this).addClass('selected');
-                              else {
-                                  if (game.finished) {
-                                      alert($.i18n('game-over', game.result > 0 ? $.i18n('player-light') : $.i18n('player-dark')));
-                                  }
-                              }
-                          }
-                          else {
-                              alert($.i18n('illegal-jump-cell'));
-                          }
-                      }
-                      else {
-                          if (game.tryToMove(piece, this.id)) {
-                              $('#' + selected).removeClass('selected');
-                              if (game.selected != null)
-                                  $(this).addClass('selected');
-                          }
-                          else {
-                              alert($.i18n('illegal-move-cell'));
-                          }
-                      }
-                  }
-                  else {
-                      alert($.i18n('occupided-cell'));
-                  }
-              }
+              error = performMove(game, board, selected, this);
           }
+        }
+        if (error) {
+            alert(error);
         }
     });
 
     $('.cell').on({
         dragstart: function (event) {
-            if (!game.finished && game.selected == null) {
-                var error = selectPiece(game, board, this);
-                if (error == null) {
-                    event.dataTransfer.effectAllowed = 'move';
-                    event.dataTransfer.setData('Text', event.target.id);
-                    event.dataTransfer.setDragImage(event.target, 100, 100);
+            var dataTransfer = event.originalEvent.dataTransfer;
+            if (!game.finished) {
+                if (game.selected == null) {
+                    var error = selectPiece(game, board, this);
+                    if (error == null) {
+                        dataTransfer.effectAllowed = 'move';
+                        dataTransfer.setData('text', event.target.id);
+                        //dataTransfer.setDragImage(event.target, 100, 100);
+                        return true;
+                    }
+                }
+                else if (game.selected == this.id) {
+                    dataTransfer.effectAllowed = 'move';
+                    dataTransfer.setData('text', event.target.id);
+                    //dataTransfer.setDragImage(event.target, 100, 100);
                     return true;
                 }
             }
-            event.dataTransfer.effectAllowed = 'none';
+            dataTransfer.effectAllowed = 'none';
             return false;
         },
         dragenter: function (event) {
@@ -143,10 +134,21 @@ $(function () {
         drag: function (event) {
         },
         drop: function (event) {
-            var data = event.dataTransfer.getData('Text');
-            //event.target.appendChild(document.getElementById(data));
-            event.stopPropagation();
-            return false;
+            var dataTransfer = event.originalEvent.dataTransfer;
+            var error = performMove(game, board, dataTransfer.getData('text'), this);
+            if (error) {
+                event.stopPropagation();
+                return false;
+            }
+            return true;
+        }
+    });
+
+    $(window).on('onbeforeunload', function () {
+        if (document.location.protocol !== 'file:') {
+            if (History) {
+                History.pushState({ 'index': History.getCurrentIndex(), 'language': $().val(), 'game': game }, 'checkers', window.location.search);
+            }
         }
     });
 
@@ -178,7 +180,7 @@ $(function () {
               showTurn(game.whiteTurn);
               if (game.selected != null) {
                   $('#' + game.selected).addClass('selected');
-                }
+              }
           }
         }
         else {
@@ -186,6 +188,47 @@ $(function () {
         }
     });
 });
+
+function performMove(game, board, selected, target) {
+    var piece = board.getPiece(selected);
+    if (piece == null) {
+        return $.i18n('not-selected-piece');
+    }
+    else {
+        var to = board.getPiece(target.id);
+        if (to == null) {
+            if (piece.isSelectableForJump(board)) {
+                if (game.tryToJump(piece, target.id)) {
+                    $('#' + selected).removeClass('selected');
+                    if (game.selected != null)
+                        $(target).addClass('selected');
+                    else {
+                        if (game.finished) {
+                            return $.i18n('game-over', game.result > 0 ? $.i18n('player-light') : $.i18n('player-dark'));
+                        }
+                    }
+                }
+                else {
+                    return $.i18n('illegal-jump-cell');
+                }
+            }
+            else {
+                if (game.tryToMove(piece, target.id)) {
+                    $('#' + selected).removeClass('selected');
+                    if (game.selected != null)
+                        $(target).addClass('selected');
+                }
+                else {
+                    return $.i18n('illegal-move-cell');
+                }
+            }
+        }
+        else {
+            return $.i18n('occupied-cell');
+        }
+    }
+    return null;
+}
 
 function selectPiece(game, board, target) {
     game.prepare();

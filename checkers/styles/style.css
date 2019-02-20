@@ -41,6 +41,9 @@
 .dark {
   background-color: black;
 }
+.dark label {
+  color: white;
+}
 .zero-row,
 .last-row {
   height: 6%;
