@@ -132,6 +132,37 @@ class Game {
     }
 
     /**
+     * @function canJump
+     * @description if can capture piece jumping to id
+     * @access public
+     *
+     * @param {Piece}  piece piece
+     * @param {string} id    cell id
+     *
+     * @return {boolean} if can jump
+     */
+    canJump(piece, id) {
+        var cell = Cell.fromId(id);
+        var captureId = piece.findCapture(this.board, cell);
+        return captureId != null;
+    }
+
+    /**
+     * @function canMove
+     * @description if can move piece to id
+     * @access public
+     *
+     * @param {Piece}  piece piece
+     * @param {string} id    cell id
+     *
+     * @return {boolean} if can move
+     */
+     canMove(piece, id) {
+         var cell = Cell.fromId(id);
+         return piece.canMove(cell);
+     }
+
+    /**
      * @function load
      * @description load from restored object
      * @access public

@@ -1,12 +1,12 @@
-﻿html {
+html {
   -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 *,
 *:before,
 *:after {
   -webkit-box-sizing: inherit;
-          box-sizing: inherit;
+  box-sizing: inherit;
 }
 .page {
   text-align: center;
@@ -80,15 +80,18 @@
 }
 .row .digit:last-child {
   -webkit-transform: rotate(90deg);
-          transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
 }
 .row .digit:first-child {
   -webkit-transform: rotate(-90deg);
-          transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  transform: rotate(-90deg);
 }
 .zero-row .letter {
   -webkit-transform: rotate(180deg);
-          transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 .row:nth-child(2) .cell {
   border-top-color: sienna;
@@ -113,6 +116,7 @@
 .board .row .cell.selected {
   background-color: orange;
   -webkit-transition: background-color 2s;
+  -o-transition: background-color 2s;
   transition: background-color 2s;
 }
 .white.man {
@@ -134,3 +138,5 @@
   background-size: contain;
   background-origin: content-box;
 }
+
+/*# sourceMappingURL=style.css.map */

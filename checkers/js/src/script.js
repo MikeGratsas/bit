@@ -11,6 +11,9 @@
 $(function () {
     markupBoard($('#board'));
     var state = null;
+    if (History) {
+        state = History.getState();
+    }
     var get_url_parameter = function (name) {
         if (URLSearchParams) {
             var searchParams = new URLSearchParams(window.location.search);
@@ -36,7 +39,6 @@ $(function () {
         }
         if (document.location.protocol !== 'file:') {
             if (History) {
-                state = History.getState();
                 History.Adapter.bind(window, 'statechange', function () {
                     var currentIndex = History.getCurrentIndex();
                     var state = History.getState();
@@ -53,24 +55,26 @@ $(function () {
         }
         update_texts();
 
-        $("#language").change(function (event) {
+        $('#language').change(function (event) {
             var locale = $(this).val();
             if (locale) {
                 $.i18n().locale = locale;
                 update_texts();
-                if (History) {
-                    History.pushState(null, null, "?language=" + locale);
+                if (document.location.protocol !== 'file:') {
+                  if (History) {
+                      History.pushState(null, null, "?language=" + locale);
+                  }
                 }
             }
         });
     });
-    
+
     var checkers = new RussianCheckers();
 
     var board = checkers.createBoard();
     subscribeToBoard(board);
     var game = checkers.createGame(board);
-    if (state) {
+    if (state && state.data && state.data.game) {
         checkers.loadBoard(board, state.data.game.board);
         game.load(state.data.game);
         showTurn(game.whiteTurn);
@@ -82,6 +86,7 @@ $(function () {
         checkers.setupBoard(board);
     }
     subscribeToGame(game);
+
     $('.cell').click(function () {
         var error = null;
         if (game.finished) {
@@ -110,14 +115,14 @@ $(function () {
                     if (error == null) {
                         dataTransfer.effectAllowed = 'move';
                         dataTransfer.setData('text', event.target.id);
-                        //dataTransfer.setDragImage(event.target, 100, 100);
+                        //dataTransfer.setDragImage(event.target, 0, 0);
                         return true;
                     }
                 }
                 else if (game.selected == this.id) {
                     dataTransfer.effectAllowed = 'move';
                     dataTransfer.setData('text', event.target.id);
-                    //dataTransfer.setDragImage(event.target, 100, 100);
+                    //dataTransfer.setDragImage(event.target, 0, 0);
                     return true;
                 }
             }
@@ -125,29 +130,43 @@ $(function () {
             return false;
         },
         dragenter: function (event) {
-            event.preventDefault();
-            return true;
+        },
+        dragleave: function (event) {
+        },
+        dragend: function (event) {
+        },
+        dragexit: function (event) {
         },
         dragover: function (event) {
-            event.preventDefault();
+            var dataTransfer = event.originalEvent.dataTransfer;
+            var error = allowedMove(game, board, game.selected, this);
+            if (error) {
+              dataTransfer.dropEffect = 'none';
+            }
+            else {
+              dataTransfer.dropEffect = 'move';
+              event.preventDefault();
+            }
         },
         drag: function (event) {
         },
         drop: function (event) {
+            event.preventDefault();
             var dataTransfer = event.originalEvent.dataTransfer;
             var error = performMove(game, board, dataTransfer.getData('text'), this);
             if (error) {
+                if (game.finished) {
+                  alert(error);
+                }
                 event.stopPropagation();
-                return false;
             }
-            return true;
         }
     });
 
-    $(window).on('onbeforeunload', function () {
+    $(window).on('beforeunload', function () {
         if (document.location.protocol !== 'file:') {
             if (History) {
-                History.pushState({ 'index': History.getCurrentIndex(), 'language': $().val(), 'game': game }, 'checkers', window.location.search);
+                History.pushState({ 'index': History.getCurrentIndex(), 'language': $('#language').val(), 'game': game }, 'checkers', window.location.search);
             }
         }
     });
@@ -188,6 +207,32 @@ $(function () {
         }
     });
 });
+
+function allowedMove(game, board, selected, target) {
+    var piece = board.getPiece(selected);
+    if (piece == null) {
+        return $.i18n('not-selected-piece');
+    }
+    else {
+        var to = board.getPiece(target.id);
+        if (to == null) {
+            if (piece.isSelectableForJump(board)) {
+                if (!game.canJump(piece, target.id)) {
+                    return $.i18n('illegal-jump-cell');
+                }
+            }
+            else {
+                if (!game.canMove(piece, target.id)) {
+                    return $.i18n('illegal-move-cell');
+                }
+            }
+        }
+        else {
+            return $.i18n('occupied-cell');
+        }
+    }
+    return null;
+}
 
 function performMove(game, board, selected, target) {
     var piece = board.getPiece(selected);
