@@ -11,12 +11,13 @@
 $(function () {
     markupBoard($('#board'));
     var state = null;
-    if (History) {
-        state = History.getState();
+    var useHistory = (document.location.protocol === 'file:') ? null : window.History;
+    if (useHistory) {
+        state = useHistory.getState();
     }
     var get_url_parameter = function (name) {
-        if (URLSearchParams) {
-            var searchParams = new URLSearchParams(window.location.search);
+        if (window.URLSearchParams) {
+            var searchParams = new URLSearchParams(document.location.search);
             return searchParams.get(name);
         }
         return null;
@@ -37,21 +38,20 @@ $(function () {
             $.i18n().locale = locale;
             $("#language").val(locale);
         }
-        if (document.location.protocol !== 'file:') {
-            if (History) {
-                History.Adapter.bind(window, 'statechange', function () {
-                    var currentIndex = History.getCurrentIndex();
-                    var state = History.getState();
-                    if (state.data.index != currentIndex) {
-                        var locale = get_url_parameter('language');
-                        if (locale) {
-                            $.i18n().locale = locale;
-                            $("#language").val(locale);
-                            update_texts();
-                        }
+        if (useHistory) {
+            useHistory.Adapter.bind(window, 'statechange', function () {
+                var currentIndex = useHistory.getCurrentIndex();
+                var state = History.getState();
+                console.log('bind' + currentIndex + ': ' + state);
+                if (state.data.index != currentIndex) {
+                    var locale = get_url_parameter('language');
+                    if (locale) {
+                        $.i18n().locale = locale;
+                        $("#language").val(locale);
+                        update_texts();
                     }
-                });
-            }
+                }
+            });
         }
         update_texts();
 
@@ -60,10 +60,9 @@ $(function () {
             if (locale) {
                 $.i18n().locale = locale;
                 update_texts();
-                if (document.location.protocol !== 'file:') {
-                  if (History) {
-                      History.pushState(null, null, "?language=" + locale);
-                  }
+                if (useHistory) {
+                    useHistory.pushState({ 'index': useHistory.getCurrentIndex(), 'language': $('#language').val() }, 'change', "?language=" + locale);
+                    console.log('change' + useHistory.getCurrentIndex() + ': ' + useHistory.getState());
                 }
             }
         });
@@ -113,61 +112,76 @@ $(function () {
                 if (game.selected == null) {
                     var error = selectPiece(game, board, this);
                     if (error == null) {
-                        dataTransfer.effectAllowed = 'move';
-                        dataTransfer.setData('text', event.target.id);
-                        //dataTransfer.setDragImage(event.target, 0, 0);
-                        return true;
+                        return startDrag(dataTransfer, event);
                     }
                 }
                 else if (game.selected == this.id) {
-                    dataTransfer.effectAllowed = 'move';
-                    dataTransfer.setData('text', event.target.id);
-                    //dataTransfer.setDragImage(event.target, 0, 0);
-                    return true;
+                     return startDrag(dataTransfer, event);
                 }
             }
             dataTransfer.effectAllowed = 'none';
             return false;
         },
         dragenter: function (event) {
+            $(this).addClass('highlight');
+            var error = allowedMove(game, board, game.selected, this);
+            if (error) {
+                $(this).attr('data-error', error);
+                var middle = board.size >> 1;
+                var cell = Cell.fromId(this.id);
+                $(this).attr('data-tooltip', cell.row < middle ? (cell.column < middle ? 'bottom-left' : 'bottom-right') : (cell.column < middle ? 'top-left' : 'top-right'));
+                
+            }
+            else {
+                $(this).removeAttr('data-error');
+                $(this).removeAttr('data-tooltip');
+            }
         },
         dragleave: function (event) {
+            $(this).removeAttr('data-error');
+            $(this).removeAttr('data-tooltip');
+            $(this).removeClass('highlight');
         },
         dragend: function (event) {
+            $(this).css('background-image', '');
         },
         dragexit: function (event) {
+            $(this).css('background-image', '');
         },
         dragover: function (event) {
             var dataTransfer = event.originalEvent.dataTransfer;
-            var error = allowedMove(game, board, game.selected, this);
+            var error = $(this).attr('data-error');
             if (error) {
-              dataTransfer.dropEffect = 'none';
+                dataTransfer.dropEffect = 'none';
+                return true;
             }
-            else {
-              dataTransfer.dropEffect = 'move';
-              event.preventDefault();
-            }
+            dataTransfer.dropEffect = 'move';
+            event.preventDefault();
+            return false;
         },
         drag: function (event) {
         },
         drop: function (event) {
+            event.stopPropagation();
             event.preventDefault();
+            $(this).removeAttr('data-error');
+            $(this).removeAttr('data-tooltip');
+            $(this).removeClass('highlight');
             var dataTransfer = event.originalEvent.dataTransfer;
             var error = performMove(game, board, dataTransfer.getData('text'), this);
             if (error) {
                 if (game.finished) {
                   alert(error);
                 }
-                event.stopPropagation();
             }
+            return false;
         }
     });
 
     $(window).on('beforeunload', function () {
-        if (document.location.protocol !== 'file:') {
-            if (History) {
-                History.pushState({ 'index': History.getCurrentIndex(), 'language': $('#language').val(), 'game': game }, 'checkers', window.location.search);
-            }
+        if (useHistory) {
+            useHistory.pushState({ 'index': useHistory.getCurrentIndex(), 'language': $('#language').val(), 'game': game }, 'checkers', document.location.search);
+            console.log('beforeunload' + useHistory.getCurrentIndex() + ': ' + useHistory.getState());
         }
     });
 
@@ -207,6 +221,40 @@ $(function () {
         }
     });
 });
+
+function startDrag(dataTransfer, event) {
+    dataTransfer.effectAllowed = 'move';
+    dataTransfer.setData('text', event.target.id);
+    if (dataTransfer.setDragImage) {
+        var element = getBackgroundImage(event.target);
+        if (element) {
+            var clientRect = event.target.getBoundingClientRect();
+            var offsetX = event.clientX - clientRect.left;
+            var offsetY = event.clientY - clientRect.top;
+            dataTransfer.setDragImage(element, offsetX, offsetY);
+        }
+    }
+    setTimeout(function () {
+        $(event.target).css('background-image', 'none');
+    }, 100);
+    return true;
+}
+
+function getBackgroundImage(target) {
+    var img = null;
+    var path = $(target).css('background-image').match(/^url\("?(.+?)"?\)$/)[1];
+    if (path) {
+        var img = new Image($(target).width(), $(target).height());
+        $(img).on('load', function (e) {
+            console.log('Background Image: ' + this.width + ', ' + this.height)
+            console.log('Offset: ' + this.offsetWidth + ', ' + this.offsetHeight)
+            console.log('Client: ' + this.clientWidth + ', ' + this.clientHeight)
+            console.log('Natural: ' + this.naturalWidth + ', ' + this.naturalHeight)
+        });
+        img.src = path;
+    }
+    return img;
+}
 
 function allowedMove(game, board, selected, target) {
     var piece = board.getPiece(selected);

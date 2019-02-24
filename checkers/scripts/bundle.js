@@ -886,6 +886,37 @@ class Game {
     }
 
     /**
+     * @function canJump
+     * @description if can capture piece jumping to id
+     * @access public
+     *
+     * @param {Piece}  piece piece
+     * @param {string} id    cell id
+     *
+     * @return {boolean} if can jump
+     */
+    canJump(piece, id) {
+        var cell = Cell.fromId(id);
+        var captureId = piece.findCapture(this.board, cell);
+        return captureId != null;
+    }
+
+    /**
+     * @function canMove
+     * @description if can move piece to id
+     * @access public
+     *
+     * @param {Piece}  piece piece
+     * @param {string} id    cell id
+     *
+     * @return {boolean} if can move
+     */
+     canMove(piece, id) {
+         var cell = Cell.fromId(id);
+         return piece.canMove(cell);
+     }
+
+    /**
      * @function load
      * @description load from restored object
      * @access public
@@ -1019,9 +1050,13 @@ class RussianCheckers {
 $(function () {
     markupBoard($('#board'));
     var state = null;
+    var useHistory = (document.location.protocol === 'file:') ? null : window.History;
+    if (useHistory) {
+        state = useHistory.getState();
+    }
     var get_url_parameter = function (name) {
-        if (URLSearchParams) {
-            var searchParams = new URLSearchParams(window.location.search);
+        if (window.URLSearchParams) {
+            var searchParams = new URLSearchParams(document.location.search);
             return searchParams.get(name);
         }
         return null;
@@ -1042,43 +1077,42 @@ $(function () {
             $.i18n().locale = locale;
             $("#language").val(locale);
         }
-        if (document.location.protocol !== 'file:') {
-            if (History) {
-                state = History.getState();
-                History.Adapter.bind(window, 'statechange', function () {
-                    var currentIndex = History.getCurrentIndex();
-                    var state = History.getState();
-                    if (state.data.index != currentIndex) {
-                        var locale = get_url_parameter('language');
-                        if (locale) {
-                            $.i18n().locale = locale;
-                            $("#language").val(locale);
-                            update_texts();
-                        }
+        if (useHistory) {
+            useHistory.Adapter.bind(window, 'statechange', function () {
+                var currentIndex = useHistory.getCurrentIndex();
+                var state = History.getState();
+                console.log('bind' + currentIndex + ': ' + state);
+                if (state.data.index != currentIndex) {
+                    var locale = get_url_parameter('language');
+                    if (locale) {
+                        $.i18n().locale = locale;
+                        $("#language").val(locale);
+                        update_texts();
                     }
-                });
-            }
+                }
+            });
         }
         update_texts();
 
-        $("#language").change(function (event) {
+        $('#language').change(function (event) {
             var locale = $(this).val();
             if (locale) {
                 $.i18n().locale = locale;
                 update_texts();
-                if (History) {
-                    History.pushState(null, null, "?language=" + locale);
+                if (useHistory) {
+                    useHistory.pushState({ 'index': useHistory.getCurrentIndex(), 'language': $('#language').val() }, 'change', "?language=" + locale);
+                    console.log('change' + useHistory.getCurrentIndex() + ': ' + useHistory.getState());
                 }
             }
         });
     });
-    
+
     var checkers = new RussianCheckers();
 
     var board = checkers.createBoard();
     subscribeToBoard(board);
     var game = checkers.createGame(board);
-    if (state) {
+    if (state && state.data && state.data.game) {
         checkers.loadBoard(board, state.data.game.board);
         game.load(state.data.game);
         showTurn(game.whiteTurn);
@@ -1090,6 +1124,7 @@ $(function () {
         checkers.setupBoard(board);
     }
     subscribeToGame(game);
+
     $('.cell').click(function () {
         var error = null;
         if (game.finished) {
@@ -1116,47 +1151,76 @@ $(function () {
                 if (game.selected == null) {
                     var error = selectPiece(game, board, this);
                     if (error == null) {
-                        dataTransfer.effectAllowed = 'move';
-                        dataTransfer.setData('text', event.target.id);
-                        //dataTransfer.setDragImage(event.target, 100, 100);
-                        return true;
+                        return startDrag(dataTransfer, event);
                     }
                 }
                 else if (game.selected == this.id) {
-                    dataTransfer.effectAllowed = 'move';
-                    dataTransfer.setData('text', event.target.id);
-                    //dataTransfer.setDragImage(event.target, 100, 100);
-                    return true;
+                     return startDrag(dataTransfer, event);
                 }
             }
             dataTransfer.effectAllowed = 'none';
             return false;
         },
         dragenter: function (event) {
-            event.preventDefault();
-            return true;
+            $(this).addClass('highlight');
+            var error = allowedMove(game, board, game.selected, this);
+            if (error) {
+                $(this).attr('data-error', error);
+                var middle = board.size >> 1;
+                var cell = Cell.fromId(this.id);
+                $(this).attr('data-tooltip', cell.row < middle ? (cell.column < middle ? 'bottom-left' : 'bottom-right') : (cell.column < middle ? 'top-left' : 'top-right'));
+                
+            }
+            else {
+                $(this).removeAttr('data-error');
+                $(this).removeAttr('data-tooltip');
+            }
+        },
+        dragleave: function (event) {
+            $(this).removeAttr('data-error');
+            $(this).removeAttr('data-tooltip');
+            $(this).removeClass('highlight');
+        },
+        dragend: function (event) {
+            $(this).css('background-image', '');
+        },
+        dragexit: function (event) {
+            $(this).css('background-image', '');
         },
         dragover: function (event) {
+            var dataTransfer = event.originalEvent.dataTransfer;
+            var error = $(this).attr('data-error');
+            if (error) {
+                dataTransfer.dropEffect = 'none';
+                return true;
+            }
+            dataTransfer.dropEffect = 'move';
             event.preventDefault();
+            return false;
         },
         drag: function (event) {
         },
         drop: function (event) {
+            event.stopPropagation();
+            event.preventDefault();
+            $(this).removeAttr('data-error');
+            $(this).removeAttr('data-tooltip');
+            $(this).removeClass('highlight');
             var dataTransfer = event.originalEvent.dataTransfer;
             var error = performMove(game, board, dataTransfer.getData('text'), this);
             if (error) {
-                event.stopPropagation();
-                return false;
+                if (game.finished) {
+                  alert(error);
+                }
             }
-            return true;
+            return false;
         }
     });
 
-    $(window).on('onbeforeunload', function () {
-        if (document.location.protocol !== 'file:') {
-            if (History) {
-                History.pushState({ 'index': History.getCurrentIndex(), 'language': $().val(), 'game': game }, 'checkers', window.location.search);
-            }
+    $(window).on('beforeunload', function () {
+        if (useHistory) {
+            useHistory.pushState({ 'index': useHistory.getCurrentIndex(), 'language': $('#language').val(), 'game': game }, 'checkers', document.location.search);
+            console.log('beforeunload' + useHistory.getCurrentIndex() + ': ' + useHistory.getState());
         }
     });
 
@@ -1196,6 +1260,66 @@ $(function () {
         }
     });
 });
+
+function startDrag(dataTransfer, event) {
+    dataTransfer.effectAllowed = 'move';
+    dataTransfer.setData('text', event.target.id);
+    if (dataTransfer.setDragImage) {
+        var element = getBackgroundImage(event.target);
+        if (element) {
+            var clientRect = event.target.getBoundingClientRect();
+            var offsetX = event.clientX - clientRect.left;
+            var offsetY = event.clientY - clientRect.top;
+            dataTransfer.setDragImage(element, offsetX, offsetY);
+        }
+    }
+    setTimeout(function () {
+        $(event.target).css('background-image', 'none');
+    }, 100);
+    return true;
+}
+
+function getBackgroundImage(target) {
+    var img = null;
+    var path = $(target).css('background-image').match(/^url\("?(.+?)"?\)$/)[1];
+    if (path) {
+        var img = new Image($(target).width(), $(target).height());
+        $(img).on('load', function (e) {
+            console.log('Background Image: ' + this.width + ', ' + this.height)
+            console.log('Offset: ' + this.offsetWidth + ', ' + this.offsetHeight)
+            console.log('Client: ' + this.clientWidth + ', ' + this.clientHeight)
+            console.log('Natural: ' + this.naturalWidth + ', ' + this.naturalHeight)
+        });
+        img.src = path;
+    }
+    return img;
+}
+
+function allowedMove(game, board, selected, target) {
+    var piece = board.getPiece(selected);
+    if (piece == null) {
+        return $.i18n('not-selected-piece');
+    }
+    else {
+        var to = board.getPiece(target.id);
+        if (to == null) {
+            if (piece.isSelectableForJump(board)) {
+                if (!game.canJump(piece, target.id)) {
+                    return $.i18n('illegal-jump-cell');
+                }
+            }
+            else {
+                if (!game.canMove(piece, target.id)) {
+                    return $.i18n('illegal-move-cell');
+                }
+            }
+        }
+        else {
+            return $.i18n('occupied-cell');
+        }
+    }
+    return null;
+}
 
 function performMove(game, board, selected, target) {
     var piece = board.getPiece(selected);
