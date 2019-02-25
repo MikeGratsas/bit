@@ -7,6 +7,18 @@
 //@codekit-prepend checkers.js
 
 //import $ from 'jquery';
+var whiteMan = new Image();
+whiteMan.setAttribute('crossOrigin', 'anonymous');
+whiteMan.src = 'images/ch_white.png';
+var whiteKing = new Image();
+whiteKing.setAttribute('crossOrigin', 'anonymous');
+whiteKing.src = 'images/ch_q_white.png';
+var blackMan = new Image();
+blackMan.setAttribute('crossOrigin', 'anonymous');
+blackMan.src = 'images/ch_black.png';
+var blackKing = new Image();
+blackKing.setAttribute('crossOrigin', 'anonymous');
+blackKing.src = 'images/ch_q_black.png';
 
 $(function () {
     markupBoard($('#board'));
@@ -42,7 +54,7 @@ $(function () {
             useHistory.Adapter.bind(window, 'statechange', function () {
                 var currentIndex = useHistory.getCurrentIndex();
                 var state = History.getState();
-                console.log('bind' + currentIndex + ': ' + state);
+                console.log('bind' + currentIndex + ': ' + JSON.stringify(state));
                 if (state.data.index != currentIndex) {
                     var locale = get_url_parameter('language');
                     if (locale) {
@@ -61,8 +73,8 @@ $(function () {
                 $.i18n().locale = locale;
                 update_texts();
                 if (useHistory) {
-                    useHistory.pushState({ 'index': useHistory.getCurrentIndex(), 'language': $('#language').val() }, 'change', "?language=" + locale);
-                    console.log('change' + useHistory.getCurrentIndex() + ': ' + useHistory.getState());
+                    useHistory.replaceState({ 'index': useHistory.getCurrentIndex(), 'language': $('#language').val() }, $.i18n('game-title'), "?language=" + locale);
+                    console.log('change' + useHistory.getCurrentIndex() + ': ' + JSON.stringify(useHistory.getState()));
                 }
             }
         });
@@ -123,6 +135,7 @@ $(function () {
             return false;
         },
         dragenter: function (event) {
+            clearDrag();
             $(this).addClass('highlight');
             var error = allowedMove(game, board, game.selected, this);
             if (error) {
@@ -130,7 +143,6 @@ $(function () {
                 var middle = board.size >> 1;
                 var cell = Cell.fromId(this.id);
                 $(this).attr('data-tooltip', cell.row < middle ? (cell.column < middle ? 'bottom-left' : 'bottom-right') : (cell.column < middle ? 'top-left' : 'top-right'));
-                
             }
             else {
                 $(this).removeAttr('data-error');
@@ -144,9 +156,11 @@ $(function () {
         },
         dragend: function (event) {
             $(this).css('background-image', '');
+            clearDrag();
         },
         dragexit: function (event) {
             $(this).css('background-image', '');
+            clearDrag();
         },
         dragover: function (event) {
             var dataTransfer = event.originalEvent.dataTransfer;
@@ -180,8 +194,8 @@ $(function () {
 
     $(window).on('beforeunload', function () {
         if (useHistory) {
-            useHistory.pushState({ 'index': useHistory.getCurrentIndex(), 'language': $('#language').val(), 'game': game }, 'checkers', document.location.search);
-            console.log('beforeunload' + useHistory.getCurrentIndex() + ': ' + useHistory.getState());
+            useHistory.replaceState({ 'index': useHistory.getCurrentIndex(), 'language': $('#language').val(), 'game': game }, $.i18n('game-title'), document.location.search);
+            console.log('beforeunload' + useHistory.getCurrentIndex() + ': ' + JSON.stringify(useHistory.getState()));
         }
     });
 
@@ -193,12 +207,12 @@ $(function () {
     });
 
     $('#save').click(function () {
-      if (localStorage) {
-        localStorage.setItem('checkers', JSON.stringify(game));
-      }
-      else {
+       if (localStorage) {
+          localStorage.setItem('checkers', JSON.stringify(game));
+       }
+       else {
           alert($.i18n('not-supported-storage'));
-      }
+       }
     });
 
     $('#load').click(function () {
@@ -222,11 +236,18 @@ $(function () {
     });
 });
 
+function clearDrag() {
+    $('.highlight').removeAttr('data-error');
+    $('.highlight').removeAttr('data-tooltip');
+    $('.highlight').removeClass('highlight');
+}
+
 function startDrag(dataTransfer, event) {
     dataTransfer.effectAllowed = 'move';
     dataTransfer.setData('text', event.target.id);
+
     if (dataTransfer.setDragImage) {
-        var element = getBackgroundImage(event.target);
+        var element = createDragImage(event.target);
         if (element) {
             var clientRect = event.target.getBoundingClientRect();
             var offsetX = event.clientX - clientRect.left;
@@ -234,6 +255,7 @@ function startDrag(dataTransfer, event) {
             dataTransfer.setDragImage(element, offsetX, offsetY);
         }
     }
+
     setTimeout(function () {
         $(event.target).css('background-image', 'none');
     }, 100);
@@ -245,15 +267,32 @@ function getBackgroundImage(target) {
     var path = $(target).css('background-image').match(/^url\("?(.+?)"?\)$/)[1];
     if (path) {
         var img = new Image($(target).width(), $(target).height());
-        $(img).on('load', function (e) {
-            console.log('Background Image: ' + this.width + ', ' + this.height)
-            console.log('Offset: ' + this.offsetWidth + ', ' + this.offsetHeight)
-            console.log('Client: ' + this.clientWidth + ', ' + this.clientHeight)
-            console.log('Natural: ' + this.naturalWidth + ', ' + this.naturalHeight)
-        });
         img.src = path;
     }
     return img;
+}
+
+function selectBackgroundImage(target) {
+    var img = null;
+    if ($(target).hasClass('white')) {
+      img = $(target).hasClass('king')? whiteKing: whiteMan;
+    }
+    else if ($(target).hasClass('black')) {
+      img = $(target).hasClass('king')? blackKing: blackMan;
+    }
+    return img;
+}
+
+function createDragImage(target) {
+  var canvas = document.createElementNS('http://www.w3.org/1999/xhtml', 'canvas');
+  canvas.width = $(target).width();
+  canvas.height = $(target).height();
+  var srcImage = selectBackgroundImage(target);
+  var ctx = canvas.getContext("2d");
+  ctx.drawImage(srcImage, 0, 0, canvas.width, canvas.height);
+  var img = new Image($(target).width(), $(target).height());
+  img.src = canvas.toDataURL('image/png');
+  return img;
 }
 
 function allowedMove(game, board, selected, target) {
@@ -406,9 +445,9 @@ function unsubscribeToGame(game) {
  */
 function showTurn(whiteTurn) {
   if (whiteTurn)
-      $('#controls').removeClass('dark').addClass('light');
+      $('#controls').removeClass('black').addClass('white');
   else
-      $('#controls').removeClass('light').addClass('dark');
+      $('#controls').removeClass('white').addClass('black');
 }
 
 /**

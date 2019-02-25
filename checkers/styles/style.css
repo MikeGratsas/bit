@@ -1,12 +1,12 @@
-﻿html {
+html {
   -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 *,
 *:before,
 *:after {
   -webkit-box-sizing: inherit;
-          box-sizing: inherit;
+  box-sizing: inherit;
 }
 .page {
   text-align: center;
@@ -45,7 +45,8 @@
 }
 .board .zero-row .letter {
   -webkit-transform: rotate(180deg);
-          transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 .board .row {
   height: 11%;
@@ -55,11 +56,13 @@
 }
 .board .row .digit:last-child {
   -webkit-transform: rotate(90deg);
-          transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
 }
 .board .row .digit:first-child {
   -webkit-transform: rotate(-90deg);
-          transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  transform: rotate(-90deg);
 }
 .board .row .cell {
   width: 11%;
@@ -151,6 +154,7 @@
 .board .row .cell.selected {
   background-color: orange;
   -webkit-transition: background-color 2s;
+  -o-transition: background-color 2s;
   transition: background-color 2s;
 }
 .board .row .cell.selected.highlight {
@@ -168,12 +172,14 @@
   padding: 1vmin;
   margin: 1vmin auto;
 }
-.controls.light {
+.controls.white {
   background-color: silver;
 }
-.controls.dark {
+.controls.black {
   background-color: black;
 }
-.controls.dark label {
+.controls.black label {
   color: white;
 }
+
+/*# sourceMappingURL=style.css.map */

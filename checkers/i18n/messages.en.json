@@ -16,6 +16,7 @@
   "new-game": "New",
   "load-game": "Load",
   "save-game": "Save",
+  "not-supported-storage": "Sorry, your browser does not support Web Storage...",
   "select-piece": "You have to select a piece",
   "select-player-piece": "You have to select a $1 piece",
   "select-jump-piece": "You have to select another piece to jump: $1",
@@ -25,5 +26,5 @@
   "illegal-move-cell": "You can not move to this cell on the board",
   "occupied-cell": "You have to move to unoccupied square on the board",
   "game-over": "Game over: $1 won",
-  "not-supported-storage": "Sorry, your browser does not support Web Storage..."
+  "game-title": "Russian checkers"
 }
