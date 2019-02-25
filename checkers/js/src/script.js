@@ -55,7 +55,7 @@ $(function () {
                 var currentIndex = useHistory.getCurrentIndex();
                 var state = History.getState();
                 console.log('bind' + currentIndex + ': ' + JSON.stringify(state));
-                if (state.data.index != currentIndex) {
+                if (state.data.index != currentIndex - 1) {
                     var locale = get_url_parameter('language');
                     if (locale) {
                         $.i18n().locale = locale;
@@ -267,6 +267,7 @@ function getBackgroundImage(target) {
     var path = $(target).css('background-image').match(/^url\("?(.+?)"?\)$/)[1];
     if (path) {
         var img = new Image($(target).width(), $(target).height());
+        img.setAttribute('crossOrigin', 'anonymous');
         img.src = path;
     }
     return img;
@@ -287,7 +288,7 @@ function createDragImage(target) {
   var canvas = document.createElementNS('http://www.w3.org/1999/xhtml', 'canvas');
   canvas.width = $(target).width();
   canvas.height = $(target).height();
-  var srcImage = selectBackgroundImage(target);
+  var srcImage = getBackgroundImage(target);
   var ctx = canvas.getContext("2d");
   ctx.drawImage(srcImage, 0, 0, canvas.width, canvas.height);
   var img = new Image($(target).width(), $(target).height());
