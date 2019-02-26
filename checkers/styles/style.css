@@ -86,23 +86,23 @@ html {
 }
 .board .row .cell[data-error][data-tooltip=top-left]::after {
   border-radius: 0 1em 1em 1em;
-  left: 50%;
-  top: 50%;
+  left: 80%;
+  top: 80%;
 }
 .board .row .cell[data-error][data-tooltip=top-right]::after {
   border-radius: 1em 0 1em 1em;
-  right: 50%;
-  top: 50%;
+  right: 80%;
+  top: 80%;
 }
 .board .row .cell[data-error][data-tooltip=bottom-left]::after {
   border-radius: 1em 1em 1em 0;
-  left: 50%;
-  bottom: 50%;
+  left: 80%;
+  bottom: 80%;
 }
 .board .row .cell[data-error][data-tooltip=bottom-right]::after {
   border-radius: 1em 1em 0 1em;
-  right: 50%;
-  bottom: 50%;
+  right: 80%;
+  bottom: 80%;
 }
 .board .row .cell.white.man {
   background-image: url('../images/ch_white.png');

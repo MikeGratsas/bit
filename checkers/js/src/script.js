@@ -36,6 +36,10 @@ $(function () {
     };
     var update_texts = function () {
         $('.controls').i18n();
+        $('#new').prop('title', $.i18n('new-title'));
+        $('#save').prop('title', $.i18n('save-title'));
+        $('#load').prop('title', $.i18n('load-title'));
+        $('#language-label').prop('title', $.i18n('language-title'));
     };
     $.i18n({
         locale: 'en',
@@ -49,6 +53,7 @@ $(function () {
         if (locale) {
             $.i18n().locale = locale;
             $("#language").val(locale);
+            update_texts();
         }
         if (useHistory) {
             useHistory.Adapter.bind(window, 'statechange', function () {
@@ -65,7 +70,6 @@ $(function () {
                 }
             });
         }
-        update_texts();
 
         $('#language').change(function (event) {
             var locale = $(this).val();
@@ -140,9 +144,7 @@ $(function () {
             var error = allowedMove(game, board, game.selected, this);
             if (error) {
                 $(this).attr('data-error', error);
-                var middle = board.size >> 1;
-                var cell = Cell.fromId(this.id);
-                $(this).attr('data-tooltip', cell.row < middle ? (cell.column < middle ? 'bottom-left' : 'bottom-right') : (cell.column < middle ? 'top-left' : 'top-right'));
+                updateDrag(event);
             }
             else {
                 $(this).removeAttr('data-error');
@@ -167,6 +169,7 @@ $(function () {
             var error = $(this).attr('data-error');
             if (error) {
                 dataTransfer.dropEffect = 'none';
+                updateDrag(event);
                 return true;
             }
             dataTransfer.dropEffect = 'move';
@@ -242,11 +245,21 @@ function clearDrag() {
     $('.highlight').removeClass('highlight');
 }
 
+function updateDrag(event) {
+    var clientRect = event.target.getBoundingClientRect();
+    var middleX = (clientRect.left + clientRect.right) >> 1;
+    var middleY = (clientRect.top + clientRect.bottom) >> 1;
+    var tooltip = event.clientX < middleX ? (event.clientY < middleY ? 'top-left' : 'bottom-left') : (event.clientY < middleY ? 'top-right' : 'bottom-right');
+    $(event.target).attr('data-tooltip', tooltip);
+}
+
 function startDrag(dataTransfer, event) {
     dataTransfer.effectAllowed = 'move';
     dataTransfer.setData('text', event.target.id);
 
     if (dataTransfer.setDragImage) {
+        createDragImage(dataTransfer, event);
+        /*
         var element = createDragImage(event.target);
         if (element) {
             var clientRect = event.target.getBoundingClientRect();
@@ -254,6 +267,7 @@ function startDrag(dataTransfer, event) {
             var offsetY = event.clientY - clientRect.top;
             dataTransfer.setDragImage(element, offsetX, offsetY);
         }
+        */
     }
 
     setTimeout(function () {
@@ -284,16 +298,28 @@ function selectBackgroundImage(target) {
     return img;
 }
 
-function createDragImage(target) {
-  var canvas = document.createElementNS('http://www.w3.org/1999/xhtml', 'canvas');
-  canvas.width = $(target).width();
-  canvas.height = $(target).height();
-  var srcImage = getBackgroundImage(target);
-  var ctx = canvas.getContext("2d");
-  ctx.drawImage(srcImage, 0, 0, canvas.width, canvas.height);
-  var img = new Image($(target).width(), $(target).height());
-  img.src = canvas.toDataURL('image/png');
-  return img;
+function createDragImage(dataTransfer, event) {
+  var path = $(event.target).css('background-image').match(/^url\("?(.+?)"?\)$/)[1];
+  if (path) {
+      var srcImage = new Image($(event.target).width(), $(event.target).height());
+      srcImage.setAttribute('crossOrigin', 'anonymous');
+      srcImage.onload = function () {
+        var canvas = document.createElementNS('http://www.w3.org/1999/xhtml', 'canvas');
+        canvas.width = this.width;
+        canvas.height = this.height;
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(this, 0, 0, canvas.width, canvas.height);
+        var img = new Image(canvas.width, canvas.height);
+        srcImage.onload = function () {
+          var clientRect = event.target.getBoundingClientRect();
+          var offsetX = event.clientX - clientRect.left;
+          var offsetY = event.clientY - clientRect.top;
+          dataTransfer.setDragImage(this, offsetX, offsetY);
+        }
+        img.src = canvas.toDataURL('image/png');
+      }
+      srcImage.src = path;
+  }
 }
 
 function allowedMove(game, board, selected, target) {

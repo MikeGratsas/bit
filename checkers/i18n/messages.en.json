@@ -26,5 +26,9 @@
   "illegal-move-cell": "You can not move to this cell on the board",
   "occupied-cell": "You have to move to unoccupied square on the board",
   "game-over": "Game over: $1 won",
-  "game-title": "Russian checkers"
+  "game-title": "Russian checkers",
+  "new-title": "Start new game",
+  "save-title": "Save current game position",
+  "load-title": "Load previously saved game position",
+  "language-title": "Select language"
 }
