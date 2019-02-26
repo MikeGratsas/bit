@@ -18,6 +18,7 @@ function scalePNG($filename)
 }
 
 function getFile() {
+  $filename = null;
   $path = '../images/';
   if(isset($_GET['color'])){
       switch ($_GET['color']) {
@@ -25,9 +26,11 @@ function getFile() {
               if(isset($_GET['kind'])){
                 switch ($_GET['kind']) {
                     case '1':
-                        return $path.'ch_white.png'
+                        $filename = $path.'ch_white.png';
+                        break;
                     case '2':
-                        return $path.'ch_q_white.png'
+                        $filename = $path.'ch_q_white.png';
+                        break;
                 }
               }
               break;
@@ -35,15 +38,17 @@ function getFile() {
               if(isset($_GET['kind'])){
                 switch ($_GET['kind']) {
                     case '1':
-                        return $path.'ch_black.png'
+                        $filename = $path.'ch_black.png';
+                        break;
                     case '2':
-                        return $path.'ch_q_black.png'
+                        $filename = $path.'ch_q_black.png';
+                        break;
                 }
               }
               break;
       }
   }
-  return null;
+  return $filename;
 }
 
 $file = getFile();

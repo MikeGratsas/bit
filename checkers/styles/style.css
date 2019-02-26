@@ -3,8 +3,8 @@ html {
   box-sizing: border-box;
 }
 *,
-*:before,
-*:after {
+*:after,
+*:before {
   -webkit-box-sizing: inherit;
   box-sizing: inherit;
 }
@@ -30,17 +30,17 @@ html {
   height: 90vmin;
   margin: 0 auto;
 }
-.board .zero-row,
-.board .last-row {
+.board .last-row,
+.board .zero-row {
   height: 6%;
 }
-.board .zero-row .corner,
-.board .last-row .corner {
+.board .last-row .corner,
+.board .zero-row .corner {
   width: 6%;
   height: 100%;
 }
-.board .zero-row .letter,
-.board .last-row .letter {
+.board .last-row .letter,
+.board .zero-row .letter {
   width: 11%;
 }
 .board .zero-row .letter {
@@ -75,6 +75,7 @@ html {
 }
 .board .row .cell[data-error]::after {
   content: attr(data-error);
+  pointer-events: none;
   position: absolute;
   min-width: 200%;
   border: thin solid blue;
@@ -105,19 +106,19 @@ html {
   bottom: 80%;
 }
 .board .row .cell.white.man {
-  background-image: url('../images/ch_white.png');
+  background-image: url("../images/ch_white.png");
 }
 .board .row .cell.white.king {
-  background-image: url('../images/ch_q_white.png');
+  background-image: url("../images/ch_q_white.png");
 }
 .board .row .cell.black.man {
-  background-image: url('../images/ch_black.png');
+  background-image: url("../images/ch_black.png");
 }
 .board .row .cell.black.king {
-  background-image: url('../images/ch_q_black.png');
+  background-image: url("../images/ch_q_black.png");
 }
-.board .row .cell.white,
-.board .row .cell.black {
+.board .row .cell.black,
+.board .row .cell.white {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: contain;
@@ -143,12 +144,12 @@ html {
   border-right-style: solid;
   border-right-width: thin;
 }
-.board .row:nth-child(odd) .cell:nth-child(even):not(.selected),
-.board .row:nth-child(even) .cell:nth-child(odd):not(.selected) {
+.board .row:nth-child(even) .cell:nth-child(odd):not(.selected),
+.board .row:nth-child(odd) .cell:nth-child(even):not(.selected) {
   background-color: brown;
 }
-.board .row:nth-child(odd) .cell:nth-child(even):not(.selected).highlight,
-.board .row:nth-child(even) .cell:nth-child(odd):not(.selected).highlight {
+.board .row:nth-child(even) .cell:nth-child(odd):not(.selected).highlight,
+.board .row:nth-child(odd) .cell:nth-child(even):not(.selected).highlight {
   background-color: #d65f5f;
 }
 .board .row .cell.selected {
@@ -160,26 +161,45 @@ html {
 .board .row .cell.selected.highlight {
   background-color: #ffc966;
 }
+.board .cell,
 .board .corner,
 .board .digit,
-.board .letter,
-.board .cell {
+.board .letter {
   display: inline-block;
   vertical-align: middle;
 }
-.controls {
+.panel {
+  padding: 0.5vmin;
+}
+.panel .circle {
   display: inline-block;
+  vertical-align: middle;
+  border: 0;
+  border-radius: 50%;
+  width: 8vmin;
+  height: 8vmin;
+  background-color: transparent;
+}
+.panel .controls {
+  display: inline-block;
+  vertical-align: middle;
   padding: 1vmin;
   margin: 1vmin auto;
 }
-.controls.white {
-  background-color: silver;
+.panel.white .circle.black {
+  display: none;
 }
-.controls.black {
+.panel.white .controls {
   background-color: black;
 }
-.controls.black label {
+.panel.white .controls label {
   color: white;
+}
+.panel.black .circle.white {
+  display: none;
+}
+.panel.black .controls {
+  background-color: silver;
 }
 
 /*# sourceMappingURL=style.css.map */

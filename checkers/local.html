@@ -58,17 +58,23 @@
 <body>
     <div class="page">
         <div id="board" class="board"></div>
-        <div id="controls" class="controls white">
-            <button id="new" title="Start new game" data-i18n="new-game">Start</button>
-            <button id="save" title="Save current game position" data-i18n="save-game">Save</button>
-            <button id="load" title="Load previously saved game position" data-i18n="load-game">Load</button>
-            <label id="language-label" for="language" title="Select language">
-                <span data-i18n="language-label">Language</span>
-                <select id="language">
-                    <option selected="selected" value="en" data-i18n="language-en">English</option>
-                    <option value="ru" data-i18n="language-ru">Russian</option>
-                </select>
-            </label>
+        <div id="panel" class="panel white">
+            <img id="white-man" src="images/ch_white.png" alt="White man" class="circle white man" />
+            <img id="black-man" src="images/ch_black.png" alt="Black man" class="circle black man" />
+            <div id="controls" class="controls">
+              <button id="new" title="Start new game" data-i18n="new-game">Start</button>
+              <button id="save" title="Save current game position" data-i18n="save-game">Save</button>
+              <button id="load" title="Load previously saved game position" data-i18n="load-game">Load</button>
+              <label id="language-label" for="language" title="Select language">
+                  <span data-i18n="language-label">Language</span>
+                  <select id="language">
+                      <option selected="selected" value="en" data-i18n="language-en">English</option>
+                      <option value="ru" data-i18n="language-ru">Russian</option>
+                  </select>
+              </label>
+            </div>
+            <img id="white-king" src="images/ch_q_white.png" alt="White king" class="circle white king" />
+            <img id="black-king" src="images/ch_q_black.png" alt="Black king" class="circle black king" />
         </div>
     </div>
 </body>

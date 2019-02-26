@@ -1250,20 +1250,6 @@ var RussianCheckers = function () {
 
 //import $ from 'jquery';
 
-
-var whiteMan = new Image();
-whiteMan.setAttribute('crossOrigin', 'anonymous');
-whiteMan.src = 'images/ch_white.png';
-var whiteKing = new Image();
-whiteKing.setAttribute('crossOrigin', 'anonymous');
-whiteKing.src = 'images/ch_q_white.png';
-var blackMan = new Image();
-blackMan.setAttribute('crossOrigin', 'anonymous');
-blackMan.src = 'images/ch_black.png';
-var blackKing = new Image();
-blackKing.setAttribute('crossOrigin', 'anonymous');
-blackKing.src = 'images/ch_q_black.png';
-
 $(function () {
     markupBoard($('#board'));
     var state = null;
@@ -1369,10 +1355,10 @@ $(function () {
                 if (game.selected == null) {
                     var error = selectPiece(game, board, this);
                     if (error == null) {
-                        return startDrag(dataTransfer, event);
+                        return startDrag(dataTransfer, event, board);
                     }
                 } else if (game.selected == this.id) {
-                    return startDrag(dataTransfer, event);
+                    return startDrag(dataTransfer, event, board);
                 }
             }
             dataTransfer.effectAllowed = 'none';
@@ -1489,21 +1475,18 @@ function updateDrag(event) {
     $(event.target).attr('data-tooltip', tooltip);
 }
 
-function startDrag(dataTransfer, event) {
+function startDrag(dataTransfer, event, board) {
     dataTransfer.effectAllowed = 'move';
     dataTransfer.setData('text', event.target.id);
 
     if (dataTransfer.setDragImage) {
-        createDragImage(dataTransfer, event);
-        /*
-        var element = createDragImage(event.target);
+        var element = selectBackgroundImage(board, event.target.id);
         if (element) {
             var clientRect = event.target.getBoundingClientRect();
             var offsetX = event.clientX - clientRect.left;
             var offsetY = event.clientY - clientRect.top;
             dataTransfer.setDragImage(element, offsetX, offsetY);
         }
-        */
     }
 
     setTimeout(function () {
@@ -1523,12 +1506,11 @@ function getBackgroundImage(target) {
     return img;
 }
 
-function selectBackgroundImage(target) {
+function selectBackgroundImage(board, selected) {
     var img = null;
-    if ($(target).hasClass('white')) {
-        img = $(target).hasClass('king') ? whiteKing : whiteMan;
-    } else if ($(target).hasClass('black')) {
-        img = $(target).hasClass('king') ? blackKing : blackMan;
+    var piece = board.getPiece(selected);
+    if (piece) {
+        img = document.getElementById(piece.colorClass + '-' + piece.kindClass);
     }
     return img;
 }
@@ -1688,7 +1670,7 @@ function unsubscribeToGame(game) {
  * @param {boolean} whiteTurn is white turn
  */
 function showTurn(whiteTurn) {
-    if (whiteTurn) $('#controls').removeClass('black').addClass('white');else $('#controls').removeClass('white').addClass('black');
+    if (whiteTurn) $('#panel').removeClass('black').addClass('white');else $('#panel').removeClass('white').addClass('black');
 }
 
 /**

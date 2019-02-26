@@ -1,201 +1,234 @@
 html {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-*, *:before, *:after {
-    box-sizing: inherit;
+*,
+*:after,
+*:before {
+  box-sizing: inherit;
 }
 
 .page {
-    text-align: center;
+  text-align: center;
 }
-
 @media (max-height: 20em), (max-width: 20em) {
-    .page {
-        font-size: 0.75em;
-    }
+  .page {
+    font-size: 0.75em;
+  }
 }
-
 @media (max-height: 15em), (max-width: 15em) {
-    .page {
-        font-size: 0.5em;
-    }
+  .page {
+    font-size: 0.5em;
+  }
 }
 
 .board {
-    border: thin solid sienna;
-    border-collapse: collapse;
-    background-color: khaki;
-    color: brown;
-    width: 90vmin;
-    height: 90vmin;
-    margin: 0 auto;
+  border: thin solid sienna;
+  border-collapse: collapse;
+  background-color: khaki;
+  color: brown;
+  width: 90vmin;
+  height: 90vmin;
+  margin: 0 auto;
 
-    .zero-row, .last-row {
-        height: 6%;
+  .last-row,
+  .zero-row {
+    height: 6%;
 
-        .corner {
-            width: 6%;
-            height: 100%;
-        }
-
-        .letter {
-            width: 11%;
-        }
+    .corner {
+      width: 6%;
+      height: 100%;
     }
 
-    .zero-row .letter {
-        transform: rotate(180deg);
+    .letter {
+      width: 11%;
+    }
+  }
+
+  .zero-row .letter {
+    transform: rotate(180deg);
+  }
+
+  .row {
+    height: 11%;
+
+    .digit {
+      width: 6%;
     }
 
-    .row {
-        height: 11%;
-
-        .digit {
-            width: 6%;
-        }
-
-        .digit:last-child {
-            transform: rotate(90deg);
-        }
-
-        .digit:first-child {
-            transform: rotate(-90deg);
-        }
-
-        .cell {
-            width: 11%;
-            height: 100%;
-            border: 0 none sienna;
-            padding: 1%;
-
-            &[data-error] {
-                position: relative;
-
-                &::after {
-                    content: attr(data-error);
-                    position: absolute;
-                    min-width: 200%;
-                    border: thin solid blue;
-                    background-color: yellow;
-                    color: red;
-                    padding: 0.5em;
-                    opacity: 1;
-                    z-index: 100;
-                }
-
-                &[data-tooltip=top-left]::after {
-                    border-radius: 0 1em 1em 1em;
-                    left: 80%;
-                    top: 80%;
-                }
-
-                &[data-tooltip=top-right]::after {
-                    border-radius: 1em 0 1em 1em;
-                    right: 80%;
-                    top: 80%;
-                }
-
-                &[data-tooltip=bottom-left]::after {
-                    border-radius: 1em 1em 1em 0;
-                    left: 80%;
-                    bottom: 80%;
-                }
-
-                &[data-tooltip=bottom-right]::after {
-                    border-radius: 1em 1em 0 1em;
-                    right: 80%;
-                    bottom: 80%;
-                }
-            }
-
-            &.white.man {
-                background-image: url('../images/ch_white.png');
-            }
-
-            &.white.king {
-                background-image: url('../images/ch_q_white.png');
-            }
-
-            &.black.man {
-                background-image: url('../images/ch_black.png');
-            }
-
-            &.black.king {
-                background-image: url('../images/ch_q_black.png');
-            }
-
-            &.white, &.black {
-                background-repeat: no-repeat;
-                background-position: center center;
-                background-size: contain;
-                background-origin: content-box;
-            }
-        }
-
-        &:nth-child(2) .cell {
-            border-top-color: sienna;
-            border-top-style: solid;
-            border-top-width: thin;
-        }
-
-        &:nth-last-child(2) .cell {
-            border-bottom-color: sienna;
-            border-bottom-style: solid;
-            border-bottom-width: thin;
-        }
-
-        .cell:nth-child(2) {
-            border-left-color: sienna;
-            border-left-style: solid;
-            border-left-width: thin;
-        }
-
-        .cell:nth-last-child(2) {
-            border-right-color: sienna;
-            border-right-style: solid;
-            border-right-width: thin;
-        }
-
-        &:nth-child(odd) .cell:nth-child(even):not(.selected),
-        &:nth-child(even) .cell:nth-child(odd):not(.selected) {
-            background-color: brown;
-
-            &.highlight {
-                background-color: lighten(brown, 20%);
-            }
-        }
-
-        .cell.selected {
-            background-color: orange;
-            transition: background-color 2s;
-
-            &.highlight {
-                background-color: lighten(orange, 20%);
-            }
-        }
+    .digit:last-child {
+      transform: rotate(90deg);
     }
 
-    .corner, .digit, .letter, .cell {
-        display: inline-block;
-        vertical-align: middle;
+    .digit:first-child {
+      transform: rotate(-90deg);
     }
+
+    .cell {
+      width: 11%;
+      height: 100%;
+      border: 0 none sienna;
+      padding: 1%;
+
+      &[data-error] {
+        position: relative;
+
+        &::after {
+          content: attr(data-error);
+          pointer-events: none;
+          position: absolute;
+          min-width: 200%;
+          border: thin solid blue;
+          background-color: yellow;
+          color: red;
+          padding: 0.5em;
+          opacity: 1;
+          z-index: 100;
+        }
+
+        &[data-tooltip=top-left]::after {
+          border-radius: 0 1em 1em 1em;
+          left: 80%;
+          top: 80%;
+        }
+
+        &[data-tooltip=top-right]::after {
+          border-radius: 1em 0 1em 1em;
+          right: 80%;
+          top: 80%;
+        }
+
+        &[data-tooltip=bottom-left]::after {
+          border-radius: 1em 1em 1em 0;
+          left: 80%;
+          bottom: 80%;
+        }
+
+        &[data-tooltip=bottom-right]::after {
+          border-radius: 1em 1em 0 1em;
+          right: 80%;
+          bottom: 80%;
+        }
+      }
+
+      &.white.man {
+        background-image: url("../images/ch_white.png");
+      }
+
+      &.white.king {
+        background-image: url("../images/ch_q_white.png");
+      }
+
+      &.black.man {
+        background-image: url("../images/ch_black.png");
+      }
+
+      &.black.king {
+        background-image: url("../images/ch_q_black.png");
+      }
+
+      &.black,
+      &.white {
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: contain;
+        background-origin: content-box;
+      }
+    }
+
+    &:nth-child(2) .cell {
+      border-top-color: sienna;
+      border-top-style: solid;
+      border-top-width: thin;
+    }
+
+    &:nth-last-child(2) .cell {
+      border-bottom-color: sienna;
+      border-bottom-style: solid;
+      border-bottom-width: thin;
+    }
+
+    .cell:nth-child(2) {
+      border-left-color: sienna;
+      border-left-style: solid;
+      border-left-width: thin;
+    }
+
+    .cell:nth-last-child(2) {
+      border-right-color: sienna;
+      border-right-style: solid;
+      border-right-width: thin;
+    }
+
+    &:nth-child(even) .cell:nth-child(odd):not(.selected),
+    &:nth-child(odd) .cell:nth-child(even):not(.selected) {
+      background-color: brown;
+
+      &.highlight {
+        background-color: lighten(brown, 20%);
+      }
+    }
+
+    .cell.selected {
+      background-color: orange;
+      transition: background-color 2s;
+
+      &.highlight {
+        background-color: lighten(orange, 20%);
+      }
+    }
+  }
+
+  .cell,
+  .corner,
+  .digit,
+  .letter {
+    display: inline-block;
+    vertical-align: middle;
+  }
 }
 
-.controls {
+.panel {
+  padding: 0.5vmin;
+
+  .circle {
     display: inline-block;
+    vertical-align: middle;
+    border: 0;
+    border-radius: 50%;
+    width: 8vmin;
+    height: 8vmin;
+    background-color: transparent;
+  }
+
+  .controls {
+    display: inline-block;
+    vertical-align: middle;
     padding: 1vmin;
     margin: 1vmin auto;
+  }
 
-    &.white {
-        background-color: silver;
+  &.white {
+    .circle.black {
+      display: none;
     }
 
-    &.black {
-        background-color: black;
+    .controls {
+      background-color: black;
 
-        label {
-            color: white;
-        }
+      label {
+        color: white;
+      }
     }
+  }
+
+  &.black {
+    .circle.white {
+      display: none;
+    }
+
+    .controls {
+      background-color: silver;
+    }
+  }
 }
