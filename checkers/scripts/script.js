@@ -1545,7 +1545,7 @@ function createDragImage(dataTransfer, event) {
             var ctx = canvas.getContext("2d");
             ctx.drawImage(this, 0, 0, canvas.width, canvas.height);
             var img = new Image(canvas.width, canvas.height);
-            srcImage.onload = function () {
+            img.onload = function () {
                 var clientRect = event.target.getBoundingClientRect();
                 var offsetX = event.clientX - clientRect.left;
                 var offsetY = event.clientY - clientRect.top;
