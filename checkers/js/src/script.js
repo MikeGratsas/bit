@@ -41,13 +41,13 @@ $(function () {
         if (locale) {
             $.i18n().locale = locale;
             $("#language").val(locale);
+            document.title = $.i18n('game-title');
             update_texts();
         }
         if (useHistory) {
             useHistory.Adapter.bind(window, 'statechange', function () {
                 var currentIndex = useHistory.getCurrentIndex();
                 var state = History.getState();
-                console.log('bind' + currentIndex + ': ' + JSON.stringify(state));
                 if (state.data.index != currentIndex - 1) {
                     var locale = get_url_parameter('language');
                     if (locale) {
@@ -66,7 +66,6 @@ $(function () {
                 update_texts();
                 if (useHistory) {
                     useHistory.replaceState({ 'index': useHistory.getCurrentIndex(), 'language': $('#language').val() }, $.i18n('game-title'), "?language=" + locale);
-                    console.log('change' + useHistory.getCurrentIndex() + ': ' + JSON.stringify(useHistory.getState()));
                 }
             }
         });
@@ -186,7 +185,6 @@ $(function () {
     $(window).on('beforeunload', function () {
         if (useHistory) {
             useHistory.replaceState({ 'index': useHistory.getCurrentIndex(), 'language': $('#language').val(), 'game': game }, $.i18n('game-title'), document.location.search);
-            console.log('beforeunload' + useHistory.getCurrentIndex() + ': ' + JSON.stringify(useHistory.getState()));
         }
     });
 

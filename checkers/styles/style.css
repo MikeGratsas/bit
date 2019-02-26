@@ -1,23 +1,23 @@
-html {
+﻿html {
   -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+          box-sizing: border-box;
 }
 *,
 *:after,
 *:before {
   -webkit-box-sizing: inherit;
-  box-sizing: inherit;
+          box-sizing: inherit;
 }
 .page {
   text-align: center;
 }
 @media (max-height: 20em), (max-width: 20em) {
-  .page {
+  .board {
     font-size: 0.75em;
   }
 }
 @media (max-height: 15em), (max-width: 15em) {
-  .page {
+  .board {
     font-size: 0.5em;
   }
 }
@@ -45,8 +45,7 @@ html {
 }
 .board .zero-row .letter {
   -webkit-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
-  transform: rotate(180deg);
+          transform: rotate(180deg);
 }
 .board .row {
   height: 11%;
@@ -56,13 +55,11 @@ html {
 }
 .board .row .digit:last-child {
   -webkit-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  transform: rotate(90deg);
+          transform: rotate(90deg);
 }
 .board .row .digit:first-child {
   -webkit-transform: rotate(-90deg);
-  -ms-transform: rotate(-90deg);
-  transform: rotate(-90deg);
+          transform: rotate(-90deg);
 }
 .board .row .cell {
   width: 11%;
@@ -155,7 +152,6 @@ html {
 .board .row .cell.selected {
   background-color: orange;
   -webkit-transition: background-color 2s;
-  -o-transition: background-color 2s;
   transition: background-color 2s;
 }
 .board .row .cell.selected.highlight {
@@ -178,13 +174,23 @@ html {
   border-radius: 50%;
   width: 8vmin;
   height: 8vmin;
-  background-color: transparent;
 }
 .panel .controls {
   display: inline-block;
   vertical-align: middle;
   padding: 1vmin;
   margin: 1vmin auto;
+  border-radius: 1em;
+  max-width: 78%;
+}
+.panel .controls button,
+.panel .controls select {
+  border-radius: 1em;
+}
+.panel .controls button,
+.panel .controls label {
+  display: inline-block;
+  font-size: 0.75em;
 }
 .panel.white .circle.black {
   display: none;
@@ -201,5 +207,3 @@ html {
 .panel.black .controls {
   background-color: silver;
 }
-
-/*# sourceMappingURL=style.css.map */

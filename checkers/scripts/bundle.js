@@ -1063,6 +1063,10 @@ $(function () {
     };
     var update_texts = function () {
         $('.controls').i18n();
+        $('#new').prop('title', $.i18n('new-title'));
+        $('#save').prop('title', $.i18n('save-title'));
+        $('#load').prop('title', $.i18n('load-title'));
+        $('#language-label').prop('title', $.i18n('language-title'));
     };
     $.i18n({
         locale: 'en',
@@ -1076,13 +1080,14 @@ $(function () {
         if (locale) {
             $.i18n().locale = locale;
             $("#language").val(locale);
+            document.title = $.i18n('game-title');
+            update_texts();
         }
         if (useHistory) {
             useHistory.Adapter.bind(window, 'statechange', function () {
                 var currentIndex = useHistory.getCurrentIndex();
                 var state = History.getState();
-                console.log('bind' + currentIndex + ': ' + state);
-                if (state.data.index != currentIndex) {
+                if (state.data.index != currentIndex - 1) {
                     var locale = get_url_parameter('language');
                     if (locale) {
                         $.i18n().locale = locale;
@@ -1092,7 +1097,6 @@ $(function () {
                 }
             });
         }
-        update_texts();
 
         $('#language').change(function (event) {
             var locale = $(this).val();
@@ -1100,8 +1104,7 @@ $(function () {
                 $.i18n().locale = locale;
                 update_texts();
                 if (useHistory) {
-                    useHistory.pushState({ 'index': useHistory.getCurrentIndex(), 'language': $('#language').val() }, 'change', "?language=" + locale);
-                    console.log('change' + useHistory.getCurrentIndex() + ': ' + useHistory.getState());
+                    useHistory.replaceState({ 'index': useHistory.getCurrentIndex(), 'language': $('#language').val() }, $.i18n('game-title'), "?language=" + locale);
                 }
             }
         });
@@ -1151,25 +1154,23 @@ $(function () {
                 if (game.selected == null) {
                     var error = selectPiece(game, board, this);
                     if (error == null) {
-                        return startDrag(dataTransfer, event);
+                        return startDrag(dataTransfer, event, board);
                     }
                 }
                 else if (game.selected == this.id) {
-                     return startDrag(dataTransfer, event);
+                     return startDrag(dataTransfer, event, board);
                 }
             }
             dataTransfer.effectAllowed = 'none';
             return false;
         },
         dragenter: function (event) {
+            clearDrag();
             $(this).addClass('highlight');
             var error = allowedMove(game, board, game.selected, this);
             if (error) {
                 $(this).attr('data-error', error);
-                var middle = board.size >> 1;
-                var cell = Cell.fromId(this.id);
-                $(this).attr('data-tooltip', cell.row < middle ? (cell.column < middle ? 'bottom-left' : 'bottom-right') : (cell.column < middle ? 'top-left' : 'top-right'));
-                
+                updateDrag(event);
             }
             else {
                 $(this).removeAttr('data-error');
@@ -1183,15 +1184,18 @@ $(function () {
         },
         dragend: function (event) {
             $(this).css('background-image', '');
+            clearDrag();
         },
         dragexit: function (event) {
             $(this).css('background-image', '');
+            clearDrag();
         },
         dragover: function (event) {
             var dataTransfer = event.originalEvent.dataTransfer;
             var error = $(this).attr('data-error');
             if (error) {
                 dataTransfer.dropEffect = 'none';
+                updateDrag(event);
                 return true;
             }
             dataTransfer.dropEffect = 'move';
@@ -1219,8 +1223,7 @@ $(function () {
 
     $(window).on('beforeunload', function () {
         if (useHistory) {
-            useHistory.pushState({ 'index': useHistory.getCurrentIndex(), 'language': $('#language').val(), 'game': game }, 'checkers', document.location.search);
-            console.log('beforeunload' + useHistory.getCurrentIndex() + ': ' + useHistory.getState());
+            useHistory.replaceState({ 'index': useHistory.getCurrentIndex(), 'language': $('#language').val(), 'game': game }, $.i18n('game-title'), document.location.search);
         }
     });
 
@@ -1232,12 +1235,12 @@ $(function () {
     });
 
     $('#save').click(function () {
-      if (localStorage) {
-        localStorage.setItem('checkers', JSON.stringify(game));
-      }
-      else {
+       if (localStorage) {
+          localStorage.setItem('checkers', JSON.stringify(game));
+       }
+       else {
           alert($.i18n('not-supported-storage'));
-      }
+       }
     });
 
     $('#load').click(function () {
@@ -1261,11 +1264,26 @@ $(function () {
     });
 });
 
-function startDrag(dataTransfer, event) {
+function clearDrag() {
+    $('.highlight').removeAttr('data-error');
+    $('.highlight').removeAttr('data-tooltip');
+    $('.highlight').removeClass('highlight');
+}
+
+function updateDrag(event) {
+    var clientRect = event.target.getBoundingClientRect();
+    var middleX = (clientRect.left + clientRect.right) >> 1;
+    var middleY = (clientRect.top + clientRect.bottom) >> 1;
+    var tooltip = event.clientX < middleX ? (event.clientY < middleY ? 'top-left' : 'bottom-left') : (event.clientY < middleY ? 'top-right' : 'bottom-right');
+    $(event.target).attr('data-tooltip', tooltip);
+}
+
+function startDrag(dataTransfer, event, board) {
     dataTransfer.effectAllowed = 'move';
     dataTransfer.setData('text', event.target.id);
+
     if (dataTransfer.setDragImage) {
-        var element = getBackgroundImage(event.target);
+        var element = selectBackgroundImage(board, event.target.id);
         if (element) {
             var clientRect = event.target.getBoundingClientRect();
             var offsetX = event.clientX - clientRect.left;
@@ -1273,6 +1291,7 @@ function startDrag(dataTransfer, event) {
             dataTransfer.setDragImage(element, offsetX, offsetY);
         }
     }
+
     setTimeout(function () {
         $(event.target).css('background-image', 'none');
     }, 100);
@@ -1284,15 +1303,43 @@ function getBackgroundImage(target) {
     var path = $(target).css('background-image').match(/^url\("?(.+?)"?\)$/)[1];
     if (path) {
         var img = new Image($(target).width(), $(target).height());
-        $(img).on('load', function (e) {
-            console.log('Background Image: ' + this.width + ', ' + this.height)
-            console.log('Offset: ' + this.offsetWidth + ', ' + this.offsetHeight)
-            console.log('Client: ' + this.clientWidth + ', ' + this.clientHeight)
-            console.log('Natural: ' + this.naturalWidth + ', ' + this.naturalHeight)
-        });
+        img.setAttribute('crossOrigin', 'anonymous');
         img.src = path;
     }
     return img;
+}
+
+function selectBackgroundImage(board, selected) {
+    var img = null;
+    var piece = board.getPiece(selected);
+    if (piece) {
+        img = document.getElementById(piece.colorClass + '-' + piece.kindClass);
+    }
+    return img;
+}
+
+function createDragImage(dataTransfer, event) {
+  var path = $(event.target).css('background-image').match(/^url\("?(.+?)"?\)$/)[1];
+  if (path) {
+      var srcImage = new Image($(event.target).width(), $(event.target).height());
+      srcImage.setAttribute('crossOrigin', 'anonymous');
+      srcImage.onload = function () {
+        var canvas = document.createElementNS('http://www.w3.org/1999/xhtml', 'canvas');
+        canvas.width = this.width;
+        canvas.height = this.height;
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(this, 0, 0, canvas.width, canvas.height);
+        var img = new Image(canvas.width, canvas.height);
+        img.onload = function () {
+          var clientRect = event.target.getBoundingClientRect();
+          var offsetX = event.clientX - clientRect.left;
+          var offsetY = event.clientY - clientRect.top;
+          dataTransfer.setDragImage(this, offsetX, offsetY);
+        }
+        img.src = canvas.toDataURL('image/png');
+      }
+      srcImage.src = path;
+  }
 }
 
 function allowedMove(game, board, selected, target) {
@@ -1445,9 +1492,9 @@ function unsubscribeToGame(game) {
  */
 function showTurn(whiteTurn) {
   if (whiteTurn)
-      $('#controls').removeClass('dark').addClass('light');
+      $('#panel').removeClass('black').addClass('white');
   else
-      $('#controls').removeClass('light').addClass('dark');
+      $('#panel').removeClass('white').addClass('black');
 }
 
 /**
