@@ -242,10 +242,11 @@ function updateDrag(event) {
 function startDrag(dataTransfer, event, board) {
     dataTransfer.effectAllowed = 'move';
     dataTransfer.setData('text', event.target.id);
+    var element = selectBackgroundImage(board, event.target.id);
 
-    if (dataTransfer.setDragImage) {
-        var element = selectBackgroundImage(board, event.target.id);
-        if (element) {
+    if (element) {
+        dataTransfer.setData('url', element.src);
+        if (dataTransfer.setDragImage) {
             var clientRect = event.target.getBoundingClientRect();
             var offsetX = event.clientX - clientRect.left;
             var offsetY = event.clientY - clientRect.top;

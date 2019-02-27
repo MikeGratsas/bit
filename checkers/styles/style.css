@@ -1,15 +1,24 @@
-﻿html {
+html {
   -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 *,
 *:after,
 *:before {
   -webkit-box-sizing: inherit;
-          box-sizing: inherit;
+  box-sizing: inherit;
 }
 .page {
   text-align: center;
+}
+.board {
+  border: thin solid sienna;
+  border-collapse: collapse;
+  background-color: khaki;
+  color: brown;
+  width: 90vmin;
+  height: 90vmin;
+  margin: 0 auto;
 }
 @media (max-height: 20em), (max-width: 20em) {
   .board {
@@ -20,15 +29,6 @@
   .board {
     font-size: 0.5em;
   }
-}
-.board {
-  border: thin solid sienna;
-  border-collapse: collapse;
-  background-color: khaki;
-  color: brown;
-  width: 90vmin;
-  height: 90vmin;
-  margin: 0 auto;
 }
 .board .last-row,
 .board .zero-row {
@@ -45,7 +45,8 @@
 }
 .board .zero-row .letter {
   -webkit-transform: rotate(180deg);
-          transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 .board .row {
   height: 11%;
@@ -55,11 +56,13 @@
 }
 .board .row .digit:last-child {
   -webkit-transform: rotate(90deg);
-          transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
 }
 .board .row .digit:first-child {
   -webkit-transform: rotate(-90deg);
-          transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  transform: rotate(-90deg);
 }
 .board .row .cell {
   width: 11%;
@@ -152,6 +155,7 @@
 .board .row .cell.selected {
   background-color: orange;
   -webkit-transition: background-color 2s;
+  -o-transition: background-color 2s;
   transition: background-color 2s;
 }
 .board .row .cell.selected.highlight {
@@ -186,11 +190,27 @@
 .panel .controls button,
 .panel .controls select {
   border-radius: 1em;
+  border-color: orange;
+  background-color: khaki;
 }
 .panel .controls button,
-.panel .controls label {
+.panel .controls label,
+.panel .controls select {
   display: inline-block;
-  font-size: 0.75em;
+}
+@media (max-height: 20em), (max-width: 20em) {
+  .panel .controls button,
+  .panel .controls label,
+  .panel .controls select {
+    font-size: 0.75rem;
+  }
+}
+@media (max-height: 15em), (max-width: 15em) {
+  .panel .controls button,
+  .panel .controls label,
+  .panel .controls select {
+    font-size: 0.5rem;
+  }
 }
 .panel.white .circle.black {
   display: none;
@@ -207,3 +227,5 @@
 .panel.black .controls {
   background-color: silver;
 }
+
+/*# sourceMappingURL=style.css.map */

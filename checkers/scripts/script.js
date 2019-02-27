@@ -1,19 +1,21 @@
-﻿/**
- * Cell
- * @description checkers board cell
- * @abstract
- */
 'use strict';
 
-var _get = function get(_x4, _x5, _x6) { var _again = true; _function: while (_again) { var object = _x4, property = _x5, receiver = _x6; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x4 = parent; _x5 = property; _x6 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Cell = (function () {
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+* Cell
+* @description checkers board cell
+* @abstract
+*/
+var Cell = function () {
 
     /**
      * @function constructor
@@ -23,7 +25,6 @@ var Cell = (function () {
      * @param {number} row    board row
      * @param {number} column board column
      */
-
     function Cell(row, column) {
         _classCallCheck(this, Cell);
 
@@ -32,18 +33,13 @@ var Cell = (function () {
     }
 
     /**
-     * Piece
-     * @description checkers piece
-     * @abstract
-     */
-
-    /**
      * @function cellId
      * @description get cell id
      * @access public
      *
      * @return {string} cell id
      */
+
 
     _createClass(Cell, [{
         key: 'cellId',
@@ -60,6 +56,7 @@ var Cell = (function () {
           *
          * @return {Cell} cell
          */
+
     }], [{
         key: 'fromId',
         value: function fromId(id) {
@@ -68,9 +65,16 @@ var Cell = (function () {
     }]);
 
     return Cell;
-})();
+}();
 
-var Piece = (function () {
+/**
+ * Piece
+ * @description checkers piece
+ * @abstract
+ */
+
+
+var Piece = function () {
 
     /**
      * @function constructor
@@ -82,7 +86,6 @@ var Piece = (function () {
      * @param {number} row    board row
      * @param {number} column board column
      */
-
     function Piece(kind, white, row, column) {
         _classCallCheck(this, Piece);
 
@@ -93,12 +96,6 @@ var Piece = (function () {
     }
 
     /**
-     * Man
-     * @description man
-     * @extends Piece
-     */
-
-    /**
      * @function colorClass
      * @description get color class
      * @access public
@@ -106,8 +103,10 @@ var Piece = (function () {
      * @return {string} color class
      */
 
+
     _createClass(Piece, [{
         key: 'canMove',
+
 
         /**
          * @function canMove
@@ -132,6 +131,7 @@ var Piece = (function () {
          *
          * @return {string} cell id to caputue
          */
+
     }, {
         key: 'findCapture',
         value: function findCapture(board, cell) {
@@ -147,6 +147,7 @@ var Piece = (function () {
          *
          * @return {boolean} if can capture
          */
+
     }, {
         key: 'canCapture',
         value: function canCapture(piece) {
@@ -162,6 +163,7 @@ var Piece = (function () {
          *
          * @return {boolean} if is selectable for jump
          */
+
     }, {
         key: 'isSelectableForJump',
         value: function isSelectableForJump(board) {
@@ -177,6 +179,7 @@ var Piece = (function () {
          *
          * @return {boolean} if is selectable to move
          */
+
     }, {
         key: 'isSelectableToMove',
         value: function isSelectableToMove(board) {
@@ -193,6 +196,7 @@ var Piece = (function () {
          *
          * @return {Piece} this piece
          */
+
     }, {
         key: 'move',
         value: function move(board, cell) {
@@ -213,6 +217,7 @@ var Piece = (function () {
          *
          * @return {string} kind class
          */
+
     }, {
         key: 'kindClass',
         get: function get() {
@@ -221,9 +226,16 @@ var Piece = (function () {
     }]);
 
     return Piece;
-})();
+}();
 
-var Man = (function (_Piece) {
+/**
+ * Man
+ * @description man
+ * @extends Piece
+ */
+
+
+var Man = function (_Piece) {
     _inherits(Man, _Piece);
 
     /**
@@ -235,18 +247,11 @@ var Man = (function (_Piece) {
      * @param {number} row    board row
      * @param {number} column board column
      */
-
     function Man(white, row, column) {
         _classCallCheck(this, Man);
 
-        _get(Object.getPrototypeOf(Man.prototype), 'constructor', this).call(this, 1, white, row, column);
+        return _possibleConstructorReturn(this, (Man.__proto__ || Object.getPrototypeOf(Man)).call(this, 1, white, row, column));
     }
-
-    /**
-     * King
-     * @description king
-     * @extends Piece
-     */
 
     /**
      * @function kindClass
@@ -256,8 +261,10 @@ var Man = (function (_Piece) {
      * @return {string} kind class
      */
 
+
     _createClass(Man, [{
         key: 'canMove',
+
 
         /**
          * @function canMove
@@ -282,6 +289,7 @@ var Man = (function (_Piece) {
          *
          * @return {string} cell id to caputue
          */
+
     }, {
         key: 'findCapture',
         value: function findCapture(board, cell) {
@@ -307,6 +315,7 @@ var Man = (function (_Piece) {
          *
          * @return {boolean} if can capture
          */
+
     }, {
         key: 'canCapture',
         value: function canCapture(piece) {
@@ -322,6 +331,7 @@ var Man = (function (_Piece) {
          *
          * @return {boolean} if is selectable for jump
          */
+
     }, {
         key: 'isSelectableForJump',
         value: function isSelectableForJump(board) {
@@ -365,6 +375,7 @@ var Man = (function (_Piece) {
          *
          * @return {boolean} if is selectable to move
          */
+
     }, {
         key: 'isSelectableToMove',
         value: function isSelectableToMove(board) {
@@ -400,11 +411,12 @@ var Man = (function (_Piece) {
          *
          * @return {Piece} this piece
          */
+
     }, {
         key: 'move',
         value: function move(board, cell) {
             if (cell.row == (this.white ? board.size - 1 : 0)) return new King(this.white, cell.row, cell.column);
-            return _get(Object.getPrototypeOf(Man.prototype), 'move', this).call(this, board, cell);
+            return _get(Man.prototype.__proto__ || Object.getPrototypeOf(Man.prototype), 'move', this).call(this, board, cell);
         }
     }, {
         key: 'kindClass',
@@ -414,9 +426,16 @@ var Man = (function (_Piece) {
     }]);
 
     return Man;
-})(Piece);
+}(Piece);
 
-var King = (function (_Piece2) {
+/**
+ * King
+ * @description king
+ * @extends Piece
+ */
+
+
+var King = function (_Piece2) {
     _inherits(King, _Piece2);
 
     /**
@@ -428,17 +447,11 @@ var King = (function (_Piece2) {
      * @param {number} row    board row
      * @param {number} column board column
      */
-
     function King(white, row, column) {
         _classCallCheck(this, King);
 
-        _get(Object.getPrototypeOf(King.prototype), 'constructor', this).call(this, 2, white, row, column);
+        return _possibleConstructorReturn(this, (King.__proto__ || Object.getPrototypeOf(King)).call(this, 2, white, row, column));
     }
-
-    /**
-    * Checkers Board
-    * @description checkers board
-    */
 
     /**
      * @function kindClass
@@ -448,8 +461,10 @@ var King = (function (_Piece2) {
      * @return {string} kind class
      */
 
+
     _createClass(King, [{
         key: 'canMove',
+
 
         /**
          * @function canMove
@@ -474,6 +489,7 @@ var King = (function (_Piece2) {
          *
          * @return {string} cell id to caputue
          */
+
     }, {
         key: 'findCapture',
         value: function findCapture(board, cell) {
@@ -505,6 +521,7 @@ var King = (function (_Piece2) {
          *
          * @return {boolean} if can capture
          */
+
     }, {
         key: 'canCapture',
         value: function canCapture(piece) {
@@ -520,6 +537,7 @@ var King = (function (_Piece2) {
          *
          * @return {boolean} if is selectable for jump
          */
+
     }, {
         key: 'isSelectableForJump',
         value: function isSelectableForJump(board) {
@@ -587,6 +605,7 @@ var King = (function (_Piece2) {
          *
          * @return {boolean} if is selectable to move
          */
+
     }, {
         key: 'isSelectableToMove',
         value: function isSelectableToMove(board) {
@@ -616,9 +635,15 @@ var King = (function (_Piece2) {
     }]);
 
     return King;
-})(Piece);
+}(Piece);
 
-var Board = (function () {
+/**
+* Checkers Board
+* @description checkers board
+*/
+
+
+var Board = function () {
 
     /**
      * @function constructor
@@ -630,9 +655,8 @@ var Board = (function () {
      *
      * @return {type} Description
      */
-
     function Board() {
-        var size = arguments.length <= 0 || arguments[0] === undefined ? 8 : arguments[0];
+        var size = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 8;
 
         _classCallCheck(this, Board);
 
@@ -643,11 +667,6 @@ var Board = (function () {
     }
 
     /**
-     * Game
-     * @description checkers game
-     */
-
-    /**
      * @function onSet
      * @description subscribe to event
      * @access public
@@ -656,6 +675,7 @@ var Board = (function () {
      *
      * @return {Board} this board
      */
+
 
     _createClass(Board, [{
         key: 'onSet',
@@ -673,10 +693,11 @@ var Board = (function () {
          *
          * @return {Board} this board
          */
+
     }, {
         key: 'offSet',
         value: function offSet(f) {
-            this._onSet['delete'](f);
+            this._onSet.delete(f);
             return this;
         }
 
@@ -689,6 +710,7 @@ var Board = (function () {
          *
          * @return {Board} this board
          */
+
     }, {
         key: 'onDelete',
         value: function onDelete(f) {
@@ -705,10 +727,11 @@ var Board = (function () {
          *
          * @return {Board} this board
          */
+
     }, {
         key: 'offDelete',
         value: function offDelete(f) {
-            this._onDelete['delete'](f);
+            this._onDelete.delete(f);
             return this;
         }
 
@@ -722,6 +745,7 @@ var Board = (function () {
          *
          * @return {Piece} piece in the cell
          */
+
     }, {
         key: 'getCellPiece',
         value: function getCellPiece(row, column) {
@@ -738,14 +762,15 @@ var Board = (function () {
          *
          * @return {Array} array of id's
          */
+
     }, {
         key: 'findSelectableForJump',
         value: function findSelectableForJump(white) {
-            var _this = this;
+            var _this3 = this;
 
             var selectable = [];
             this.position.forEach(function (piece, id) {
-                if (piece.white == white && piece.isSelectableForJump(_this)) {
+                if (piece.white == white && piece.isSelectableForJump(_this3)) {
                     selectable.push(id);
                 }
             });
@@ -761,6 +786,7 @@ var Board = (function () {
          *
          * @return {number} counter
          */
+
     }, {
         key: 'countPieces',
         value: function countPieces(white) {
@@ -779,6 +805,7 @@ var Board = (function () {
          * @access public
          *
          */
+
     }, {
         key: 'clear',
         value: function clear() {
@@ -794,6 +821,7 @@ var Board = (function () {
          *
          * @return {Piece} piece in the cell
          */
+
     }, {
         key: 'getPiece',
         value: function getPiece(id) {
@@ -810,6 +838,7 @@ var Board = (function () {
          *
          * @return {Piece} previous piece in the cell
          */
+
     }, {
         key: 'setPiece',
         value: function setPiece(id, piece) {
@@ -830,12 +859,13 @@ var Board = (function () {
          *
          * @return {Piece} previous piece in the cell
          */
+
     }, {
         key: 'deletePiece',
         value: function deletePiece(id) {
             var piece = this.position.get(id);
             if (piece != null) {
-                this.position['delete'](id);
+                this.position.delete(id);
                 this._onDelete.forEach(function (f) {
                     return f(piece, id);
                 });
@@ -850,6 +880,7 @@ var Board = (function () {
          *
          * @return {Array} current position
          */
+
     }, {
         key: 'toJSON',
         value: function toJSON() {
@@ -862,9 +893,15 @@ var Board = (function () {
     }]);
 
     return Board;
-})();
+}();
 
-var Game = (function () {
+/**
+ * Game
+ * @description checkers game
+ */
+
+
+var Game = function () {
     /**
      * @function constructor
      * @description checkers game
@@ -872,7 +909,6 @@ var Game = (function () {
      *
      * @param {Board} board board
      */
-
     function Game(board) {
         _classCallCheck(this, Game);
 
@@ -887,11 +923,6 @@ var Game = (function () {
     }
 
     /**
-    * Russian Checkers
-    * @description Russian checkers factory
-    */
-
-    /**
      * @function onTurn
      * @description subscribe to event
      * @access public
@@ -900,6 +931,7 @@ var Game = (function () {
      *
      * @return {Game} this game
      */
+
 
     _createClass(Game, [{
         key: 'onTurn',
@@ -917,10 +949,11 @@ var Game = (function () {
          *
          * @return {Game} this game
          */
+
     }, {
         key: 'offTurn',
         value: function offTurn(f) {
-            this._onTurn['delete'](f);
+            this._onTurn.delete(f);
             return this;
         }
 
@@ -930,14 +963,15 @@ var Game = (function () {
          * @access public
          *
          */
+
     }, {
         key: 'toggleTurn',
         value: function toggleTurn() {
-            var _this2 = this;
+            var _this4 = this;
 
             this.whiteTurn = !this.whiteTurn;
             this._onTurn.forEach(function (f) {
-                return f(_this2.whiteTurn);
+                return f(_this4.whiteTurn);
             });
         }
 
@@ -947,6 +981,7 @@ var Game = (function () {
          * @access public
          *
          */
+
     }, {
         key: 'prepare',
         value: function prepare() {
@@ -965,6 +1000,7 @@ var Game = (function () {
          *
          * @return {boolean} if can jump
          */
+
     }, {
         key: 'tryToJump',
         value: function tryToJump(piece, id) {
@@ -1001,6 +1037,7 @@ var Game = (function () {
          *
          * @return {boolean} if can move
          */
+
     }, {
         key: 'tryToMove',
         value: function tryToMove(piece, id) {
@@ -1026,6 +1063,7 @@ var Game = (function () {
          *
          * @return {boolean} if can jump
          */
+
     }, {
         key: 'canJump',
         value: function canJump(piece, id) {
@@ -1044,6 +1082,7 @@ var Game = (function () {
          *
          * @return {boolean} if can move
          */
+
     }, {
         key: 'canMove',
         value: function canMove(piece, id) {
@@ -1058,6 +1097,7 @@ var Game = (function () {
          *
          * @param {object} obj Description
          */
+
     }, {
         key: 'load',
         value: function load(obj) {
@@ -1071,9 +1111,15 @@ var Game = (function () {
     }]);
 
     return Game;
-})();
+}();
 
-var RussianCheckers = (function () {
+/**
+* Russian Checkers
+* @description Russian checkers factory
+*/
+
+
+var RussianCheckers = function () {
 
     /**
      * @function constructor
@@ -1083,24 +1129,13 @@ var RussianCheckers = (function () {
      * @param {number} initRows number of rows to initialize
      *
      */
-
     function RussianCheckers() {
-        var initRows = arguments.length <= 0 || arguments[0] === undefined ? 3 : arguments[0];
+        var initRows = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 3;
 
         _classCallCheck(this, RussianCheckers);
 
         this.initRows = initRows;
     }
-
-    //@codekit-prepend cell.js
-    //@codekit-prepend piece.js
-    //@codekit-prepend man.js
-    //@codekit-prepend king.js
-    //@codekit-prepend board.js
-    //@codekit-prepend game.js
-    //@codekit-prepend checkers.js
-
-    //import $ from 'jquery';
 
     /**
      * @function createBoard
@@ -1110,6 +1145,7 @@ var RussianCheckers = (function () {
      * @return {Board} board
      *
      */
+
 
     _createClass(RussianCheckers, [{
         key: 'createBoard',
@@ -1125,6 +1161,7 @@ var RussianCheckers = (function () {
          * @param {Board} board board
          *
          */
+
     }, {
         key: 'setupBoard',
         value: function setupBoard(board) {
@@ -1158,10 +1195,11 @@ var RussianCheckers = (function () {
          * @param {array} position
          *
          */
+
     }, {
         key: 'loadBoard',
         value: function loadBoard(board) {
-            var pos = arguments.length <= 1 || arguments[1] === undefined ? [] : arguments[1];
+            var pos = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
 
             var piece = null;
             var cell = new Cell(0, 0);
@@ -1191,6 +1229,7 @@ var RussianCheckers = (function () {
          *
          * @return {Game} board
          */
+
     }, {
         key: 'createGame',
         value: function createGame(board) {
@@ -1199,7 +1238,17 @@ var RussianCheckers = (function () {
     }]);
 
     return RussianCheckers;
-})();
+}();
+
+//@codekit-prepend cell.js
+//@codekit-prepend piece.js
+//@codekit-prepend man.js
+//@codekit-prepend king.js
+//@codekit-prepend board.js
+//@codekit-prepend game.js
+//@codekit-prepend checkers.js
+
+//import $ from 'jquery';
 
 $(function () {
     markupBoard($('#board'));
@@ -1427,10 +1476,11 @@ function updateDrag(event) {
 function startDrag(dataTransfer, event, board) {
     dataTransfer.effectAllowed = 'move';
     dataTransfer.setData('text', event.target.id);
+    var element = selectBackgroundImage(board, event.target.id);
 
-    if (dataTransfer.setDragImage) {
-        var element = selectBackgroundImage(board, event.target.id);
-        if (element) {
+    if (element) {
+        dataTransfer.setData('url', element.src);
+        if (dataTransfer.setDragImage) {
             var clientRect = event.target.getBoundingClientRect();
             var offsetX = event.clientX - clientRect.left;
             var offsetY = event.clientY - clientRect.top;
@@ -1698,4 +1748,4 @@ function appendCellRow(rowElement, index) {
     }
     $('<div class="digit" />').appendTo(rowElement).text(index);
 }
-
+//# sourceMappingURL=script.js.map

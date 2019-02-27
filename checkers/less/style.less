@@ -12,18 +12,6 @@ html {
     text-align: center;
 }
 
-@media (max-height: 20em), (max-width: 20em) {
-    .board {
-        font-size: 0.75em;
-    }
-}
-
-@media (max-height: 15em), (max-width: 15em) {
-    .board {
-        font-size: 0.5em;
-    }
-}
-
 .board {
     border: thin solid sienna;
     border-collapse: collapse;
@@ -32,6 +20,14 @@ html {
     width: 90vmin;
     height: 90vmin;
     margin: 0 auto;
+
+    @media (max-height: 20em), (max-width: 20em) {
+        font-size: 0.75em;
+    }
+
+    @media (max-height: 15em), (max-width: 15em) {
+        font-size: 0.5em;
+    }
 
     .last-row,
     .zero-row {
@@ -212,11 +208,20 @@ html {
 
         button, select {
             border-radius: 1em;
+            border-color: orange;
+            background-color: khaki;
         }
 
-        button, label {
+        button, label, select {
             display: inline-block;
-            font-size: 0.75em;
+
+            @media (max-height: 20em), (max-width: 20em) {
+                font-size: 0.75rem;
+            }
+
+            @media (max-height: 15em), (max-width: 15em) {
+                font-size: 0.5rem;
+            }
         }
     }
 
