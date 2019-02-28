@@ -114,12 +114,15 @@ $(function () {
             if (!game.finished) {
                 if (game.selected == null) {
                     var error = selectPiece(game, board, this);
-                    if (error == null) {
-                        return startDrag(dataTransfer, event, board);
+                    if (error) {
+                        alert(error);
+                    }
+                    else {
+                        return startDrag(dataTransfer, event, board.getPiece(this.id));
                     }
                 }
                 else if (game.selected == this.id) {
-                     return startDrag(dataTransfer, event, board);
+                     return startDrag(dataTransfer, event, board.getPiece(this.id));
                 }
             }
             dataTransfer.effectAllowed = 'none';
@@ -174,9 +177,7 @@ $(function () {
             var dataTransfer = event.originalEvent.dataTransfer;
             var error = performMove(game, board, dataTransfer.getData('text'), this);
             if (error) {
-                if (game.finished) {
-                  alert(error);
-                }
+                alert(error);
             }
             return false;
         }
@@ -239,10 +240,10 @@ function updateDrag(event) {
     $(event.target).attr('data-tooltip', tooltip);
 }
 
-function startDrag(dataTransfer, event, board) {
+function startDrag(dataTransfer, event, piece) {
     dataTransfer.effectAllowed = 'move';
     dataTransfer.setData('text', event.target.id);
-    var element = selectBackgroundImage(board, event.target.id);
+    var element = selectBackgroundImage(piece);
 
     if (element) {
         dataTransfer.setData('url', element.src);
@@ -250,7 +251,7 @@ function startDrag(dataTransfer, event, board) {
             var clientRect = event.target.getBoundingClientRect();
             var offsetX = event.clientX - clientRect.left;
             var offsetY = event.clientY - clientRect.top;
-            dataTransfer.setDragImage(element, offsetX, offsetY);
+            dataTransfer.setDragImage(prepareDragImage(element, event.target), offsetX, offsetY);
         }
     }
 
@@ -271,13 +272,19 @@ function getBackgroundImage(target) {
     return img;
 }
 
-function selectBackgroundImage(board, selected) {
-    var img = null;
-    var piece = board.getPiece(selected);
-    if (piece) {
-        img = document.getElementById(piece.colorClass + '-' + piece.kindClass);
-    }
-    return img;
+function selectBackgroundImage(piece) {
+    return (piece)? document.getElementById(piece.colorClass + '-' + piece.kindClass): null;
+}
+
+function prepareDragImage(element, target) {
+  var canvas = document.createElementNS('http://www.w3.org/1999/xhtml', 'canvas');
+  canvas.width = $(target).width();
+  canvas.height = $(target).height();
+  var ctx = canvas.getContext("2d");
+  ctx.drawImage(element, 0, 0, canvas.width, canvas.height);
+  var img = new Image(canvas.width, canvas.height);
+  img.src = canvas.toDataURL();
+  return img;
 }
 
 function createDragImage(dataTransfer, event) {
