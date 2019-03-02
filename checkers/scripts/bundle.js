@@ -1047,6 +1047,29 @@ class RussianCheckers {
 
 //import $ from 'jquery';
 
+// Opera 8.0+
+var isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
+
+// Firefox 1.0+
+var isFirefox = typeof InstallTrigger !== 'undefined';
+
+// Safari 3.0+ "[object HTMLElementConstructor]"
+var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
+
+// Internet Explorer 6-11
+var isIE = /*@cc_on!@*/false || !!document.documentMode;
+
+// Edge 20+
+var isEdge = !isIE && !!window.StyleMedia;
+
+// Chrome 1 - 71
+var isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
+
+// Blink engine detection
+var isBlink = (isChrome || isOpera) && !!window.CSS;
+
+var prepareDragImage = isFirefox? createDragCanvas: null;
+
 $(function () {
     markupBoard($('#board'));
     var state = null;
@@ -1153,12 +1176,15 @@ $(function () {
             if (!game.finished) {
                 if (game.selected == null) {
                     var error = selectPiece(game, board, this);
-                    if (error == null) {
-                        return startDrag(dataTransfer, event, board);
+                    if (error) {
+                        alert(error);
+                    }
+                    else {
+                        return startDrag(dataTransfer, event, board.getPiece(this.id));
                     }
                 }
                 else if (game.selected == this.id) {
-                     return startDrag(dataTransfer, event, board);
+                     return startDrag(dataTransfer, event, board.getPiece(this.id));
                 }
             }
             dataTransfer.effectAllowed = 'none';
@@ -1213,9 +1239,7 @@ $(function () {
             var dataTransfer = event.originalEvent.dataTransfer;
             var error = performMove(game, board, dataTransfer.getData('text'), this);
             if (error) {
-                if (game.finished) {
-                  alert(error);
-                }
+                alert(error);
             }
             return false;
         }
@@ -1278,23 +1302,31 @@ function updateDrag(event) {
     $(event.target).attr('data-tooltip', tooltip);
 }
 
-function startDrag(dataTransfer, event, board) {
+function startDrag(dataTransfer, event, piece) {
     dataTransfer.effectAllowed = 'move';
     dataTransfer.setData('text', event.target.id);
+    var element = selectBackgroundImage(piece);
 
-    if (dataTransfer.setDragImage) {
-        var element = selectBackgroundImage(board, event.target.id);
-        if (element) {
+    if (element) {
+        dataTransfer.setData('url', element.src);
+        if (dataTransfer.setDragImage) {
             var clientRect = event.target.getBoundingClientRect();
             var offsetX = event.clientX - clientRect.left;
             var offsetY = event.clientY - clientRect.top;
+            if (prepareDragImage) {
+                element = prepareDragImage(element, event.target);
+            }
             dataTransfer.setDragImage(element, offsetX, offsetY);
+        }
+        else {
+            $(event.target).addClass('transparent');
         }
     }
 
     setTimeout(function () {
+        $(event.target).removeClass('transparent');
         $(event.target).css('background-image', 'none');
-    }, 100);
+    }, 10);
     return true;
 }
 
@@ -1309,37 +1341,24 @@ function getBackgroundImage(target) {
     return img;
 }
 
-function selectBackgroundImage(board, selected) {
-    var img = null;
-    var piece = board.getPiece(selected);
-    if (piece) {
-        img = document.getElementById(piece.colorClass + '-' + piece.kindClass);
-    }
-    return img;
+function selectBackgroundImage(piece) {
+    return (piece)? document.getElementById(piece.colorClass + '-' + piece.kindClass): null;
 }
 
-function createDragImage(dataTransfer, event) {
-  var path = $(event.target).css('background-image').match(/^url\("?(.+?)"?\)$/)[1];
-  if (path) {
-      var srcImage = new Image($(event.target).width(), $(event.target).height());
-      srcImage.setAttribute('crossOrigin', 'anonymous');
-      srcImage.onload = function () {
-        var canvas = document.createElementNS('http://www.w3.org/1999/xhtml', 'canvas');
-        canvas.width = this.width;
-        canvas.height = this.height;
-        var ctx = canvas.getContext("2d");
-        ctx.drawImage(this, 0, 0, canvas.width, canvas.height);
-        var img = new Image(canvas.width, canvas.height);
-        img.onload = function () {
-          var clientRect = event.target.getBoundingClientRect();
-          var offsetX = event.clientX - clientRect.left;
-          var offsetY = event.clientY - clientRect.top;
-          dataTransfer.setDragImage(this, offsetX, offsetY);
-        }
-        img.src = canvas.toDataURL('image/png');
-      }
-      srcImage.src = path;
-  }
+function createDragCanvas(element, target) {
+    var canvas = document.createElementNS('http://www.w3.org/1999/xhtml', 'canvas');
+    canvas.width = $(target).width();
+    canvas.height = $(target).height();
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(element, 0, 0, canvas.width, canvas.height);
+    return canvas;
+}
+
+function createDragImage(element, target) {
+    var canvas = createDragCanvas(element, target);
+    var img = new Image(canvas.width, canvas.height);
+    img.src = canvas.toDataURL();
+    return img;
 }
 
 function allowedMove(game, board, selected, target) {

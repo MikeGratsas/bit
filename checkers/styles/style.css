@@ -1,12 +1,12 @@
-html {
+﻿html {
   -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+          box-sizing: border-box;
 }
 *,
 *:after,
 *:before {
   -webkit-box-sizing: inherit;
-  box-sizing: inherit;
+          box-sizing: inherit;
 }
 .page {
   text-align: center;
@@ -45,8 +45,7 @@ html {
 }
 .board .zero-row .letter {
   -webkit-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
-  transform: rotate(180deg);
+          transform: rotate(180deg);
 }
 .board .row {
   height: 11%;
@@ -56,13 +55,11 @@ html {
 }
 .board .row .digit:last-child {
   -webkit-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  transform: rotate(90deg);
+          transform: rotate(90deg);
 }
 .board .row .digit:first-child {
   -webkit-transform: rotate(-90deg);
-  -ms-transform: rotate(-90deg);
-  transform: rotate(-90deg);
+          transform: rotate(-90deg);
 }
 .board .row .cell {
   width: 11%;
@@ -155,11 +152,17 @@ html {
 .board .row .cell.selected {
   background-color: orange;
   -webkit-transition: background-color 2s;
-  -o-transition: background-color 2s;
   transition: background-color 2s;
 }
 .board .row .cell.selected.highlight {
   background-color: #ffc966;
+}
+.board .row .cell.selected.transparent {
+  background-color: transparent;
+  -webkit-transition: none;
+  transition: none;
+  border: 0;
+  outline: 0;
 }
 .board .cell,
 .board .corner,
@@ -227,5 +230,3 @@ html {
 .panel.black .controls {
   background-color: silver;
 }
-
-/*# sourceMappingURL=style.css.map */

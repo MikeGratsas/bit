@@ -279,11 +279,15 @@ function startDrag(dataTransfer, event, piece) {
             }
             dataTransfer.setDragImage(element, offsetX, offsetY);
         }
+        else {
+            $(event.target).addClass('transparent');
+        }
     }
 
     setTimeout(function () {
+        $(event.target).removeClass('transparent');
         $(event.target).css('background-image', 'none');
-    }, 100);
+    }, 10);
     return true;
 }
 

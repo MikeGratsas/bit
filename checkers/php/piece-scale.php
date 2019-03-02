@@ -1,24 +1,18 @@
 <?php
 function scalePNG($filename)
 {
-    $srcImg = imagecreatefrompng($filename);
+    $srcImg = @imagecreatefrompng($filename);
     if($srcImg)
     {
-      $srcWidth = imagesx($img);
-      $srcHeight = imagesy($img);
-      $width = srcWidth;
+      $width = imagesx($img);
       if(isset($_GET['width'])){
         $width = intval($_GET['width']);
       }
-      $height = $srcHeight;
       if(isset($_GET['height'])){
         $height = intval($_GET['height']);
+        return imagescale($srcImg, $width, $height);
       }
-      $destImg = imagecreatetruecolor($width, $height);
-      imagealphablending($destImg, false);
-      imagesavealpha($destImg, true);
-      imagecopyresampled($destImg, $srcImg, 0, 0, 0, 0, $width, $height, $srcWidth, $srcHeight);
-      return $destImg;
+      return imagescale($srcImg, $width);
     }
     return null;
 }
