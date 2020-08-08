@@ -97,11 +97,12 @@ class King extends Piece {
      * @return {boolean} if is selectable for jump
      */
     isSelectableForJump(board) {
+        var i, limit, piece;
         if (this.row > 1) {
             if (this.column > 1) {
-                var limit = Math.min(this.row, this.column) - 1;
-                for (var i = 1; i < limit; i++) {
-                    var piece = board.getCellPiece(this.row - i, this.column - i);
+                limit = Math.min(this.row, this.column) - 1;
+                for (i = 1; i < limit; i++) {
+                    piece = board.getCellPiece(this.row - i, this.column - i);
                     if (piece != null) {
                         if (this.canCapture(piece)) {
                             if (board.getCellPiece(this.row - i - 1, this.column - i - 1) == null)
@@ -112,9 +113,9 @@ class King extends Piece {
                 }
             }
             if (this.column < board.size - 2) {
-                var limit = Math.min(this.row, board.size - this.column - 1) - 1;
-                for (var i = 1; i < limit; i++) {
-                    var piece = board.getCellPiece(this.row - i, this.column + i);
+                limit = Math.min(this.row, board.size - this.column - 1) - 1;
+                for (i = 1; i < limit; i++) {
+                    piece = board.getCellPiece(this.row - i, this.column + i);
                     if (piece != null) {
                         if (this.canCapture(piece)) {
                             if (board.getCellPiece(this.row - i - 1, this.column + i + 1) == null)
@@ -127,9 +128,9 @@ class King extends Piece {
         }
         if (this.row < board.size - 2) {
             if (this.column > 1) {
-                var limit = Math.min(board.size - this.row - 1, this.column) - 1;
-                for (var i = 1; i < limit; i++) {
-                    var piece = board.getCellPiece(this.row + i, this.column - i);
+                limit = Math.min(board.size - this.row - 1, this.column) - 1;
+                for (i = 1; i < limit; i++) {
+                    piece = board.getCellPiece(this.row + i, this.column - i);
                     if (piece != null) {
                         if (this.canCapture(piece)) {
                             if (board.getCellPiece(this.row + i + 1, this.column - i - 1) == null)
@@ -140,9 +141,9 @@ class King extends Piece {
                 }
             }
             if (this.column < board.size - 2) {
-                var limit = Math.min(board.size - this.row - 1, board.size - this.column - 1) - 1;
-                for (var i = 1; i < limit; i++) {
-                    var piece = board.getCellPiece(this.row + i, this.column + i);
+                limit = Math.min(board.size - this.row - 1, board.size - this.column - 1) - 1;
+                for (i = 1; i < limit; i++) {
+                    piece = board.getCellPiece(this.row + i, this.column + i);
                     if (piece != null) {
                         if (this.canCapture(piece)) {
                             if (board.getCellPiece(this.row + i + 1, this.column + i + 1) == null)

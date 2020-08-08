@@ -91,16 +91,17 @@ class Man extends Piece {
      * @return {boolean} if is selectable for jump
      */
     isSelectableForJump(board) {
+        var piece;
         if (this.row > 1) {
             if (this.column > 1) {
-                var piece = board.getCellPiece(this.row - 1, this.column - 1);
+                piece = board.getCellPiece(this.row - 1, this.column - 1);
                 if (piece != null && this.canCapture(piece)) {
                     if (board.getCellPiece(this.row - 2, this.column - 2) == null)
                         return true;
                 }
             }
             if (this.column < board.size - 2) {
-                var piece = board.getCellPiece(this.row - 1, this.column + 1);
+                piece = board.getCellPiece(this.row - 1, this.column + 1);
                 if (piece != null && this.canCapture(piece)) {
                     if (board.getCellPiece(this.row - 2, this.column + 2) == null)
                         return true;
@@ -109,14 +110,14 @@ class Man extends Piece {
         }
         if (this.row < board.size - 2) {
             if (this.column > 1) {
-                var piece = board.getCellPiece(this.row + 1, this.column - 1);
+                piece = board.getCellPiece(this.row + 1, this.column - 1);
                 if (piece != null && this.canCapture(piece)) {
                     if (board.getCellPiece(this.row + 2, this.column - 2) == null)
                         return true;
                 }
             }
             if (this.column < board.size - 2) {
-                var piece = board.getCellPiece(this.row + 1, this.column + 1);
+                piece = board.getCellPiece(this.row + 1, this.column + 1);
                 if (piece != null && this.canCapture(piece)) {
                     if (board.getCellPiece(this.row + 2, this.column + 2) == null)
                         return true;

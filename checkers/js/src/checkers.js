@@ -37,19 +37,20 @@ class RussianCheckers {
      *
      */
     setupBoard(board) {
+        var i, j;
         var cell = new Cell(0, 0);
-        for (var i = 0; i < this.initRows; i++) {
+        for (i = 0; i < this.initRows; i++) {
             cell.row = i;
-            for (var j = 0; j < board.size; j++) {
+            for (j = 0; j < board.size; j++) {
                 if (((i + j) & 1) == 0) {
                     cell.column = j;
                     board.setPiece(cell.cellId, new Man(true, i, j));
                 }
             }
         }
-        for (var i = board.size - this.initRows; i < board.size; i++) {
+        for (i = board.size - this.initRows; i < board.size; i++) {
             cell.row = i;
-            for (var j = 0; j < board.size; j++) {
+            for (j = 0; j < board.size; j++) {
                 if (((i + j) & 1) == 0) {
                     cell.column = j;
                     board.setPiece(cell.cellId, new Man(false, i, j));

@@ -34,6 +34,7 @@ var prepareDragImage = isFirefox? createDragCanvas: null;
 $(function () {
     markupBoard($('#board'));
     var state = null;
+    var locale = null;
     var useHistory = (document.location.protocol === 'file:') ? null : window.History;
     if (useHistory) {
         state = useHistory.getState();
@@ -60,7 +61,7 @@ $(function () {
         'en': 'i18n/messages.en.json',
         'ru': 'i18n/messages.ru.json'
     }).done(function () {
-        var locale = get_url_parameter('language');
+        locale = get_url_parameter('language');
         if (locale) {
             $.i18n().locale = locale;
             $("#language").val(locale);
@@ -70,9 +71,9 @@ $(function () {
         if (useHistory) {
             useHistory.Adapter.bind(window, 'statechange', function () {
                 var currentIndex = useHistory.getCurrentIndex();
-                var state = History.getState();
+                state = History.getState();
                 if (state.data.index != currentIndex - 1) {
-                    var locale = get_url_parameter('language');
+                    locale = get_url_parameter('language');
                     if (locale) {
                         $.i18n().locale = locale;
                         $("#language").val(locale);
@@ -83,7 +84,7 @@ $(function () {
         }
 
         $('#language').change(function (event) {
-            var locale = $(this).val();
+            locale = $(this).val();
             if (locale) {
                 $.i18n().locale = locale;
                 update_texts();
@@ -295,7 +296,7 @@ function getBackgroundImage(target) {
     var img = null;
     var path = $(target).css('background-image').match(/^url\("?(.+?)"?\)$/)[1];
     if (path) {
-        var img = new Image($(target).width(), $(target).height());
+        img = new Image($(target).width(), $(target).height());
         img.setAttribute('crossOrigin', 'anonymous');
         img.src = path;
     }

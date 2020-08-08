@@ -325,15 +325,16 @@ var Man = (function (_Piece) {
     }, {
         key: 'isSelectableForJump',
         value: function isSelectableForJump(board) {
+            var piece;
             if (this.row > 1) {
                 if (this.column > 1) {
-                    var piece = board.getCellPiece(this.row - 1, this.column - 1);
+                    piece = board.getCellPiece(this.row - 1, this.column - 1);
                     if (piece != null && this.canCapture(piece)) {
                         if (board.getCellPiece(this.row - 2, this.column - 2) == null) return true;
                     }
                 }
                 if (this.column < board.size - 2) {
-                    var piece = board.getCellPiece(this.row - 1, this.column + 1);
+                    piece = board.getCellPiece(this.row - 1, this.column + 1);
                     if (piece != null && this.canCapture(piece)) {
                         if (board.getCellPiece(this.row - 2, this.column + 2) == null) return true;
                     }
@@ -341,13 +342,13 @@ var Man = (function (_Piece) {
             }
             if (this.row < board.size - 2) {
                 if (this.column > 1) {
-                    var piece = board.getCellPiece(this.row + 1, this.column - 1);
+                    piece = board.getCellPiece(this.row + 1, this.column - 1);
                     if (piece != null && this.canCapture(piece)) {
                         if (board.getCellPiece(this.row + 2, this.column - 2) == null) return true;
                     }
                 }
                 if (this.column < board.size - 2) {
-                    var piece = board.getCellPiece(this.row + 1, this.column + 1);
+                    piece = board.getCellPiece(this.row + 1, this.column + 1);
                     if (piece != null && this.canCapture(piece)) {
                         if (board.getCellPiece(this.row + 2, this.column + 2) == null) return true;
                     }
@@ -523,11 +524,12 @@ var King = (function (_Piece2) {
     }, {
         key: 'isSelectableForJump',
         value: function isSelectableForJump(board) {
+            var i, limit, piece;
             if (this.row > 1) {
                 if (this.column > 1) {
-                    var limit = Math.min(this.row, this.column) - 1;
-                    for (var i = 1; i < limit; i++) {
-                        var piece = board.getCellPiece(this.row - i, this.column - i);
+                    limit = Math.min(this.row, this.column) - 1;
+                    for (i = 1; i < limit; i++) {
+                        piece = board.getCellPiece(this.row - i, this.column - i);
                         if (piece != null) {
                             if (this.canCapture(piece)) {
                                 if (board.getCellPiece(this.row - i - 1, this.column - i - 1) == null) return true;
@@ -537,9 +539,9 @@ var King = (function (_Piece2) {
                     }
                 }
                 if (this.column < board.size - 2) {
-                    var limit = Math.min(this.row, board.size - this.column - 1) - 1;
-                    for (var i = 1; i < limit; i++) {
-                        var piece = board.getCellPiece(this.row - i, this.column + i);
+                    limit = Math.min(this.row, board.size - this.column - 1) - 1;
+                    for (i = 1; i < limit; i++) {
+                        piece = board.getCellPiece(this.row - i, this.column + i);
                         if (piece != null) {
                             if (this.canCapture(piece)) {
                                 if (board.getCellPiece(this.row - i - 1, this.column + i + 1) == null) return true;
@@ -551,9 +553,9 @@ var King = (function (_Piece2) {
             }
             if (this.row < board.size - 2) {
                 if (this.column > 1) {
-                    var limit = Math.min(board.size - this.row - 1, this.column) - 1;
-                    for (var i = 1; i < limit; i++) {
-                        var piece = board.getCellPiece(this.row + i, this.column - i);
+                    limit = Math.min(board.size - this.row - 1, this.column) - 1;
+                    for (i = 1; i < limit; i++) {
+                        piece = board.getCellPiece(this.row + i, this.column - i);
                         if (piece != null) {
                             if (this.canCapture(piece)) {
                                 if (board.getCellPiece(this.row + i + 1, this.column - i - 1) == null) return true;
@@ -563,9 +565,9 @@ var King = (function (_Piece2) {
                     }
                 }
                 if (this.column < board.size - 2) {
-                    var limit = Math.min(board.size - this.row - 1, board.size - this.column - 1) - 1;
-                    for (var i = 1; i < limit; i++) {
-                        var piece = board.getCellPiece(this.row + i, this.column + i);
+                    limit = Math.min(board.size - this.row - 1, board.size - this.column - 1) - 1;
+                    for (i = 1; i < limit; i++) {
+                        piece = board.getCellPiece(this.row + i, this.column + i);
                         if (piece != null) {
                             if (this.canCapture(piece)) {
                                 if (board.getCellPiece(this.row + i + 1, this.column + i + 1) == null) return true;
@@ -1130,19 +1132,20 @@ var RussianCheckers = (function () {
     }, {
         key: 'setupBoard',
         value: function setupBoard(board) {
+            var i, j;
             var cell = new Cell(0, 0);
-            for (var i = 0; i < this.initRows; i++) {
+            for (i = 0; i < this.initRows; i++) {
                 cell.row = i;
-                for (var j = 0; j < board.size; j++) {
+                for (j = 0; j < board.size; j++) {
                     if ((i + j & 1) == 0) {
                         cell.column = j;
                         board.setPiece(cell.cellId, new Man(true, i, j));
                     }
                 }
             }
-            for (var i = board.size - this.initRows; i < board.size; i++) {
+            for (i = board.size - this.initRows; i < board.size; i++) {
                 cell.row = i;
-                for (var j = 0; j < board.size; j++) {
+                for (j = 0; j < board.size; j++) {
                     if ((i + j & 1) == 0) {
                         cell.column = j;
                         board.setPiece(cell.cellId, new Man(false, i, j));
@@ -1230,6 +1233,7 @@ var prepareDragImage = isFirefox ? createDragCanvas : null;
 $(function () {
     markupBoard($('#board'));
     var state = null;
+    var locale = null;
     var useHistory = document.location.protocol === 'file:' ? null : window.History;
     if (useHistory) {
         state = useHistory.getState();
@@ -1256,7 +1260,7 @@ $(function () {
         'en': 'i18n/messages.en.json',
         'ru': 'i18n/messages.ru.json'
     }).done(function () {
-        var locale = get_url_parameter('language');
+        locale = get_url_parameter('language');
         if (locale) {
             $.i18n().locale = locale;
             $("#language").val(locale);
@@ -1266,9 +1270,9 @@ $(function () {
         if (useHistory) {
             useHistory.Adapter.bind(window, 'statechange', function () {
                 var currentIndex = useHistory.getCurrentIndex();
-                var state = History.getState();
+                state = History.getState();
                 if (state.data.index != currentIndex - 1) {
-                    var locale = get_url_parameter('language');
+                    locale = get_url_parameter('language');
                     if (locale) {
                         $.i18n().locale = locale;
                         $("#language").val(locale);
@@ -1279,7 +1283,7 @@ $(function () {
         }
 
         $('#language').change(function (event) {
-            var locale = $(this).val();
+            locale = $(this).val();
             if (locale) {
                 $.i18n().locale = locale;
                 update_texts();
@@ -1481,7 +1485,7 @@ function getBackgroundImage(target) {
     var img = null;
     var path = $(target).css('background-image').match(/^url\("?(.+?)"?\)$/)[1];
     if (path) {
-        var img = new Image($(target).width(), $(target).height());
+        img = new Image($(target).width(), $(target).height());
         img.setAttribute('crossOrigin', 'anonymous');
         img.src = path;
     }

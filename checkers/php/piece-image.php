@@ -26,11 +26,13 @@ function scalePNG($filename)
 function getFile() {
   $filename = null;
   $path = '../images/';
-  if(isset($_GET['color'])){
-      switch ($_GET['color']) {
+  $color = $_GET['color'];
+  $kind = $_GET['kind'];
+  if(isset($color)){
+      switch ($color) {
           case 'white':
-              if(isset($_GET['kind'])){
-                switch ($_GET['kind']) {
+              if(isset($kind)){
+                switch ($kind) {
                     case '1':
                         $filename = $path.'ch_white.png';
                         break;
@@ -41,8 +43,8 @@ function getFile() {
               }
               break;
           case 'black':
-              if(isset($_GET['kind'])){
-                switch ($_GET['kind']) {
+              if(isset($kind)){
+                switch ($kind) {
                     case '1':
                         $filename = $path.'ch_black.png';
                         break;
