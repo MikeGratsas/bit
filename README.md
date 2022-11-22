@@ -5,4 +5,4 @@ Projects for Baltic Institute of technology:
 * Checkers
 
 ## Release
-See projects deployed to [Heroku](https://bit-php.herokuapp.com)
+See projects deployed to [000webhost](https://sharp-img-viewer.000webhostapp.com/)
